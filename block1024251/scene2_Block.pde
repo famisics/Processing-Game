@@ -22,6 +22,7 @@ void SB_boot() {
 void SB_update() {
   background(50, 100, 100);
   // ブロックの描画
+  textAlign(CENTER,CENTER);
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       SB_updateBlock(x,y);

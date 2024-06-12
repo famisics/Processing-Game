@@ -1,3 +1,17 @@
+void controlEvent(ControlEvent theEvent) {
+  // home1ボタンが押された場合
+  if (theEvent.isFrom("home1")) {
+    cmode(2); 
+    SH_button1.remove();
+    SH_button2.remove();
+  }
+  if (theEvent.isFrom("home2")) {
+    cmode(4);
+    SH_button1.remove();
+    SH_button2.remove();
+  }
+}
+
 void keyPressed() { // キー入力
   println("[key]     " + key + "(" + keyCode + ")");
   switch (GAME_MODE) { // ゲームモード限定の処理

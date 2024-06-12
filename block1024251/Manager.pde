@@ -1,4 +1,4 @@
-ControlP5 cp5; // ControlP5ライブラリ
+ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 PImage image1, image2, image3, image4; // 画像ファイル
 PFont fontXl, fontLg, fontMd, fontSm, fontMono; // フォント
@@ -23,9 +23,6 @@ void boot() { // 初期化用の関数
   GAME_width = width;
   GAME_height = height;
   noStroke();
-  // lib
-  FPS_data = new FPS();
-  cp5 = new ControlP5(this);
   // fonts
   println("[setup]   fonts をロードしています");
   fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/20);
@@ -33,6 +30,9 @@ void boot() { // 初期化用の関数
   fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/50);
   fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/80);
   fontMono = createFont("Monospaced.plain", GAME_width/80);
+  // lib
+  FPS_data = new FPS();
+  CP = new ControlP5(this);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
   bgm1 = new SoundFile(this, "data/src/sounds/bgm/Haiko.mp3");

@@ -3,7 +3,7 @@ import websockets.*;
 import controlP5.*;
 
 // ネットワーク機能を有効にするには true を代入する
-boolean NET_isNetworkEnable = true;
+boolean NET_isNetworkEnable = false;
 
 void settings() {
   fullScreen();
