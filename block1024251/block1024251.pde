@@ -11,7 +11,7 @@ void settings() {
 
 void setup() {
   println("[GENERAL] ゲームを初期化しています");
-  se = new SoundFile(this, "data/src/sounds/mute.mp3");
+  se = new SoundFile(this, "src/sounds/mute.mp3");
   // size(2560, 1600);
   // size(1280, 800);
   frameRate(60);

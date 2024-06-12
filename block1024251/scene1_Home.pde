@@ -1,9 +1,9 @@
 Button SH_button1, SH_button2;
 void SH_boot() {
   background(0);
-  image1 = loadImage("data/src/images/start.png");
-  image2 = loadImage("data/src/images/earth.png");
-  image3 = loadImage("data/src/images/mars.png");
+  image1 = loadImage("src/images/start.png");
+  image2 = loadImage("src/images/earth.png");
+  image3 = loadImage("src/images/mars.png");
   int _buttonSize = GAME_width / 4;
   image2.resize(_buttonSize, _buttonSize);
   image3.resize(_buttonSize, _buttonSize);

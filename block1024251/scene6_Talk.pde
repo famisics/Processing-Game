@@ -16,8 +16,8 @@ void ST_boot() {
   background(0);
   ST_ScriptIndex = 0;
   ST_AnimationIndex = 0;
-  image1 = loadImage("data/src/images/talk/welcome.png");
-  image2 = loadImage("data/src/images/sekai.png");
+  image1 = loadImage("src/images/talk/welcome.png");
+  image2 = loadImage("src/images/sekai.png");
 }
 void ST_update() {
   if (ST_AnimationIndex < 10) {

@@ -35,13 +35,13 @@ void boot() { // 初期化用の関数
   CP = new ControlP5(this);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
-  bgm1 = new SoundFile(this, "data/src/sounds/bgm/Haiko.mp3");
-  bgm2 = new SoundFile(this, "data/src/sounds/bgm/battle/3_流幻.mp3");
-  bgm3 = new SoundFile(this, "data/src/sounds/bgm/Flutter.mp3");
-  bgm6 = new SoundFile(this, "data/src/sounds/bgm/Kaigiencho.mp3");
+  bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
+  bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3");
+  bgm3 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
+  bgm6 = new SoundFile(this, "src/sounds/bgm/Kaigiencho.mp3");
   // jsonデータを取得
-  println("[setup]   data/settings.json をロードしています");
-  json = loadJSONObject("data/settings.json");
+  println("[setup]   settings.json をロードしています");
+  json = loadJSONObject("_settings.json");
   if (json == null) {
     DATA_SAVELOCKED = true;
     println("[json]    settings.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたsettings.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
@@ -65,7 +65,7 @@ void boot() { // 初期化用の関数
 }
 
 void se(String _path) {
-  SoundFile se = new SoundFile(this, "data/src/sounds/se/"+_path+".mp3");
+  SoundFile se = new SoundFile(this, "src/sounds/se/"+_path+".mp3");
   se.play();
 }
 
@@ -76,7 +76,7 @@ void save() { // jsonデータを保存
     json.setString("username", DATA_USERNAME);
     json.setInt("energy", DATA_ENERGY);
     json.setString("server_host", NET_SERVER_HOST);
-    saveJSONObject(json, "data/settings.json");
+    saveJSONObject(json, "_settings.json");
     println("[json]    settings.json saved");
   } else {
     println("[setup]   settings.json does not exist");

@@ -52,6 +52,11 @@ vscode, processing-java
 ## アセット
 効果音ラボ
 「無料ベクター 惑星リアルな透明セット」著作者：macrovector／出典：Freepik
+### BGM
+Ucchii0-うっちーぜろ- たったそれだけの物語
+
+TODO: ライセンスを確認する
+
 
 ## ライセンス
 2024 © famisics(https://uiro.dev)
