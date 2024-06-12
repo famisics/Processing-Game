@@ -1,0 +1,107 @@
+ControlP5 cp5; // ControlP5ライブラリ
+SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
+PImage image1, image2, image3, image4; // 画像ファイル
+PFont fontXl, fontLg, fontMd, fontSm, fontMono; // フォント
+FPS FPS_data; // FPSカウンター
+JSONObject json; // JSONデータ
+WebsocketClient NET_CLIENT; // Websocketクライアント
+String NET_SERVER_HOST; // 8001-8003 まで建てられはする(追加可能)、どれにしようね
+
+int GAME_MODE = 1;
+int GAME_width, GAME_height;
+boolean GAME_isTalkFinished = false;
+
+String NET_SERVER_IP;
+int NET_SERVER_PORT;
+
+int DATA_ENERGY;
+String DATA_USERNAME;
+boolean DATA_SAVELOCKED = false;
+
+void boot() { // 初期化用の関数
+  // init
+  GAME_width = width;
+  GAME_height = height;
+  noStroke();
+  // lib
+  FPS_data = new FPS();
+  cp5 = new ControlP5(this);
+  // fonts
+  println("[setup]   fonts をロードしています");
+  fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/20);
+  fontLg = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/40);
+  fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/50);
+  fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/80);
+  fontMono = createFont("Monospaced.plain", GAME_width/80);
+  // bgm
+  println("[setup]   sounds/bgm をロードしています");
+  bgm1 = new SoundFile(this, "data/src/sounds/bgm/Haiko.mp3");
+  bgm2 = new SoundFile(this, "data/src/sounds/bgm/battle/3_流幻.mp3");
+  bgm3 = new SoundFile(this, "data/src/sounds/bgm/Flutter.mp3");
+  bgm6 = new SoundFile(this, "data/src/sounds/bgm/Kaigiencho.mp3");
+  // jsonデータを取得
+  println("[setup]   data/settings.json をロードしています");
+  json = loadJSONObject("data/settings.json");
+  if (json == null) {
+    DATA_SAVELOCKED = true;
+    println("[json]    settings.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたsettings.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
+    exit();
+  } else {
+    DATA_USERNAME = json.getString("username");
+    DATA_ENERGY = json.getInt("energy");
+    NET_SERVER_HOST = json.getString("server_host");
+    println("[json]    settings.json loaded\n          username: "+DATA_USERNAME+"\n          energy: "+DATA_ENERGY+"\n          server_host: "+NET_SERVER_HOST);
+    if(NET_isNetworkEnable) {
+      println("[WSocket] サーバーに接続します");
+      NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
+      println("[WSocket] サーバーに接続しました: "+NET_SERVER_HOST);
+    } else {
+      println("[WSocket] サーバーは設定により無効化されています");
+    }
+    println("[GENERAL] スクリーンサイズ: "+GAME_width+"x"+GAME_height+" (推奨: 2560x1600)");
+    println("[GENERAL] ロード完了、ゲームを開始します");
+    cmode(1);
+  }
+}
+
+void se(String _path) {
+  SoundFile se = new SoundFile(this, "data/src/sounds/se/"+_path+".mp3");
+  se.play();
+}
+
+void save() { // jsonデータを保存
+  if(!DATA_SAVELOCKED) {
+    DATA_ENERGY += SB_lastEnergy;
+    json = new JSONObject();
+    json.setString("username", DATA_USERNAME);
+    json.setInt("energy", DATA_ENERGY);
+    json.setString("server_host", NET_SERVER_HOST);
+    saveJSONObject(json, "data/settings.json");
+    println("[json]    settings.json saved");
+  } else {
+    println("[setup]   settings.json does not exist");
+  }
+}
+
+void navbar(String _left, String _Right) {
+  if(_left == "") _left = "1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap　ESC : QUIT";
+  fill(0);
+  rect(0, GAME_height - GAME_width/50, GAME_width, GAME_width/50);
+  fill(255);
+  textAlign(LEFT,CENTER);
+  textFont(fontSm);
+  text(_left, 5, GAME_height - GAME_width/100);
+  textAlign(RIGHT,CENTER);
+  text(_Right, GAME_width - 5, GAME_height - GAME_width/100);
+  textAlign(CENTER,CENTER);
+}
+
+void actions(String _title) {
+  fill(0, 30, 50, 200);
+  rect(0, 0, 600, 90);
+  triangle(600, 0, 600, 90, 650, 0);
+  fill(255);
+  textAlign(LEFT,CENTER);
+  textFont(fontLg);
+  text(_title, 50, 45);
+}
