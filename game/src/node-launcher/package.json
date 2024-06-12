@@ -1,0 +1,17 @@
+{
+  "name": "launcher",
+  "bin": "server.cjs",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.cjs"
+  },
+  "pkg": {
+    "targets": [
+      "node18-win-x64"
+    ]
+  },
+  "dependencies": {
+    "ws": "^8.17.1"
+  }
+}
