@@ -40,17 +40,17 @@ void boot() { // 初期化用の関数
   bgm3 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
   bgm6 = new SoundFile(this, "src/sounds/bgm/Kaigiencho.mp3");
   // jsonデータを取得
-  println("[setup]   settings.json をロードしています");
-  json = loadJSONObject("_settings.json");
+  println("[setup]     config.json をロードしています");
+  json = loadJSONObject("config.json");
   if (json == null) {
     DATA_SAVELOCKED = true;
-    println("[json]    settings.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたsettings.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
+    println("[json]      config.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたconfig.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getInt("energy");
     NET_SERVER_HOST = json.getString("server_host");
-    println("[json]    settings.json loaded\n          username: "+DATA_USERNAME+"\n          energy: "+DATA_ENERGY+"\n          server_host: "+NET_SERVER_HOST);
+    println("[json]      config.json loaded\n          username: "+DATA_USERNAME+"\n          energy: "+DATA_ENERGY+"\n          server_host: "+NET_SERVER_HOST);
     if(NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続します");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
@@ -76,10 +76,10 @@ void save() { // jsonデータを保存
     json.setString("username", DATA_USERNAME);
     json.setInt("energy", DATA_ENERGY);
     json.setString("server_host", NET_SERVER_HOST);
-    saveJSONObject(json, "_settings.json");
-    println("[json]    settings.json saved");
+    saveJSONObject(json, "config.json");
+    println("[json]      config.json saved");
   } else {
-    println("[setup]   settings.json does not exist");
+    println("[setup]     config.json does not exist");
   }
 }
 
