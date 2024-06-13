@@ -25,11 +25,11 @@ void boot() { // 初期化用の関数
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
-  fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/20);
-  fontLg = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/40);
-  fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/50);
-  fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width/80);
-  fontMono = createFont("Monospaced.plain", GAME_width/80);
+  fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 20);
+  fontLg = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 40);
+  fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 50);
+  fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 80);
+  fontMono = createFont("Monospaced.plain", GAME_width / 80);
   // lib
   FPS_data = new FPS();
   CP = new ControlP5(this);
@@ -50,27 +50,27 @@ void boot() { // 初期化用の関数
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getInt("energy");
     NET_SERVER_HOST = json.getString("server_host");
-    println("[json]      config.json loaded\n          username: "+DATA_USERNAME+"\n          energy: "+DATA_ENERGY+"\n          server_host: "+NET_SERVER_HOST);
-    if(NET_isNetworkEnable) {
+    println("[json]      config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server_host: " + NET_SERVER_HOST);
+    if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続します");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
-      println("[WSocket] サーバーに接続しました: "+NET_SERVER_HOST);
+      println("[WSocket] サーバーに接続しました: " + NET_SERVER_HOST);
     } else {
       println("[WSocket] サーバーは設定により無効化されています");
     }
-    println("[GENERAL] スクリーンサイズ: "+GAME_width+"x"+GAME_height+" (推奨: 2560x1600)");
+    println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (推奨: 2560x1600)");
     println("[GENERAL] ロード完了、ゲームを開始します");
     cmode(1);
   }
 }
 
 void se(String _path) {
-  SoundFile se = new SoundFile(this, "src/sounds/se/"+_path+".mp3");
+  SoundFile se = new SoundFile(this, "src/sounds/se/" + _path + ".mp3");
   se.play();
 }
 
 void save() { // jsonデータを保存
-  if(!DATA_SAVELOCKED) {
+  if (!DATA_SAVELOCKED) {
     DATA_ENERGY += SB_lastEnergy;
     json = new JSONObject();
     json.setString("username", DATA_USERNAME);
@@ -84,15 +84,15 @@ void save() { // jsonデータを保存
 }
 
 void navbar(String _left, String _Right) {
-  if(_left == "") _left = "1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap　ESC : QUIT";
+  if (_left == "") _left = "1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap　ESC : QUIT";
   fill(0);
-  rect(0, GAME_height - GAME_width/50, GAME_width, GAME_width/50);
+  rect(0, GAME_height - GAME_width / 50, GAME_width, GAME_width / 50);
   fill(255);
   textAlign(LEFT,CENTER);
   textFont(fontSm);
-  text(_left, 5, GAME_height - GAME_width/100);
+  text(_left, 5, GAME_height - GAME_width / 100);
   textAlign(RIGHT,CENTER);
-  text(_Right, GAME_width - 5, GAME_height - GAME_width/100);
+  text(_Right, GAME_width - 5, GAME_height - GAME_width / 100);
   textAlign(CENTER,CENTER);
 }
 

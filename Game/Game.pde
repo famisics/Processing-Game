@@ -21,24 +21,24 @@ void setup() {
 }
 
 void draw() { // !画面遷移(常に実行)
-  switch (GAME_MODE) {
-    case 1: // home
+  switch(GAME_MODE) {
+    case 1 : // home
       SH_update();
       break;
-    case 2: // block
+    case 2 : // block
       SB_update();
       break;
-    case 3: // status
+    case 3 : // status
       SS_update();
       break;
-    case 4: // fight
+    case 4 : // fight
       break;
-    case 5: // result
+    case 5 : // result
       break;
-    case 6: // talk
+    case 6 : // talk
       ST_update();
       break;
-    case 7: // worldmap
+    case 7 : // worldmap
       SW_update();
       break;
   }
@@ -51,38 +51,38 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
   bgm2.stop();
   bgm3.stop();
   bgm6.stop();
-  switch (_mode) {
-    case 1:
+  switch(_mode) {
+    case 1 : // home
       println("[SCENE1]  Home");
       bgm1.loop();
       // background(0); // 画面を暗くしてから描画, 今は無効
       SH_boot();
       break;
-    case 2:
+    case 2 : // block
       println("[SCENE2]  Block");
       bgm2.loop();
       bgm2.pause();
       SB_boot();
       break;
-    case 3:
+    case 3 : // status
       println("[SCENE3]  探索のリザルト");
       bgm3.loop();
       SS_boot();
       break;
-    case 4: // fight
+    case 4 : // fight
       println("[SCENE4]  Fight");
       SF_boot();
       break;
-    case 5: // result
+    case 5 : // result
       println("[SCENE5]  Result");
       SR_boot();
       break;
-    case 6: // talk
+    case 6 : // talk
       println("[SCENE6]  Talk");
       bgm6.loop();
       ST_boot();
       break;
-    case 7: // worldmap
+    case 7 : // worldmap
       println("[SCENE7]  Worldmap");
       SW_boot();
       break;
