@@ -49,8 +49,8 @@ void boot() { // 初期化用の関数
   } else {
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getInt("energy");
-    NET_SERVER_HOST = json.getString("server_host");
-    println("[json]      config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server_host: " + NET_SERVER_HOST);
+    NET_SERVER_HOST = json.getString("server");
+    println("[json]      config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
     if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続します");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
@@ -75,7 +75,7 @@ void save() { // jsonデータを保存
     json = new JSONObject();
     json.setString("username", DATA_USERNAME);
     json.setInt("energy", DATA_ENERGY);
-    json.setString("server_host", NET_SERVER_HOST);
+    json.setString("server", NET_SERVER_HOST);
     saveJSONObject(json, "config.json");
     println("[json]      config.json saved");
   } else {
