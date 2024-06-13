@@ -1,6 +1,7 @@
 # 地球再生計画 クライアント (Processing)
 
 1024251 山﨑拓己 (famisics / https://uiro.dev)
+TODO:タイトルをblock1024251に変える、説明スライドを確認
 
 ## ゲームの起動前にnodeサーバーをスタートさせてください
 
