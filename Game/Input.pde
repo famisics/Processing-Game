@@ -1,12 +1,12 @@
-void controlEvent(ControlEvent theEvent) {
+void controlEvent(ControlEvent e) {
   // home1ボタンが押された場合
-  if (theEvent.isFrom("home1")) {
+  if (e.isFrom("home1")) {
     cmode(2); 
     SH_button1.remove();
     SH_button2.remove();
   }
-  if (theEvent.isFrom("home2")) {
-    cmode(4);
+  if (e.isFrom("home2")) {
+    cmode(2);
     SH_button1.remove();
     SH_button2.remove();
   }
@@ -44,12 +44,26 @@ void keyPressed() { // キー入力
   }
   if (keyCode == 27) exit(); // ESC, 終了
   // モード切り替え(デモ用)
-  if (key == '1') cmode(1); // home
-  if (key == '2') cmode(2); // block
-  if (key == '3') cmode(3); // status
-  if (key == '4') cmode(4); // fight(これはどうする)
-  if (key == '5') cmode(5); // result
-  if (key == '6') cmode(6); // talk
-  if (key == '7') cmode(7);
-  if (key == 'n') NET_send("join,takedataro");
+  if (keyEvent.isShiftDown()) {
+    // 0のキーコードは48(参考)
+    if (keyCode == 49) cmode(1);
+    if (keyCode == 50) cmode(2);
+    if (keyCode == 51) cmode(3);
+    if (keyCode == 52) cmode(4);
+    if (keyCode == 53) cmode(5);
+    if (keyCode == 54) cmode(6);
+    if (keyCode == 55) cmode(7);
+    if (keyCode == 56) cmode(8);
+    if (keyCode == 57) cmode(9);
+  }
+  if (key == '1') NET_recv("skill,1");
+  if (key == '2') NET_recv("skill,2");
+  if (key == '3') NET_recv("skill,3");
+  if (key == '4') NET_recv("skill,4");
+  if (key == '5') NET_recv("skill,5");
+  if (key == '6') NET_recv("skill,6");
+  if (key == '7') NET_recv("skill,7");
+  if (key == '8') NET_recv("skill,8");
+  if (key == '9') NET_recv("skill,9");
+  if (key == '0') NET_recv("skill,0");
 }

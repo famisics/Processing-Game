@@ -1,5 +1,5 @@
 int SB_block[][] = new int[10][12];
-ArrayList<Ball> balls = new ArrayList<Ball>(); // カッコ内にボールの個数を指定したい(拡張処理をスキップできる)
+ArrayList<Ball> SB_balls = new ArrayList<Ball>(); // カッコ内にボールの個数を指定したい(拡張処理をスキップできる)
 float SB_ballSize = GAME_width / 40;
 boolean SB_isTimeProcessing = false; // 停止状態で開始
 int SB_lastEnergy = 0;
@@ -7,11 +7,13 @@ int SB_gameSpeed = 100;
 int SB_blockLife = 10;
 int SB_barSize = 50;
 
+
+
 void SB_boot() {
   // 初期化
   SB_isTimeProcessing = false;
   SB_lastEnergy = 0;
-  balls = new ArrayList<Ball>();
+  SB_balls = new ArrayList<Ball>();
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 12; j++) {
       SB_block[i][j] = SB_blockLife;
@@ -28,8 +30,8 @@ void SB_update() {
       SB_updateBlock(x,y);
     }
   }
-  for (int i = 0; i < balls.size(); i++) {
-    balls.get(i).update();
+  for (int i = 0; i < SB_balls.size(); i++) {
+    SB_balls.get(i).update();
   }
   SB_updateBar();
   if (!SB_isTimeProcessing) {
@@ -42,6 +44,7 @@ void SB_update() {
     textFont(fontMd);
     text("Press space to resume", GAME_width / 2, GAME_height / 2 + (GAME_height / 6));
   }
+  VS_update();
   navbar("","ENERGY: " + str(SB_lastEnergy));
 }
 void SB_pause() {
@@ -56,7 +59,7 @@ void SB_pause() {
 
 void SB_addBall(int n) {
   for (int i = 0; i < n; i++) {
-    balls.add(new Ball(100, GAME_height * 3 / 5, SB_gameSpeed * (GAME_width / 12) / random(500,1500), SB_gameSpeed * (GAME_width / 12) / random(500,1500), 64));
+    SB_balls.add(new Ball(100, GAME_height * 3 / 5, SB_gameSpeed * (GAME_width / 12) / random(500,1500), SB_gameSpeed * (GAME_width / 12) / random(500,1500), 64));
     // TODO:SB_ballSize:64(wid th=2560時)のはずだけどなぜかそうならない、いったん64で固定
   }
 }

@@ -1,25 +1,24 @@
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
+FPS FPS_data; // FPSカウンター
 PImage image1, image2, image3, image4; // 画像ファイル
 PFont fontXl, fontLg, fontMd, fontSm, fontMono; // フォント
-FPS FPS_data; // FPSカウンター
 JSONObject json; // JSONデータ
+
 WebsocketClient NET_CLIENT; // Websocketクライアント
-String NET_SERVER_HOST; // 8001-8003 まで建てられはする(追加可能)、どれにしようね
+String NET_SERVER_HOST; // Proxyサーバーのホスト名
 
-int GAME_MODE = 1;
-int GAME_width, GAME_height;
-boolean GAME_isTalkFinished = false;
-
-String NET_SERVER_IP;
-int NET_SERVER_PORT;
-
+// JSONデータ
 int DATA_ENERGY;
 String DATA_USERNAME;
 boolean DATA_SAVELOCKED = false;
 
+int GAME_MODE = 0; // ゲームモード 
+int GAME_width, GAME_height; // width, heightを置換する可能性があるためこの値を使う
+boolean GAME_isTalkFinished = false; // チュートリアルが終わっているかどうか
+
 void boot() { // 初期化用の関数
-  // init
+  // initailize
   GAME_width = width;
   GAME_height = height;
   noStroke();
@@ -33,24 +32,26 @@ void boot() { // 初期化用の関数
   // lib
   FPS_data = new FPS();
   CP = new ControlP5(this);
+  // vs
+  VS_boot();
   // bgm
   println("[setup]   sounds/bgm をロードしています");
   bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
   bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3");
-  bgm3 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
+  bgm5 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
   bgm6 = new SoundFile(this, "src/sounds/bgm/Kaigiencho.mp3");
   // jsonデータを取得
-  println("[setup]     config.json をロードしています");
+  println("[setup]   config.json をロードしています");
   json = loadJSONObject("config.json");
   if (json == null) {
     DATA_SAVELOCKED = true;
-    println("[json]      config.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたconfig.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
+    println("[json]    config.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたconfig.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getInt("energy");
     NET_SERVER_HOST = json.getString("server");
-    println("[json]      config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
+    println("[json]    config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
     if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続します");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
@@ -60,7 +61,8 @@ void boot() { // 初期化用の関数
     }
     println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (推奨: 2560x1600)");
     println("[GENERAL] ロード完了、ゲームを開始します");
-    cmode(1);
+    // cmode(1); // ホーム画面へ遷移
+    cmode(2); //TODO:デバッグ用に変更してます
   }
 }
 
@@ -77,9 +79,9 @@ void save() { // jsonデータを保存
     json.setInt("energy", DATA_ENERGY);
     json.setString("server", NET_SERVER_HOST);
     saveJSONObject(json, "config.json");
-    println("[json]      config.json saved");
+    println("[json]    config.json saved");
   } else {
-    println("[setup]     config.json does not exist");
+    println("[setup]   config.json does not exist");
   }
 }
 

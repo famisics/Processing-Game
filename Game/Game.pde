@@ -5,15 +5,15 @@ import controlP5.*;
 // ネットワーク機能を有効にするには true を代入する
 boolean NET_isNetworkEnable = false;
 
-void settings() {
-  fullScreen();
-}
+// void settings() {
+//   fullScreen();
+// }
 
 void setup() {
+  background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  // size(2560, 1600);
-  // size(1280, 800);
+  size(1280, 720);
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);
@@ -28,12 +28,12 @@ void draw() { // !画面遷移(常に実行)
     case 2 : // block
       SB_update();
       break;
-    case 3 : // status
-      SS_update();
+    case 3 : // -----
       break;
-    case 4 : // fight
+    case 4 : // -----
       break;
     case 5 : // result
+      SR_update();
       break;
     case 6 : // talk
       ST_update();
@@ -41,6 +41,8 @@ void draw() { // !画面遷移(常に実行)
     case 7 : // worldmap
       SW_update();
       break;
+    default :
+    break;	
   }
   FPS_data.update();
 }
@@ -49,7 +51,7 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
   save();
   bgm1.stop();
   bgm2.stop();
-  bgm3.stop();
+  bgm5.stop();
   bgm6.stop();
   switch(_mode) {
     case 1 : // home
@@ -64,17 +66,15 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       bgm2.pause();
       SB_boot();
       break;
-    case 3 : // status
-      println("[SCENE3]  探索のリザルト");
-      bgm3.loop();
-      SS_boot();
+    case 3 : // -----
+      println("[SCENE3]  -----");
       break;
-    case 4 : // fight
-      println("[SCENE4]  Fight");
-      SF_boot();
+    case 4 : // -----
+      println("[SCENE4]  -----");
       break;
     case 5 : // result
       println("[SCENE5]  Result");
+      bgm5.loop();
       SR_boot();
       break;
     case 6 : // talk
@@ -86,6 +86,8 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       println("[SCENE7]  Worldmap");
       SW_boot();
       break;
+    default :
+    break;	
   }
   GAME_MODE = _mode;
 }
