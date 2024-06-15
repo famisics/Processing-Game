@@ -1,17 +1,4 @@
 // 入力を受け付ける
-void controlEvent(ControlEvent e) {
-  // home1ボタンが押された場合
-  if (e.isFrom("home1")) {
-    cmode(2); 
-    SH_button1.remove();
-    SH_button2.remove();
-  }
-  if (e.isFrom("home2")) {
-    cmode(2);
-    SH_button1.remove();
-    SH_button2.remove();
-  }
-}
 
 void keyPressed() { // キー入力
   switch(GAME_MODE) { // ゲームモード限定の処理
@@ -22,17 +9,30 @@ void keyPressed() { // キー入力
       break;
     case 2 : // Block
       if (keyCode == 32) SB_pause(); // SPACE, 一時停止
+      if (key == '1') NET_recv("skill,1");
+      if (key == '2') NET_recv("skill,2");
+      if (key == '3') NET_recv("skill,3");
+      if (key == '4') NET_recv("skill,4");
+      if (key == '5') NET_recv("skill,5");
+      if (key == '6') NET_recv("skill,6");
+      if (key == '7') NET_recv("skill,7");
+      if (key == '8') NET_recv("skill,8");
+      if (key == '9') NET_recv("skill,9");
+      if (key == '0') NET_recv("skill,0");
+      if (key == 'i') SB_inflationRate *= 1.5;
       break;
-    case 3 : // Status
-      
+    case 3 : // Channel
+      if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105)) SC_input(str(key)); // 入力
+      if (keyCode == DELETE) SC_input("del"); // DELETE, 全削除
+      if (keyCode == BACKSPACE) SC_input("bs"); // BACKSPACE, 一文字削除
       break;
-    case 4 : // Fight
-      
+    case 4 : // -----
+    
       break;
     case 5 : // Result
       
       break;
-    case 6 : // Talk
+    case 6 : // Tutorial
       if (keyCode == LEFT) ST_ScriptPrev(); // シナリオ戻し
       if (keyCode == RIGHT) ST_ScriptNext(); // シナリオ進め
       if (keyCode == 32) ST_ScriptNext(); // SPACE, シナリオ進め
@@ -43,6 +43,9 @@ void keyPressed() { // キー入力
     break;
   }
   if (keyCode == 27) exit(); // ESC, 終了
+  if (key == 'a') {
+    // Button.add("explore", 100, 100, 100, 100, "neptune.png", this::buttonPressed1);
+  }
   // モード切り替え(デモ用)
   if (keyEvent.isShiftDown()) {
     // 0のキーコードは48(参考)
@@ -56,21 +59,12 @@ void keyPressed() { // キー入力
     if (keyCode == 56) cmode(8);
     if (keyCode == 57) cmode(9);
   }
-  if (key == '1') NET_recv("skill,1");
-  if (key == '2') NET_recv("skill,2");
-  if (key == '3') NET_recv("skill,3");
-  if (key == '4') NET_recv("skill,4");
-  if (key == '5') NET_recv("skill,5");
-  if (key == '6') NET_recv("skill,6");
-  if (key == '7') NET_recv("skill,7");
-  if (key == '8') NET_recv("skill,8");
-  if (key == '9') NET_recv("skill,9");
-  if (key == '0') NET_recv("skill,0");
   if (keyCode == UP) cfps(true);
   if (keyCode == DOWN) cfps(false);
-  if (key == 'i') SB_inflationRate *= 1.5;
 }
-void cfps(boolean _isUp) {
+
+
+void cfps(boolean _isUp) { // FPS変更
   if (_isUp) {
     GAME_fpsIndex++;
   } else {
@@ -78,7 +72,7 @@ void cfps(boolean _isUp) {
   }
   if (GAME_fpsIndex < 0) GAME_fpsIndex = 0;
   if (GAME_fpsIndex > 6) GAME_fpsIndex = 6;
-  switch (GAME_fpsIndex) {
+  switch(GAME_fpsIndex) {
     case 0:
       frameRate(10);
       println("[fps] 10");
@@ -108,6 +102,6 @@ void cfps(boolean _isUp) {
       println("[fps] unlimited");
       break;
     default:
-      break;
+    break;
   }
 }

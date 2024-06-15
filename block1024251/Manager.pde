@@ -3,6 +3,7 @@
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
+Button Button; // ボタン
 PImage image1, image2, image3, image4; // 画像ファイル
 PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, SH_fontTitle; // フォント
 JSONObject json; // JSONデータ
@@ -32,6 +33,7 @@ void boot() { // 初期化用の関数
   GAME_height = height;
   FPS_data = new FPS();
   CP = new ControlP5(this);
+  Button = new Button();
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
@@ -71,7 +73,7 @@ void boot() { // 初期化用の関数
     println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
     println("[GENERAL] ロード完了　ゲームを開始します");
     // cmode(1); // ホーム画面へ遷移
-    cmode(2); //TODO:デバッグ用に変更してます
+    cmode(3); //TODO:デバッグ用に変更してます
   }
 }
 

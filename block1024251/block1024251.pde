@@ -1,5 +1,6 @@
 // メイン
 
+// ライブラリのインポート
 import processing.sound.*;
 import websockets.*;
 import controlP5.*;
@@ -10,6 +11,7 @@ boolean NET_isNetworkEnable = false;
 // void settings() {
 //   fullScreen();
 // }
+// TODO:フルスクリーンの状態でビルドする
 
 void setup() {
   background(0);
@@ -30,7 +32,8 @@ void draw() { // !画面遷移(常に実行)
     case 2 : // block
       SB_update();
       break;
-    case 3 : // -----
+    case 3 : // Channel
+      SC_update();
       break;
     case 4 : // -----
       break;
@@ -70,8 +73,9 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       bgm2.pause();
       SB_boot();
       break;
-    case 3 : // -----
-      println("[SCENE3]  -----");
+    case 3 : // Channel
+      println("[SCENE3]  Channel");
+      SC_boot();
       break;
     case 4 : // -----
       println("[SCENE4]  -----");
