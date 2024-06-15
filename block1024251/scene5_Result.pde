@@ -5,7 +5,7 @@ long SR_displayLastEnergy;
 void SR_boot() {
   background(0);
   fill(255);
-  SR_displayLastEnergy = SB_lastEnergy;
+  SR_displayLastEnergy = (long)SB_lastEnergy;
   SB_lastEnergy = 0;
   SR_plasma = (int)DATA_ENERGY * 6;
 }

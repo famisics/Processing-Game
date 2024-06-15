@@ -4,11 +4,11 @@ int SB_blocks[][] = new int[10][12]; // ブロックのHPを格納する2次元�
 ArrayList<Ball> SB_balls = new ArrayList<Ball>(); // ボールのclassを格納するArrayList
 float SB_ballSize; // ボールの大きさ
 boolean SB_isTimeProcessing = false; // 停止状態で開始
-long SB_lastEnergy = 0; // 最後の獲得エネルギー
+double SB_lastEnergy = 0; // 最後の獲得エネルギー
 int SB_gameSpeed = 100; // ゲームの速度
 int SB_blocksLife = 1; // ブロックの初期HP
 int SB_barSize = 50; // バーの横幅
-float SB_inflationRate = 1.0; // 獲得エネルギーインフレ率
+double SB_inflationRate = 1.0; // 獲得エネルギーインフレ率
 
 int SB_blockWindowWidth; // ブロック崩し本体のウィンドウの横幅
 
@@ -24,7 +24,7 @@ void SB_update() {
   VB_update(); // ブロック崩し本体を更新
   VP_update(); // サイドパネルを更新
   VS_update(); // スキルを更新
-  navbar("","ENERGY: " + str(SB_lastEnergy)+"インフレ倍率:"+str(SB_inflationRate)); // ナビゲーションバー
+  navbar("","ENERGY: " + String.valueOf(SB_lastEnergy)+"インフレ倍率:"+String.valueOf(SB_inflationRate)); // ナビゲーションバー
 }
 
 void SB_pause() { // 一時停止

@@ -1,5 +1,5 @@
-// ボタンのクラス、 ControlP5にButtonというクラスがあるので、上書きしないように別の名前を使っている
+// ボタンのクラス
 
-class Push {
+class ButtonClass {
   
 }

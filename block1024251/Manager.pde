@@ -3,16 +3,16 @@
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
-Button Button; // ボタン
+ButtonClass Button; // ボタン
 PImage image1, image2, image3, image4; // 画像ファイル
-PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, SH_fontTitle; // フォント
+PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle; // フォント
 JSONObject json; // JSONデータ
 
 WebsocketClient NET_CLIENT; // Websocketクライアント
 String NET_SERVER_HOST; // Proxyサーバーのホスト名
 
 // JSONデータ
-long DATA_ENERGY;
+double DATA_ENERGY;
 String DATA_USERNAME;
 boolean DATA_SAVELOCKED = false;
 
@@ -33,7 +33,7 @@ void boot() { // 初期化用の関数
   GAME_height = height;
   FPS_data = new FPS();
   CP = new ControlP5(this);
-  Button = new Button();
+  Button = new ButtonClass();
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
@@ -42,7 +42,8 @@ void boot() { // 初期化用の関数
   fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 50);
   fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 80);
   fontMono = createFont("Monospaced.plain", GAME_width / 80);
-  VP_fontScore = createFont("src/fonts/smartfont.otf", GAME_width / 22);
+  VP_fontScore = createFont("Meiryo UI", GAME_width / 22);
+  VP_fontScoreMd = createFont("Meiryo UI", GAME_width / 50);
   SH_fontTitle = createFont("src/fonts/glitch.otf", GAME_width / 10);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
@@ -60,7 +61,7 @@ void boot() { // 初期化用の関数
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
-    DATA_ENERGY = (long)json.getFloat("energy");
+    DATA_ENERGY = json.getDouble("energy");
     NET_SERVER_HOST = json.getString("server");
     println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
     if (NET_isNetworkEnable) {
@@ -84,23 +85,35 @@ void se(String _path) {
 
 void save() { // jsonデータを保存
   if (!DATA_SAVELOCKED) {
-    float _t = DATA_ENERGY += SB_lastEnergy;
+    double _t = DATA_ENERGY += SB_lastEnergy;
     if (_t < 0) {
-      if (DATA_ENERGY < 0) DATA_ENERGY = 0;
+      println("累計エネルギーオーバーフロー、変更を保存しません");
+      _t = 0;
+      DATA_ENERGY = 0;
+    }
+    if(isOutOfRange(_t)) {
       _t = DATA_ENERGY;
       println("累計エネルギーオーバーフロー、変更を保存しません");
       GAME_isAlert = true;
       GAME_alertText = "エネルギーがオーバーフローしました\n追加のエネルギーを破棄しました\nこれ以上ゲームをインフレさせることはできません\nありがとうございました";
+    } else {
+      json = new JSONObject();
+      json.setString("username", DATA_USERNAME);
+      json.setFloat("energy", (float)_t);
+      json.setString("server", NET_SERVER_HOST);
+      saveJSONObject(json, "config.json");
+      println("[json]    config.json saved");
     }
-    json = new JSONObject();
-    json.setString("username", DATA_USERNAME);
-    json.setFloat("energy", _t);
-    json.setString("server", NET_SERVER_HOST);
-    saveJSONObject(json, "config.json");
-    println("[json]    config.json saved");
   } else {
     println("[setup]   config.json does not exist");
   }
+}
+
+boolean isOutOfRange(double value) {
+  println(value);
+  println(3.2e38);
+  double _max = 3.2e38;
+  return value > _max;
 }
 
 void navbar(String _left, String _Right) {
