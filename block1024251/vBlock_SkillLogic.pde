@@ -1,5 +1,4 @@
 PImage VS_cutinImage;
-PGraphics VS_cutinImageMask;
 int VS_cutinImageMaskRad; // 角の丸みの半径
 String[][] VS_skillTable;
 boolean VS_isCutin = false;
@@ -25,7 +24,7 @@ void VS_boot() { // スキル一覧の読み込み
   VS_cutinImage = loadImage("src/images/skill/demo.png");
 }
 void VS_update() {
-  if (VS_isCutin) {
+  if (VS_isCutin) { // カットイン処理
     // slideIn
     if (VS_isCutinSlideIn) {
       VS_cutinX -= VS_cutinDX;

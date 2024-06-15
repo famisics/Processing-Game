@@ -37,11 +37,11 @@ class Ball {
   }
   void isHit2Block(int x, int y) {
     if (SB_block[y][x] > 0) { // ブロックが存在するとき
-      if (SB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x + _dx - _size / 2, _y + _dy - _size / 2, _size, _size)) {
-        if (SB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x + _dx - _size / 2, _y, _size, _size)) { // X方向に衝突
+      if (VB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x + _dx - _size / 2, _y + _dy - _size / 2, _size, _size)) {
+        if (VB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x + _dx - _size / 2, _y, _size, _size)) { // X方向に衝突
           _dx = -_dx;
         }
-        if (SB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x, _y + _dy - _size / 2, _size, _size)) { // Y方向に衝突
+        if (VB_isOverlap(x * GAME_width / 12, y * GAME_height / 20, GAME_width / 12, GAME_height / 20, _x, _y + _dy - _size / 2, _size, _size)) { // Y方向に衝突
           _dy = -_dy;
         }
         SB_block[y][x] = SB_block[y][x] - 1; // ブロックの値を1減らす
@@ -53,7 +53,7 @@ class Ball {
   void isHit2Bar() {
     int _barX = mouseX - GAME_width * SB_barSize / 480;
     if (_barX < 0) {_barX = 0;} else if (_barX + GAME_width * SB_barSize / 240 > GAME_width) {_barX = GAME_width - GAME_width * SB_barSize / 240;}
-    if (SB_isOverlap(_barX, GAME_height - GAME_height / 10, GAME_width * SB_barSize / 240, GAME_height / 20, _x, _y, _size / 2, _size / 2)) {
+    if (VB_isOverlap(_barX, GAME_height - GAME_height / 10, GAME_width * SB_barSize / 240, GAME_height / 20, _x, _y, _size / 2, _size / 2)) {
       // DYの変更
       if (_dy > 0) {
         _dy = -_dy;
