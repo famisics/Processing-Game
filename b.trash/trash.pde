@@ -55,3 +55,13 @@ class FPS {
 }
 
 println("\u001b[37;1m> あなたの累計獲得エネルギー: \u001b[33;1m" + str(DATA_ENERGY) + "\u001B[0m (保存されました)\n\n\u001B[31m########\u001B[0m  \u001B[33m##   ##\u001B[0m  \u001B[32m#######\u001B[0m  \u001B[36m###  ##\u001B[0m  \u001B[34m##   ##\u001B[0m          \u001B[34m##   ##\u001B[0m  \u001B[35m#######\u001B[0m  \u001B[31m##   ##\u001B[0m\n\u001B[31m   ##   \u001B[0m  \u001B[33m##   ##\u001B[0m  \u001B[32m##   ##\u001B[0m  \u001B[36m###  ##\u001B[0m  \u001B[34m##  ## \u001B[0m          \u001B[34m##   ##\u001B[0m  \u001B[35m##   ##\u001B[0m  \u001B[31m##   ##\u001B[0m\n\u001B[31m   ##   \u001B[0m  \u001B[33m#######\u001B[0m  \u001B[32m#######\u001B[0m  \u001B[36m## ####\u001B[0m  \u001B[34m#####  \u001B[0m          \u001B[34m#######\u001B[0m  \u001B[35m##   ##\u001B[0m  \u001B[31m##   ##\u001B[0m\n\u001B[31m   ##   \u001B[0m  \u001B[33m##   ##\u001B[0m  \u001B[32m##   ##\u001B[0m  \u001B[36m##  ###\u001B[0m  \u001B[34m##  ## \u001B[0m          \u001B[34m     ##\u001B[0m  \u001B[35m##   ##\u001B[0m  \u001B[31m##   ##\u001B[0m\n\u001B[31m   ##   \u001B[0m  \u001B[33m##   ##\u001B[0m  \u001B[32m##   ##\u001B[0m  \u001B[36m##   ##\u001B[0m  \u001B[34m##   ##\u001B[0m          \u001B[34m#######\u001B[0m  \u001B[35m#######\u001B[0m  \u001B[31m#######\u001B[0m");
+
+
+if (VB_isOverlap(x * SB_blockWindowWidth / 12, y * GAME_height / 20, SB_blockWindowWidth / 12, GAME_height / 20, _x + _dx - _size / 2, _y + _dy - _size / 2, _size, _size)) {
+  if (VB_isOverlap(x * SB_blockWindowWidth / 12, y * GAME_height / 20, SB_blockWindowWidth / 12, GAME_height / 20, _x + _dx - _size / 2, _y, _size, _size)) { // X方向に衝突
+    _dx = -_dx;
+  }
+  if (VB_isOverlap(x * SB_blockWindowWidth / 12, y * GAME_height / 20, SB_blockWindowWidth / 12, GAME_height / 20, _x, _y + _dy - _size / 2, _size, _size)) { // Y方向に衝突
+    _dy = -_dy;
+  }
+}

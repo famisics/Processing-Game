@@ -4,7 +4,7 @@ ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
 PImage image1, image2, image3, image4; // 画像ファイル
-PFont fontXl, fontLg, fontMd, fontSm, fontMono; // フォント
+PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, SH_fontTitle; // フォント
 JSONObject json; // JSONデータ
 
 WebsocketClient NET_CLIENT; // Websocketクライアント
@@ -19,10 +19,15 @@ int GAME_MODE = 0; // ゲームモード
 int GAME_width, GAME_height; // width, heightを置換する可能性があるためこの値を使う
 boolean GAME_isTalkFinished = false; // チュートリアルが終わっているかどうか
 
+int GAME_fpsIndex = 2; // FPSのインデックス
+int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
+
 void boot() { // 初期化用の関数
   // initailize
   GAME_width = width;
   GAME_height = height;
+  FPS_data = new FPS();
+  CP = new ControlP5(this);
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
@@ -31,15 +36,13 @@ void boot() { // 初期化用の関数
   fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 50);
   fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 80);
   fontMono = createFont("Monospaced.plain", GAME_width / 80);
-  // lib
-  FPS_data = new FPS();
-  CP = new ControlP5(this);
-  // vs
-  VS_boot();
+  VP_fontScore = createFont("src/fonts/smartfont.otf", GAME_width / 22);
+  SH_fontTitle = createFont("src/fonts/glitch.otf", GAME_width / 10);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
   bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
-  bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3");
+  // bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3"); //TODO: bgmどれにしよう
+  bgm2 = new SoundFile(this, "src/sounds/bgm/battle/ビーボルト.mp3");
   bgm5 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
   bgm6 = new SoundFile(this, "src/sounds/bgm/Kaigiencho.mp3");
   // jsonデータを取得
@@ -88,7 +91,7 @@ void save() { // jsonデータを保存
 }
 
 void navbar(String _left, String _Right) {
-  if (_left == "") _left = "1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap　ESC : QUIT";
+  if (_left == "") _left = "Shift+(1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
   fill(0);
   rect(0, GAME_height - GAME_width / 50, GAME_width, GAME_width / 50);
   fill(255);
@@ -101,6 +104,7 @@ void navbar(String _left, String _Right) {
 }
 
 void actions(String _title) {
+  noStroke();
   fill(0, 30, 50, 200);
   rect(0, 0, 600, 90);
   triangle(600, 0, 600, 90, 650, 0);

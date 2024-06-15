@@ -1,5 +1,4 @@
 // 入力を受け付ける
-
 void controlEvent(ControlEvent e) {
   // home1ボタンが押された場合
   if (e.isFrom("home1")) {
@@ -15,7 +14,6 @@ void controlEvent(ControlEvent e) {
 }
 
 void keyPressed() { // キー入力
-  println("[key]     " + key + "(" + keyCode + ")");
   switch(GAME_MODE) { // ゲームモード限定の処理
     case 1 : // Home
       if (keyCode == 32 && !GAME_isTalkFinished) { // SPACE, 一時停止
@@ -68,4 +66,48 @@ void keyPressed() { // キー入力
   if (key == '8') NET_recv("skill,8");
   if (key == '9') NET_recv("skill,9");
   if (key == '0') NET_recv("skill,0");
+  if (keyCode == UP) cfps(true);
+  if (keyCode == DOWN) cfps(false);
+  if (key == 'i') SB_inflationRate *= 1.5;
+}
+void cfps(boolean _isUp) {
+  if (_isUp) {
+    GAME_fpsIndex++;
+  } else {
+    GAME_fpsIndex--;
+  }
+  if (GAME_fpsIndex < 0) GAME_fpsIndex = 0;
+  if (GAME_fpsIndex > 6) GAME_fpsIndex = 6;
+  switch (GAME_fpsIndex) {
+    case 0:
+      frameRate(10);
+      println("[fps] 10");
+      break;
+    case 1:
+      frameRate(30);
+      println("[fps] 30");
+      break;
+    case 2:
+      frameRate(60);
+      println("[fps] 60");
+      break;
+    case 3:
+      frameRate(90);
+      println("[fps] 90");
+      break;
+    case 4:
+      frameRate(120);
+      println("[fps] 120");
+      break;
+    case 5:
+      frameRate(240);
+      println("[fps] 240");
+      break;
+    case 6:
+      frameRate(999);
+      println("[fps] unlimited");
+      break;
+    default:
+      break;
+  }
 }

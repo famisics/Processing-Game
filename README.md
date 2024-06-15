@@ -23,8 +23,10 @@ famisics/Processing-Localserver -> プロキシサーバー(node.js/websocket)
 famisics/Processing-Server -> 公開サーバー(node.js/express/websocket)
 
 > 公開サーバーの詳細  
-> ホスティング: Cloudflare DNS(プロキシ) / Render(ホスティング)
-> サーバー本体: node.js(実行環境) / pnpm(パッケージマネージャー) / express(httpサーバー) / websocket(双方向通信)  
+> host: wss://proc.uiro.dev (wss;//proc.uiro.dev:443)
+TODO: ボート番号必要？
+> インフラ: Cloudflare DNS(プロキシ) / Render(ホスティング)
+> 本体の仕様: node.js(実行環境) / pnpm(パッケージマネージャー) / express(httpサーバー) / websocket(双方向通信)  
 > プロキシ - 公開サーバーの通信はSSLに対応しています  
 > DNSでddos対策されてます
 
@@ -39,7 +41,9 @@ famisics/Processing-Server -> 公開サーバー(node.js/express/websocket)
 チャージする
 地球にENERGYを集めるモチーフ
 
-必要のない計算、再描画が極力減るように意識している (drawとbootを分けるなど)
+必要のない計算、再描画が極力減るように意識している  
+update(draw)とboot(setup)を分けるなど  
+※Processingのdrawとsetupから区別するためにあえて別の名前を使っています
 
 サーバーでマルチプレイが可能
 
@@ -48,7 +52,12 @@ vscode, processing-java
 コメントは`Better Comments`で分類されています
 
 ## 命名
-グローバル変数/関数は`[FLAG]_camelCase`という形式で定義しています
+グローバル変数/関数は`[プレフィックス]_camelCase`という形式で定義しています  
+ローカル変数は`_*`という形式で定義しています(先頭アンダースコア)
+
+- なし → 全体で共有するロジック
+- S* → シーンロジック
+- V* → ブロック崩しの依存ロジック
 
 ## アセット
 効果音ラボ
@@ -58,6 +67,17 @@ Ucchii0-うっちーぜろ- たったそれだけの物語
 
 TODO: ライセンスを確認する
 
+### フォント
+
+スマートフォントUI  
+フリーダウンロード：https://flopdesign.booth.pm/items/2296502
+
+廻想体 ネクスト ユーピー（B）  
+もじワク研究
+
+瀞ノグリッチ黒体
+
+JetBrainsMono
 
 ## ライセンス
 2024 © famisics(https://uiro.dev)
