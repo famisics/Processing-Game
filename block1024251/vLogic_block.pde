@@ -21,7 +21,7 @@ void VB_update() {
       VB_updateBlock(x,y);
     }
   }
-  stroke(100);
+  stroke(200);
   for (int i = 0; i < SB_balls.size(); i++) {
     SB_balls.get(i).update();
   }

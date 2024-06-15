@@ -47,6 +47,8 @@ void draw() { // !画面遷移(常に実行)
     break;	
   }
   FPS_data.update();
+  GAME_clock = millis();
+  alert();
 }
 
 void cmode(int _mode) { // !画面遷移(1回だけ実行)

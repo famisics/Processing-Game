@@ -4,11 +4,11 @@ class FPS {
   int _flame;
   long _now;
   double _temp;
-  long _start = System.currentTimeMillis();
+  long _start = GAME_clock;
   int _fps = 0;
   void update() {
     _flame++;
-    _now = System.currentTimeMillis();
+    _now = GAME_clock;
     double _time = Math.floor((_now - _start) / 1000);
     if (_time - _temp >= 1) {
       _fps = _flame;

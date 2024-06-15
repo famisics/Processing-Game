@@ -6,7 +6,7 @@ void VP_Boot() {
   
 }
 void VP_update() {
-  fill(100, 200, 100);
+  fill(20, 100, 80);
   rect(SB_blockWindowWidth, 0, GAME_width - SB_blockWindowWidth, GAME_height);
   fill(255);
   textAlign(LEFT, TOP);
@@ -44,7 +44,6 @@ String VP_longToJapanese(long _long) {
   } else if (_rLength > 2) {
     String _r = _results[_rLength - 1] + _results[_rLength - 2];
     if (_r.equals("922京3372兆")) _r = "infinite";
-      println(_r);
       return _r;
   } else {
     return "0";

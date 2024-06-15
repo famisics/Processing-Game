@@ -7,7 +7,7 @@ void SR_boot() {
   fill(255);
   SR_displayLastEnergy = SB_lastEnergy;
   SB_lastEnergy = 0;
-  SR_plasma = DATA_ENERGY * 6;
+  SR_plasma = (int)DATA_ENERGY * 6;
 }
 void SR_update() {
   tint(50, 50);

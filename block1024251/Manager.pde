@@ -11,13 +11,17 @@ WebsocketClient NET_CLIENT; // Websocketクライアント
 String NET_SERVER_HOST; // Proxyサーバーのホスト名
 
 // JSONデータ
-int DATA_ENERGY;
+long DATA_ENERGY;
 String DATA_USERNAME;
 boolean DATA_SAVELOCKED = false;
 
 int GAME_MODE = 0; // ゲームモード 
 int GAME_width, GAME_height; // width, heightを置換する可能性があるためこの値を使う
 boolean GAME_isTalkFinished = false; // チュートリアルが終わっているかどうか
+boolean GAME_isAlert = false; // アラートが表示されているかどうか
+String GAME_alertText = ""; // アラートテキスト
+int GAME_alertTime = 0; // アラートの時間
+int GAME_clock = millis(); // ゲーム内の時計
 
 int GAME_fpsIndex = 2; // FPSのインデックス
 int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
@@ -54,7 +58,7 @@ void boot() { // 初期化用の関数
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
-    DATA_ENERGY = json.getInt("energy");
+    DATA_ENERGY = (long)json.getFloat("energy");
     NET_SERVER_HOST = json.getString("server");
     println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
     if (NET_isNetworkEnable) {
@@ -78,10 +82,17 @@ void se(String _path) {
 
 void save() { // jsonデータを保存
   if (!DATA_SAVELOCKED) {
-    DATA_ENERGY += SB_lastEnergy;
+    float _t = DATA_ENERGY += SB_lastEnergy;
+    if (_t < 0) {
+      if (DATA_ENERGY < 0) DATA_ENERGY = 0;
+      _t = DATA_ENERGY;
+      println("累計エネルギーオーバーフロー、変更を保存しません");
+      GAME_isAlert = true;
+      GAME_alertText = "エネルギーがオーバーフローしました\n追加のエネルギーを破棄しました\nこれ以上ゲームをインフレさせることはできません\nありがとうございました";
+    }
     json = new JSONObject();
     json.setString("username", DATA_USERNAME);
-    json.setInt("energy", DATA_ENERGY);
+    json.setFloat("energy", _t);
     json.setString("server", NET_SERVER_HOST);
     saveJSONObject(json, "config.json");
     println("[json]    config.json saved");
@@ -112,4 +123,20 @@ void actions(String _title) {
   textAlign(LEFT,CENTER);
   textFont(fontLg);
   text(_title, 50, 45);
+}
+
+void alert() {
+  if (GAME_isAlert) {
+    GAME_alertTime++;
+    fill(0, 30, 50, 200);
+    rect(GAME_width / 4, GAME_height / 4, GAME_width / 2, GAME_height / 2);
+    fill(255);
+    textAlign(CENTER,CENTER);
+    textFont(fontMd);
+    text(GAME_alertText, GAME_width / 2, GAME_height / 2);
+    if (GAME_alertTime > (3 * GAME_fps[GAME_fpsIndex])) {
+      GAME_isAlert = false;
+      GAME_alertTime = 0;
+    }
+  }
 }

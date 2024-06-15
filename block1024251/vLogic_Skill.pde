@@ -27,6 +27,8 @@ void VS_boot() { // スキル一覧の読み込み
 }
 void VS_update() {
   VS_cutinUpdate(); // カットイン
+  // スキルの処理
+  VU_sheldUpdate();
 }
 void VS_skillSend(String _id) { // スキル送信
   NET_send("skill," + _id);
@@ -58,7 +60,14 @@ void VS_oppo(String[] i) { // 相手側で発動するスキル
 void VS_self(String[] i) { // 自分側で発動するスキル
   println("VS_self " + i[0] + "," + i[1] + "," + i[2] + "," + i[3] + "," + i[4] + "," + i[5] + "," + i[6]);
   if (!i[6].equals("")) VS_cutin(i[6]);
+  switch (i[0]) {
+    case "1" :
+      VU_shieldBoot();
+    break;
+  }
 }
+
+// !カットイン
 
 // スキルカットイン画像は横2縦1比率
 void VS_cutin(String i) {

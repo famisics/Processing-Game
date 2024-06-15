@@ -23,13 +23,12 @@ class Ball {
     // 通常の変更処理
     if (SB_isTimeProcessing) {
       // 移動先の当たり判定を確認
-      if (_x < _size / 2 || _x + _size / 2 >= SB_blockWindowWidth) {_dx = -_dx;}
-      if (_y < _size / 2) {_dy = -_dy;}
-      if (_y + _size / 2 >= GAME_height) { // 落下判定
-        _dy = -_dy;
-        // _dy = 0;
-        // _dx = 0;
-        // cmode(5); // 別画面への遷移
+      if (_y < _size / 2) _dy *= -1;
+      if (_x < _size / 2 || _x + _size / 2 >= SB_blockWindowWidth) _dx *= -1;
+      if (VU_isShield) { // シールド
+        if (_y + _size / 2 >= GAME_height - (GAME_width / 50)) _dy *= -1; // 落下しても削除しない
+      } else {
+        if (_y >= GAME_height - (GAME_width / 50)) SB_balls.remove(this); // 落下判定
       }
       // 移動
       _x += _dx;
@@ -52,7 +51,7 @@ class Ball {
         }
         SB_blocks[y][x] = SB_blocks[y][x] - 1; // ブロックの値を1減らす
         if (SB_blocks[y][x] == 0) se("pa"); //se
-        SB_lastEnergy += (random(100, 150)*SB_inflationRate); // スコアを増やす
+        SB_lastEnergy += (random(100, 150) * SB_inflationRate); // スコアを増やす
       }
     }
   }
