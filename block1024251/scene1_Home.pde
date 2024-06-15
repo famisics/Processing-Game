@@ -1,3 +1,5 @@
+// ホーム
+
 Button SH_button1, SH_button2;
 void SH_boot() {
   background(0);

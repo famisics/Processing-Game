@@ -1,3 +1,5 @@
+// 入力を受け付ける
+
 void controlEvent(ControlEvent e) {
   // home1ボタンが押された場合
   if (e.isFrom("home1")) {

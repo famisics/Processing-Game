@@ -1,3 +1,6 @@
+// マップ表示
+// TODO:消すかも
+
 void SW_boot() {
   background(100, 100, 100);
   tint(200, 200);

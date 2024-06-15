@@ -1,3 +1,5 @@
+// ボールを表示するクラス
+
 class Ball {
   float _x, _y, _dy, _dx, _size;
   Ball(float _x, float _y, float _dx, float _dy, float _size) {

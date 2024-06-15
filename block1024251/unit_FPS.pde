@@ -1,3 +1,5 @@
+// FPS(フレーム/秒)を表示するクラス
+
 class FPS {
   int _flame;
   long _now;

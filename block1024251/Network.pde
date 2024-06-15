@@ -1,3 +1,5 @@
+// WebSocket通信制御
+
 // 他クライアントからの受信イベントを処理
 void NET_recv(String i) {
   String[] _data = split(i, ",");

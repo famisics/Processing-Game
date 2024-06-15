@@ -1,3 +1,5 @@
+// 全体で参照する関数や変数の定義
+
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
@@ -45,22 +47,22 @@ void boot() { // 初期化用の関数
   json = loadJSONObject("config.json");
   if (json == null) {
     DATA_SAVELOCKED = true;
-    println("[json]    config.json does not exist\nセーブ機能がロックされました\nサーバー情報が記録されたconfig.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
+    println("[json]    config.json does not exist\nサーバー情報が記録されたconfig.jsonが必要です\nこのファイルを誤って削除してしまった場合は、制作者にお問い合わせください");
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getInt("energy");
     NET_SERVER_HOST = json.getString("server");
-    println("[json]    config.json loaded\n          username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
+    println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
     if (NET_isNetworkEnable) {
-      println("[WSocket] サーバーに接続します");
+      println("[WSocket] サーバーに接続しています");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
       println("[WSocket] サーバーに接続しました: " + NET_SERVER_HOST);
     } else {
       println("[WSocket] サーバーは設定により無効化されています");
     }
-    println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (推奨: 2560x1600)");
-    println("[GENERAL] ロード完了、ゲームを開始します");
+    println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
+    println("[GENERAL] ロード完了　ゲームを開始します");
     // cmode(1); // ホーム画面へ遷移
     cmode(2); //TODO:デバッグ用に変更してます
   }

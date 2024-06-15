@@ -1,3 +1,5 @@
+// リザルト画面
+
 int SR_plasma = 0, SR_plasmaCount = 0, SR_displayLastEnergy;
 void SR_boot() {
   background(0);

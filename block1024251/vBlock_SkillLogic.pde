@@ -1,3 +1,5 @@
+// スキル制御のロジック
+
 PImage VS_cutinImage;
 int VS_cutinImageMaskRad; // 角の丸みの半径
 String[][] VS_skillTable;
