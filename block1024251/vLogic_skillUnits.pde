@@ -1,4 +1,15 @@
 // スキルの個別のロジック
+VU_activeSkills[][] = {
+  {"name", "残り時間", "合計時間"}
+}
+// TODO:パネルの空きスペースにリストっぽく表示するようにする、メーターつき
+
+VU_addActiveSkill(String name, float nokori, float total) {
+  VU_activeSkills.push({name, nokori, total});
+}
+VU_activeSkillUpdate() {
+  // TODO:終わったものは削除
+}
 
 // shield
 boolean VU_isShield = false;
@@ -11,7 +22,6 @@ void VU_shieldBoot() {
 void VU_sheldUpdate() {
   if (VU_isShield) {
     VU_sheldTimer++;
-    println("shield作動中");
     if (GAME_clock > VU_sheldTimer + (30 * 1000)) {
       VU_isShield = false;
       VU_sheldTimer = 0;
