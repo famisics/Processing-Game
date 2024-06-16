@@ -12,6 +12,9 @@ float VS_cutinDX;
 int VS_cutinSizeX;
 int VS_cutinSizeY;
 
+// 有効なスキルのリスト
+ArrayList<ActiveSkill> VS_activeSkills = new ArrayList<>();
+
 void VS_boot() { // スキル一覧の読み込み
   String[] _csv = loadStrings("src/skills.csv");
   VS_skillTable = new String[_csv.length][];
@@ -27,7 +30,7 @@ void VS_boot() { // スキル一覧の読み込み
 }
 void VS_update() {
   // スキルタイマー
-  VU_activeSkillUpdate();
+  VS_activeSkillUpdate();
   // スキルの処理
   VU_sheldUpdate();
   VU_barExtendUpdate();
@@ -62,7 +65,7 @@ void VS_oppo(String[] i) { // 相手側で発動するスキル
 }
 void VS_self(String[] i) { // 自分側で発動するスキル
   if (!i[3].equals("")) VS_cutin(i[3], i[4]);
-  switch (i[0]) {
+  switch(i[0]) {
     case "1" :
       VU_shieldBoot(i[2], i[4]);
       break;
@@ -70,8 +73,58 @@ void VS_self(String[] i) { // 自分側で発動するスキル
       VU_barExtendBoot(i[2], i[4]);
       break;
     default :
-      println("[ERROR] 謎のスキルです");
-      break;
+    println("[ERROR] 謎のスキルです");
+    break;
+  }
+}
+
+// !有効なスキルの管理
+
+void VS_addActiveSkill(String name, float start, float duration) {
+  for (ActiveSkill skill : VS_activeSkills) {
+    if (skill.name.equals(name)) {
+      println("Skill " + name + " is already active");
+      return; // 同じ名前のスキルが既に存在する場合は追加しない
+    }
+  }
+  VS_activeSkills.add(new ActiveSkill(name, start, duration));
+}
+
+void VS_activeSkillUpdate() {
+  Iterator<ActiveSkill> _i = VS_activeSkills.iterator();
+  while(_i.hasNext()) {
+    ActiveSkill _skill = _i.next();
+    float end = _skill.start + _skill.duration;
+    int _index = VS_activeSkills.indexOf(_skill);
+    if (GAME_clock >= end) {
+      _i.remove();
+    } else {
+      VS_activeSkillDisplay(_index, _skill.name, _skill.start, _skill.duration);
+    }
+  }
+}
+
+void VS_activeSkillDisplay(int _index, String _name, float _start, float _duration) {
+  float _elapsed = GAME_clock - _start;
+  float _remain = _duration - _elapsed;
+  fill(20, 50, 150);
+  rect(SB_blockWindowWidth,(GAME_height * (18 - (2 * _index)) / 20) - GAME_width / 50, GAME_width - SB_blockWindowWidth, GAME_height / 10);
+  fill(20, 200, 250);
+  rect(SB_blockWindowWidth + (GAME_width - SB_blockWindowWidth) * (_elapsed / _duration),(GAME_height * (39 - (4 * _index)) / 40) - GAME_width / 50,(GAME_width - SB_blockWindowWidth) * (_remain / _duration), GAME_height / 40);
+  fill(255);
+  textAlign(LEFT);
+  textFont(fontMd);
+  text(_name + " : ( " + _remain + "秒 / " + _duration + "秒 )", SB_blockWindowWidth + GAME_width / 50,(GAME_height * (9 - _index) / 10) - GAME_width / 50 + GAME_height / 20);
+}
+
+class ActiveSkill {
+  String name;
+  float start;
+  float duration;
+  ActiveSkill(String name, float start, float duration) {
+    this.name = name;
+    this.start = start;
+    this.duration = duration;
   }
 }
 
@@ -79,13 +132,13 @@ void VS_self(String[] i) { // 自分側で発動するスキル
 
 // スキルカットイン画像は横2縦1比率
 void VS_cutin(String imagePath, String skillName) {
-  if(VS_isCutin) {
+  if (VS_isCutin) {
     VS_cutinX = GAME_width;
     VS_isCutinSlideOut = false;
     VS_isCutinSlideIn = true;
     VS_cutinDX = GAME_width / 20;
   }
-  VS_cutinImage = createRoundedImage(imagePath, skillName);
+  VS_cutinImage = VS_createRoundedImage(imagePath, skillName);
   VS_isCutin = true;
 }
 void VS_cutinUpdate() {
@@ -121,20 +174,20 @@ void VS_cutinUpdate() {
     image(VS_cutinImage, VS_cutinX,(VS_cutinSizeX) / 2, VS_cutinSizeX, VS_cutinSizeY);
   }
 }
-PImage createRoundedImage(String i, String skillName) {
+PImage VS_createRoundedImage(String i, String skillName) {
   println(skillName);
   PImage _rawImg = loadImage("src/images/skill/" + i + ".png");
   PGraphics _pg = createGraphics(_rawImg.width, _rawImg.height);
   _pg.beginDraw();
   _pg.image(_rawImg, 0, 0);
   _pg.fill(0, 150);
-  _pg.rect(0, _rawImg.height*2/3, _rawImg.width, _rawImg.height/3);
+  _pg.rect(0, _rawImg.height * 2 / 3, _rawImg.width, _rawImg.height / 3);
   _pg.fill(255); // テキストの色
   _pg.textAlign(CENTER, CENTER);
   _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 10));
   _pg.text(skillName, _rawImg.width / 2, _rawImg.height * 5 / 6); // 画像の下半分に表示
   _pg.endDraw();
-
+  
   PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
   _mask.beginDraw();
   _mask.background(0, 0);
