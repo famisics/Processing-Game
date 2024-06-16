@@ -24,6 +24,9 @@ String GAME_alertText = ""; // アラートテキスト
 int GAME_alertTime = 0; // アラートの時間
 int GAME_clock = millis(); // ゲーム内の時計
 
+String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}; // longToJp用の数詞
+int[] jpUnitRank = {0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68}; // longToJp用
+
 int GAME_fpsIndex = 2; // FPSのインデックス
 int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
 
@@ -119,8 +122,28 @@ boolean isOutOfRange(double value) {
   return value > _max;
 }
 
+String longToJp(double value) {
+  if (value == 0) return "0";
+  StringBuilder _sb = new StringBuilder();
+  int _i = jpUnit.length - 1;
+  int _count = 0;
+  while(_i >= 0 && _count < 2) {
+    double _v = pow(10, jpUnitRank[_i]);
+    long _current = (long)(value / _v);
+    value = value % _v;
+    if (_current > 0) {
+      _sb.append(_current);
+      _sb.append(jpUnit[_i]);
+      _count++;
+    }
+    _i--;
+  }
+  return _sb.toString();
+}
+
+
 void navbar(String _left, String _Right) {
-  if (_left == "") _left = "Shift+(1 : HOME　2 : PvE　3 : STATUS　4 : FIGHT　 5 : PvP　6 : Talk　7 : Worldmap)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
+  if (_left == "") _left = "Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
   fill(0);
   rect(0, GAME_height - GAME_width / 50, GAME_width, GAME_width / 50);
   fill(255);

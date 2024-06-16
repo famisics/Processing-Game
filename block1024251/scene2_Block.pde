@@ -5,7 +5,7 @@ ArrayList<Ball> SB_balls = new ArrayList<Ball>(); // ボールのclassを格納�
 float SB_ballSize; // ボールの大きさ
 boolean SB_isTimeProcessing = false; // 停止状態で開始
 double SB_lastEnergy = 0; // 最後の獲得エネルギー
-int SB_gameSpeed = 100; // ゲームの速度
+float SB_gameSpeed = 1.0; // ゲームの速度
 int SB_blocksLife = 1; // ブロックの初期HP
 int SB_barSize = 50; // バーの横幅
 double SB_inflationRate = 1.0; // 獲得エネルギーインフレ率
@@ -31,16 +31,16 @@ void SB_update() { // 更新
   VS_update(); // スキルを更新
   SB_pauseUpdate(); // 一時停止時の描画
   SB_start(); // ゲーム開始時のカウントダウン
-  navbar("1 : シールド　2 : バー拡張　3 : 相手のバー縮小　4 : 時間減速　5 : 相手の時間加速　6 : 逆転　7 : 支援砲撃　8 : 追加１　9 : 追加２　0 : インフレ","　接続Channel:" + "rd1234");
+  navbar("1 : シールド　2 : バー拡張　3 : 相手のバー縮小　4 : 時間減速　5 : 相手の時間加速　6 : 逆転　7 : 支援砲撃　8 : 追加１　9 : 追加２　0 : インフレ　L : リセット","総ブロック数 : " + VB_sumLife);
 }
 
 void SB_start() {
-  if(!SB_isStart) {
+  if (!SB_isStart) {
     int _r = (5 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
     fill(200, 200, 255);
     textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);
-    text("戦闘開始まで: " + str(_r), GAME_width / 2, GAME_height * 3 / 4);
+    text("探索開始まで: " + str(_r), GAME_width / 2, GAME_height * 3 / 4);
     if (_r <=  0) {
       SB_isStart = true;
       SB_pause();
@@ -60,9 +60,9 @@ void SB_pause() { // 一時停止
 void SB_pauseUpdate() {
   if (!SB_isTimeProcessing) {
     textAlign(CENTER, CENTER);
-    fill(255, 100, 100, 50);
+    fill(20, 200);
     rect(0, 0, GAME_width, GAME_height);
-    fill(255, 0, 0);
+    fill(0, 200, 200);
     textFont(fontXl);
     text("PAUSED", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
     textFont(fontMd);

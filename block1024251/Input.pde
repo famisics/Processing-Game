@@ -5,11 +5,13 @@ void keyPressed() { // キー入力
     case 1 : // Home
       if (keyCode == 32 && !GAME_isTalkFinished) { // SPACE, 一時停止
         cmode(6);
+      } else if (keyCode == 32 && GAME_isTalkFinished) { // SPACE, チャンネル選択へ
+        cmode(3);
       }
       break;
     case 2 : // Block
-      if (keyCode == ENTER) SB_pause(); // SPACE, 一時停止
-      if (keyCode == 32) // SPACE, 一時停止 // TODO: ヘルプを開きたい
+      if (keyCode == ENTER) SB_pause(); // ENTER, 一時停止 //!デモ用
+      // if (keyCode == 32) // SPACE, ヘルプ // TODO: ヘルプを開きたい
       if (key == '1') NET_recv("skill,1");
       if (key == '2') NET_recv("skill,2");
       if (key == '3') NET_recv("skill,3");
@@ -20,7 +22,8 @@ void keyPressed() { // キー入力
       if (key == '8') NET_recv("skill,8");
       if (key == '9') NET_recv("skill,9");
       if (key == '0') NET_recv("skill,0");
-      if (key == 'i') SB_inflationRate *= 1.5;
+      if (key == 'i') SB_inflationRate *= 2; // インフレ倍率をあげる(2倍) //!デモ用
+      if (key == 'l') cmode(2); // リセット //!デモ用
       break;
     case 3 : // Channel
       if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105)) SC_input(str(key)); // 入力
@@ -29,7 +32,10 @@ void keyPressed() { // キー入力
       if (keyCode == ENTER) SC_input("enter"); // ENTER, 確定
       break;
     case 4 : // Start
-      if (keyCode == ENTER) cmode(2); // ENTER, 戦闘開始
+      if (keyCode == 32 && !SS_isSpace) { // ENTER, 探索開始, 3秒以上長押しで実行, 時間の判定ロジックはscene4にあります
+        SS_isSpace = true;
+        SS_startTime = GAME_clock;
+      }
       break;
     case 5 : // Result
       
@@ -48,7 +54,7 @@ void keyPressed() { // キー入力
   if (key == 'a') {
     // Button.add("explore", 100, 100, 100, 100, "neptune.png", this::buttonPressed1);
   }
-  // モード切り替え(デモ用)
+  // モード切り替え //!(デモ用)
   if (keyEvent.isShiftDown()) {
     // 0のキーコードは48(参考)
     if (keyCode == 49) cmode(1);
@@ -65,6 +71,9 @@ void keyPressed() { // キー入力
   if (keyCode == DOWN) cfps(false);
 }
 
+void keyReleased() {
+  if (GAME_MODE == 4 && keyCode == 32) SS_isSpace = false;
+}
 
 void cfps(boolean _isUp) { // FPS変更
   if (_isUp) {

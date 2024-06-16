@@ -5,17 +5,17 @@ void NET_recv(String i) {
   String[] _data = split(i, ",");
   switch(_data[0]) {
     case "message" :
-      println("[message] " + _data[1]);
+      println("[WS:message] " + _data[1]);
       break;
     case "skill" :
-      println("[skill] " + _data[1]);
+      println("[WS:skill] " + _data[1]);
       VS_skillRecv(_data[1]);
       break;
     case "join" :
-      println("[join] " + _data[1] + "が入室しました");
+      println("[WS:join] " + _data[1] + "が" + _data[2] + "に参加しました");
       break;
-    case "leave" :
-      println("[leave] " + _data[1] + "が退室しました");
+    case "start" :
+      println("[WS:start] " + _data[1] + "が" + _data[2] + "のゲームを開始します！");
       break;
     default :
     println("[WS:RECV] (" + i + ")は規定外のデータであるため破棄されました");

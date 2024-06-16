@@ -1,6 +1,7 @@
 // ブロック崩し部分のロジック
 
 int VB_barX = 0;
+int VB_sumLife = 0;
 
 void VB_boot() {
   SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
@@ -10,11 +11,12 @@ void VB_boot() {
       SB_blocks[i][j] = SB_blocksLife;
     }
   }
-  VB_addBall(20); // ボールは1で開始
+  VB_addBall(1); // ボールは1で開始
 }
 
 void VB_update() {
   textAlign(CENTER,CENTER);
+  VB_sumLife = 0;
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       VB_updateBlock(x,y);
@@ -35,6 +37,7 @@ void VB_updateBlock(int x, int y) {
     textFont(fontMd);
     text(SB_blocks[y][x], x * SB_blockWindowWidth / 12 + SB_blockWindowWidth / 24 , y * GAME_height / 20 + GAME_height / 40);
   }
+  VB_sumLife += SB_blocks[y][x];
 }
 void VB_updateBar() {
   if (SB_isTimeProcessing) {
@@ -52,7 +55,7 @@ void VB_updateBar() {
 }
 void VB_addBall(int n) {
   for (int i = 0; i < n; i++) {
-    SB_balls.add(new Ball(100, GAME_height * 3 / 5, SB_gameSpeed * (SB_blockWindowWidth / 24) / random(500,1500), SB_gameSpeed * (SB_blockWindowWidth / 24) / random(500,1500), SB_ballSize));
+    SB_balls.add(new Ball(100, GAME_height * 3 / 5, SB_gameSpeed * 100 * (SB_blockWindowWidth / 24) / random(250,500), SB_gameSpeed * 100 * (SB_blockWindowWidth / 24) / random(250,500), SB_ballSize));
   }
 }
 // 当たり判定
@@ -61,7 +64,7 @@ String VB_hit(float _rx, float _ry, float _rw, float _rh, float _cx, float _cy, 
   float _csty = constrain(_cy, _ry, _ry + _rh);
   float _distance = (_cx - _cstx) * (_cx - _cstx) + (_cy - _csty) * (_cy - _csty);
   boolean _isHit = _distance < (_crad * _crad);
-  if(_isHit) { // 円形の当たり判定
+  if (_isHit) { // 円形の当たり判定
     if (abs(_cx - _cstx) > abs(_cy - _csty)) {
       return "dx";
     } else {

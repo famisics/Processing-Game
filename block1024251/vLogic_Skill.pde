@@ -34,6 +34,9 @@ void VS_update() {
   // スキルの処理
   VU_sheldUpdate();
   VU_barExtendUpdate();
+  VU_barContractUpdate();
+  VU_timeSlowUpdate();
+  VU_timeFastUpdate();
   // カットイン
   VS_cutinUpdate();
 }
@@ -69,10 +72,22 @@ void VS_self(String[] i) { // 自分側で発動するスキル
   if (!i[4].equals("")) VS_cutin(i[4], i[5]);
   switch(i[0]) {
     case "1" :
-      VU_shieldBoot(i[2], i[5]);
+      VU_shieldBoot(i[2]);
       break;
     case "2" :
-      VU_barExtendBoot(i[2], i[5]);
+      VU_barExtendBoot(i[2]);
+      break;
+    // case "3" : // TODO:相手
+    //   VU_barContractBoot(i[2]);
+    //   break;
+    case "4" : 
+      VU_timeSlowBoot(i[2]);
+      break;
+    // case "5" : // TODO:相手
+    //   VU_timeFastBoot(i[2]);
+    //   break;
+    case "6" :
+      VU_divisionBallBoot(i[2]);
       break;
     default :
     println("[ERROR] 謎のスキルです");
@@ -177,7 +192,6 @@ void VS_cutinUpdate() {
   }
 }
 PImage VS_createRoundedImage(String i, String skillName) {
-  println(skillName);
   PImage _rawImg = loadImage("src/images/skill/" + i + ".png");
   PGraphics _pg = createGraphics(_rawImg.width, _rawImg.height);
   _pg.beginDraw();

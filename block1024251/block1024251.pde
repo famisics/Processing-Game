@@ -46,7 +46,7 @@ void draw() { // !画面遷移(常に実行)
       ST_update();
       break;
     default :
-    break;	
+      break;
   }
   FPS_data.update();
   GAME_clock = millis();
@@ -91,7 +91,7 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       ST_boot();
       break;
     default :
-    break;	
+      break;
   }
   GAME_MODE = _mode;
 }

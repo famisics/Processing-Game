@@ -13,7 +13,7 @@ void SC_update() {
   fill(255);
   textFont(fontMd);
   text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nBackspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
-  actions("戦闘を開始");
+  actions("探索を開始");
   navbar("Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
 }
 

@@ -39,10 +39,10 @@ void SH_update() {
   text("地球再生計画", GAME_width / 2 + SH_titleShakeX + 10, GAME_height / 2 - (GAME_height / 6) + SH_titleShakeY + 10);
   fill(255);
   text("地球再生計画", GAME_width / 2 + SH_titleShakeX, GAME_height / 2 - (GAME_height / 6) + SH_titleShakeY);
-  textFont(fontMd);
+  textFont(fontLg);
   text("Press space to start", GAME_width / 2 + (SH_titleShakeX / 2), GAME_height / 2 + (GAME_height / 6) + (SH_titleShakeY / 2));
   textAlign(LEFT);
-  text("現在のエネルギー: " + DATA_ENERGY, GAME_height / 10, GAME_height / 10);
+  text("現在のエネルギー: " + longToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
   rectMode(CORNER);
   navbar("","2024 (C) b1024251 Takumi Yamazaki");
 }

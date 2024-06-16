@@ -31,12 +31,15 @@ class Ball {
         if (_y >= GAME_height - (GAME_width / 50)) SB_balls.remove(this); // 落下判定
       }
       // 移動
-      _x += _dx;
-      _y += _dy;
+      _x += _dx * SB_gameSpeed;
+      _y += _dy * SB_gameSpeed;
     }
     // ボールの描画
     fill(100, 255, 255);
     circle(_x, _y, _size);
+  }
+  void division() {
+    SB_balls.add(new Ball(_x, _y, _dx * 0.8, _dy, _size));
   }
   void isHit2Block(int x, int y) {
     if (SB_blocks[y][x] > 0 && !_isHit) { // ブロックが存在するとき
@@ -56,11 +59,11 @@ class Ball {
     }
   }
   void isHit2Bar() {
-    String _hit = VB_hit(VB_barX, GAME_height - GAME_height / 10, SB_blockWindowWidth * SB_barSize / 240, GAME_height / 20, _x, _y, _size);
+    String _hit = VB_hit(VB_barX, GAME_height - GAME_height / 12, SB_blockWindowWidth * SB_barSize / 240, GAME_height / 20, _x, _y, _size);
     if (!_hit.equals("")) {
       if (_hit == "dy") {
-        _dx = SB_gameSpeed * (_x - mouseX) / 5000;
-        _dy *= -1;
+        _dx = SB_gameSpeed * (_x - mouseX) / 50;
+        _dy = abs(_dy) * - 1;
       }
     }
   }
