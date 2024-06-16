@@ -3,8 +3,7 @@
 int VB_barX = 0;
 
 void VB_boot() {
-  SB_isTimeProcessing = false; // 停止状態で開始
-  SB_lastEnergy = 0; // 最後のエネルギーを初期化
+  SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
   SB_balls = new ArrayList<Ball>(); // ボールの初期化
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 12; j++) {
@@ -26,15 +25,6 @@ void VB_update() {
     SB_balls.get(i).update();
   }
   VB_updateBar();
-  if (!SB_isTimeProcessing) {
-    fill(255, 100, 100, 50);
-    rect(0, 0, GAME_width, GAME_height);
-    fill(255, 0, 0);
-    textFont(fontXl);
-    text("PAUSED", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
-    textFont(fontMd);
-    text("Press space to resume", GAME_width / 2, GAME_height / 2 + (GAME_height / 6));
-  }
 }
 
 void VB_updateBlock(int x, int y) {

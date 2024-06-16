@@ -8,7 +8,8 @@ void keyPressed() { // キー入力
       }
       break;
     case 2 : // Block
-      if (keyCode == 32) SB_pause(); // SPACE, 一時停止
+      if (keyCode == ENTER) SB_pause(); // SPACE, 一時停止
+      if (keyCode == 32) // SPACE, 一時停止 // TODO: ヘルプを開きたい
       if (key == '1') NET_recv("skill,1");
       if (key == '2') NET_recv("skill,2");
       if (key == '3') NET_recv("skill,3");
@@ -23,11 +24,12 @@ void keyPressed() { // キー入力
       break;
     case 3 : // Channel
       if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105)) SC_input(str(key)); // 入力
-      if (keyCode == DELETE) SC_input("del"); // DELETE, 全削除
-      if (keyCode == BACKSPACE) SC_input("bs"); // BACKSPACE, 一文字削除
+      if (keyCode == DELETE) SC_input("del"); // DELETE, 全字削除
+      if (keyCode == BACKSPACE) SC_input("bs"); // BACKSPACE, 一字削除
+      if (keyCode == ENTER) SC_input("enter"); // ENTER, 確定
       break;
-    case 4 : // -----
-    
+    case 4 : // Start
+      if (keyCode == ENTER) cmode(2); // ENTER, 戦闘開始
       break;
     case 5 : // Result
       

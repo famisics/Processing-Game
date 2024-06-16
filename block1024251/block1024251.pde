@@ -36,16 +36,14 @@ void draw() { // !画面遷移(常に実行)
     case 3 : // Channel
       SC_update();
       break;
-    case 4 : // -----
+    case 4 : // Start
+      SS_update();
       break;
     case 5 : // result
       SR_update();
       break;
     case 6 : // talk
       ST_update();
-      break;
-    case 7 : // worldmap
-      SW_update();
       break;
     default :
     break;	
@@ -78,8 +76,9 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       println("[SCENE3]  Channel");
       SC_boot();
       break;
-    case 4 : // -----
-      println("[SCENE4]  -----");
+    case 4 : // Start
+      println("[SCENE4]  Start");
+      SS_boot();
       break;
     case 5 : // result
       println("[SCENE5]  Result");
@@ -90,10 +89,6 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       println("[SCENE6]  Talk");
       bgm6.loop();
       ST_boot();
-      break;
-    case 7 : // worldmap
-      println("[SCENE7]  Worldmap");
-      SW_boot();
       break;
     default :
     break;	

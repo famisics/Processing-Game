@@ -7,13 +7,14 @@ void SC_boot() {
 void SC_update() {
   image(image1, 0, 0, GAME_width, GAME_height);
   textAlign(CENTER, CENTER);
-  fill(255, 200, 200);
-  textFont(fontXl);
-  text("Channel", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
-  textFont(VP_fontScore);
+  fill(100, 255, 200);
+  textFont(SC_fontChannel);
   text(SC_ch, GAME_width / 2, GAME_height / 2);
+  fill(255);
   textFont(fontMd);
-  text("8文字までのチャンネル名を入力してください\nBackspaceで1字消し、Deleteで全字消しできます", GAME_width / 2, GAME_height / 2 + (GAME_height / 6));
+  text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nBackspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
+  actions("戦闘を開始");
+  navbar("Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
 }
 
 void SC_input(String _key) {
@@ -23,7 +24,9 @@ void SC_input(String _key) {
     }
   } else if (_key.equals("del")) {
     SC_ch = "";
+  } else if (_key.equals("enter")) {
+    cmode(4);
   } else {
-    if (SC_ch.length() < 8) SC_ch += _key;
+    if (SC_ch.length() < 12) SC_ch += _key;
   }
 }

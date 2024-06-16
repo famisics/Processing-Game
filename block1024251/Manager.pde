@@ -5,7 +5,7 @@ SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
 ButtonClass Button; // ボタン
 PImage image1, image2, image3, image4; // 画像ファイル
-PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle; // フォント
+PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel; // フォント
 JSONObject json; // JSONデータ
 
 WebsocketClient NET_CLIENT; // Websocketクライアント
@@ -45,6 +45,7 @@ void boot() { // 初期化用の関数
   VP_fontScore = createFont("Meiryo UI", GAME_width / 22);
   VP_fontScoreMd = createFont("Meiryo UI", GAME_width / 50);
   SH_fontTitle = createFont("src/fonts/glitch.otf", GAME_width / 10);
+  SC_fontChannel = createFont("src/fonts/jetbrains.ttf", GAME_width / 15);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
   bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
@@ -74,7 +75,7 @@ void boot() { // 初期化用の関数
     println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
     println("[GENERAL] ロード完了　ゲームを開始します");
     // cmode(1); // ホーム画面へ遷移
-    cmode(2); //TODO:デバッグ用に変更してます
+    cmode(3); //TODO:デバッグ用に変更してます
   }
 }
 
@@ -93,7 +94,7 @@ void save() { // jsonデータを保存
       _t = 0;
       DATA_ENERGY = 0;
     }
-    if(isOutOfRange(_t)) {
+    if (isOutOfRange(_t)) {
       _t = DATA_ENERGY;
       println("累計エネルギーオーバーフロー、変更を保存しません");
       GAME_isAlert = true;
@@ -101,7 +102,7 @@ void save() { // jsonデータを保存
     } else {
       json = new JSONObject();
       json.setString("username", DATA_USERNAME);
-      json.setFloat("energy", (float)_t);
+      json.setFloat("energy",(float)_t);
       json.setString("server", NET_SERVER_HOST);
       saveJSONObject(json, "config.json");
       println("[json]    config.json saved");
@@ -138,7 +139,7 @@ void actions(String _title) {
   triangle(600, 0, 600, 90, 650, 0);
   fill(255);
   textAlign(LEFT,CENTER);
-  textFont(fontLg);
+  textFont(fontXl);
   text(_title, 50, 45);
 }
 
