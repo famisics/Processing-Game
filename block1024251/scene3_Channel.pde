@@ -8,7 +8,7 @@ void SC_boot() {
   SC_chFlag = true;
   noTint();
   image1 = loadImage("src/images/night.png");
-  if(DATA_USERNAME.equals("")){
+  if (DATA_USERNAME.equals("")) {
     cmode(7);
   }
 }
@@ -21,7 +21,7 @@ void SC_update() {
   fill(255);
   textFont(fontMd);
   text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
-  actions("探索を開始");
+  actions("ゲームを開始");
   navbar("ESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
 }
 

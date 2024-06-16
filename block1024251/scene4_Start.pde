@@ -1,4 +1,4 @@
-// 探索開始画面
+// ゲーム開始画面
 
 int SS_startTime = 0; // SPACEを押し始めた時間
 boolean SS_isSpace = false; // SPACEを押しているかどうか
@@ -10,7 +10,7 @@ void SS_boot() {
 
 void SS_update() {
   image(image1, 0, 0, GAME_width, GAME_height);
-  actions("探索を開始");
+  actions("ゲームを開始");
   textAlign(CENTER, CENTER);  
   fill(255);
   textFont(fontLg);
@@ -18,7 +18,7 @@ void SS_update() {
   textFont(SC_fontChannel);
   fill(100, 255, 200);
   text(SC_ch, GAME_width / 2, GAME_height / 2);
-  navbar("Enter : チャンネル選択に戻る　SPACE長押し : 探索開始","");
+  navbar("Enter : チャンネル選択に戻る　SPACE長押し : ゲーム開始","");
   fill(255);
   textFont(fontLg);
   if (SS_isSpace) {
@@ -30,6 +30,6 @@ void SS_update() {
       cmode(2);
     }
   } else {
-    text("同じチャンネルの誰かがSPACEキーを長押しすると\n全員の探索が開始されます", GAME_width / 2, GAME_height * 3 / 4);
+    text("同じチャンネルの誰かがSPACEキーを長押しすると\n全員のゲームが開始されます", GAME_width / 2, GAME_height * 3 / 4);
   }
 }

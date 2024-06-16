@@ -17,12 +17,12 @@ void SR_update() {
   fill(255);
   textAlign(CENTER,CENTER);
   textFont(fontXl);
-  text("探索が終了しました", GAME_width / 2, GAME_height / 10);
+  text("ゲームが終了しました", GAME_width / 2, GAME_height / 10);
   textFont(VP_fontScoreMd);
   textAlign(LEFT,CENTER);
   text(DATA_USERNAME + "のステータスを表示しています\n\n\n\n今回獲得 エネルギー :\n\n累計獲得 エネルギー :\n\n展開済み エネルギー :\n\n使用可能 エネルギー :\n\n？？？？？？？？？ :\n\nESCを押してトップに戻ります", GAME_width / 4, GAME_height / 2);
   textAlign(RIGHT,CENTER);
-  text("\n\n\n\n" + doubleToJp(SR_displayLastEnergy) + "\n\n" + doubleToJp(DATA_ENERGY) + "\n\n" + "0" + "\n\n" + "0\n\n　" + doubleToJp(SR_plasma)+"\n\n　", GAME_width * 3 / 4, GAME_height / 2); // TODO:展開済み、使用可能、？？？？？？？？？は今後追加する
+  text("\n\n\n\n" + doubleToJp(SR_displayLastEnergy) + "\n\n" + doubleToJp(DATA_ENERGY) + "\n\n" + "0" + "\n\n" + "0\n\n　" + doubleToJp(SR_plasma) + "\n\n　", GAME_width * 3 / 4, GAME_height / 2); // TODO:展開済み、使用可能、？？？？？？？？？は今後追加する
   textAlign(CENTER,CENTER);
   navbar("ESC : トップに戻る","");
   SR_calcPlasma();

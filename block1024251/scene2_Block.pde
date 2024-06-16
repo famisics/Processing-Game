@@ -8,7 +8,8 @@ double SB_lastEnergy = 0; // 最後の獲得エネルギー
 float SB_gameSpeed = 1.0; // ゲームの速度
 int SB_blocksLife = 10; // ブロックの初期HP
 int SB_barSize = 80; // バーの横幅
-double SB_inflationRate = 1.0; // 獲得エネルギーインフレ率
+double SB_inflationRateTemporary = 1.0; // 獲得エネルギーインフレ率 (このゲームのみ)
+double SB_inflationRate = 0.0; // 総エネルギーをもとに計算
 int SB_ballCount = 1; // ボールの数
 int SB_blockCount = 0; // ブロックの数
 
@@ -21,6 +22,7 @@ void SB_boot() { // 初期化
   SB_isTimeProcessing = false; // 停止状態で開始
   SB_lastEnergy = 0; // 最後のエネルギーを初期化
   SB_blockWindowWidth = GAME_width * 2 / 3 - GAME_width / 40; // ブロック崩しの幅
+  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000; // インフレ率を計算
   VB_boot(); // ブロック崩し本体を初期化
   VP_Boot(); // サイドパネルを初期化
   VS_boot(); // スキルを初期化
@@ -34,7 +36,7 @@ void SB_update() { // 更新
   VS_update(); // スキルを更新
   SB_pauseUpdate(); // 一時停止時の描画
   SB_start(); // ゲーム開始時のカウントダウン
-  navbar("総ブロック数 : " + SB_blockCount + "　総ボール数 : " + SB_ballCount,"チャンネル : " + SC_ch);
+  navbar("総ブロック数 : " + SB_blockCount + "　総ボール数 : " + SB_ballCount,"");
 }
 
 void SB_start() {

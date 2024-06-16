@@ -15,6 +15,7 @@ void VB_boot() {
 
 void VB_update() {
   textAlign(CENTER,CENTER);
+  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000; // インフレ率を計算
   SB_blockCount = 0;
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {

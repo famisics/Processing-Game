@@ -1,6 +1,7 @@
 // 入力を受け付ける
 
 void keyPressed() { // キー入力
+  // *ローカル
   switch(GAME_MODE) { // ゲームモード限定の処理
     case 1 : // Home
       if (keyCode == 32 && !GAME_isTalkFinished) { // SPACE, 一時停止
@@ -8,9 +9,7 @@ void keyPressed() { // キー入力
       } else if (keyCode == 32 && GAME_isTalkFinished) { // SPACE, チャンネル選択へ
         cmode(3);
       }
-      if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
-      if (key == 't') cmode(7); // チュートリアル //!デモ用
-      if (keyCode == ENTER) cmode(3); // ENTER, 確定 //!デモ用
+      if (keyCode == ENTER) cmode(3); // ENTER, チャンネル選択へ //!デモ用
       break;
     case 2 : // Block
       if (key == '1') NET_recv("skill,1");
@@ -23,7 +22,7 @@ void keyPressed() { // キー入力
       if (key == '8') NET_recv("skill,8");
       if (key == '9') NET_recv("skill,9");
       if (key == '0') NET_recv("skill,0");
-      if (key == 'i') SB_inflationRate *= 2; // インフレ倍率をあげる(2倍) //!デモ用
+      if (key == 'i') SB_inflationRateTemporary *= 2; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
       if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用
       break;
@@ -34,7 +33,7 @@ void keyPressed() { // キー入力
       if (keyCode == ENTER) SC_input("enter"); // ENTER, 確定
       break;
     case 4 : // Start
-      if (keyCode == 32 && !SS_isSpace) { // ENTER, 探索開始, 3秒以上長押しで実行, 時間の判定ロジックはscene4にあります
+      if (keyCode == 32 && !SS_isSpace) { // ENTER, ゲーム開始, 3秒以上長押しで実行, 時間の判定ロジックはscene4にあります
         SS_isSpace = true;
         SS_startTime = GAME_clock;
       }
@@ -61,6 +60,7 @@ void keyPressed() { // キー入力
     default:
     break;
   }
+  // *グローバル
   if (keyCode == 27) { // ESCキー
     if (GAME_MODE == 3 || GAME_MODE == 6 || GAME_MODE == 5 || GAME_MODE == 7) {
       cmode(1);
@@ -72,9 +72,11 @@ void keyPressed() { // キー入力
       // exit();
     }
   }
-  if (key == 'a') {
-    // Button.add("explore", 100, 100, 100, 100, "neptune.png", this::buttonPressed1);
-  }
+  if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
+  if (key == 't') cmode(6); // チュートリアル //!デモ用
+  if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
+  if (keyCode == UP) cfps(true);
+  if (keyCode == DOWN) cfps(false);
   // モード切り替え //!(デモ用)
   if (keyEvent.isShiftDown()) {
     // 0のキーコードは48(参考)
@@ -87,8 +89,6 @@ void keyPressed() { // キー入力
     if (keyCode == 55) cmode(7);
     if (keyCode == 56) cmode(8);
   }
-  if (keyCode == UP) cfps(true);
-  if (keyCode == DOWN) cfps(false);
 }
 
 void keyReleased() {
