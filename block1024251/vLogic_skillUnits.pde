@@ -28,12 +28,12 @@ void VU_barExtendBoot(String duration) {
   VU_isBarExtend = true;
   VU_barExtendTime = GAME_clock;
   VU_barExtendDuration = parseInt(duration) * 1000;
-  SB_barSize = 100;
+  SB_barSize = 160;
 }
 void VU_barExtendUpdate() {
   if (VU_isBarExtend) {
     if (GAME_clock > VU_barExtendTime + VU_barExtendDuration) {
-      SB_barSize = 50;
+      SB_barSize = 80;
       VU_isBarExtend = false;
       VU_barExtendTime = 0;
     }
@@ -49,12 +49,12 @@ void VU_barContractBoot(String duration) {
   VU_isBarContract = true;
   VU_barContractTime = GAME_clock;
   VU_barContractDuration = parseInt(duration) * 1000;
-  SB_barSize = 25;
+  SB_barSize = 30;
 }
 void VU_barContractUpdate() {
   if (VU_isBarContract) {
     if (GAME_clock > VU_barContractTime + VU_barContractDuration) {
-      SB_barSize = 50;
+      SB_barSize = 80;
       VU_isBarContract = false;
       VU_barContractTime = 0;
     }

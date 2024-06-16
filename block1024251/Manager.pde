@@ -101,7 +101,7 @@ void save() { // jsonデータを保存
       _t = DATA_ENERGY;
       println("累計エネルギーオーバーフロー、変更を保存しません");
       GAME_isAlert = true;
-      GAME_alertText = "エネルギーがオーバーフローしました\n追加のエネルギーを破棄しました\nこれ以上ゲームをインフレさせることはできません\nありがとうございました";
+      GAME_alertText = "累計獲得エネルギーが限界に到達しました\n今回獲得したエネルギーは破棄されます\nこれ以上ゲームをインフレさせることはできません\n\nここまで遊んでいただきありがとうございました\n\nあなたをこのゲームのクリア者として認めます";
     } else {
       json = new JSONObject();
       json.setString("username", DATA_USERNAME);
@@ -156,8 +156,8 @@ void navbar(String _left, String _Right) {
 void actions(String _title) {
   noStroke();
   fill(0, 30, 50, 200);
-  rect(0, 0, 600, 90);
-  triangle(600, 0, 600, 90, 650, 0);
+  rect(0, 0, GAME_width / 2, GAME_height / 8);
+  triangle(GAME_width / 2, 0, GAME_width / 2, GAME_height / 8, GAME_width / 2 + GAME_width / 10, 0);
   fill(255);
   textAlign(LEFT,CENTER);
   textFont(fontXl);

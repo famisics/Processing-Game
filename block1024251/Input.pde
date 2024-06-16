@@ -8,10 +8,11 @@ void keyPressed() { // キー入力
       } else if (keyCode == 32 && GAME_isTalkFinished) { // SPACE, チャンネル選択へ
         cmode(3);
       }
+      if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
+      if (key == 't') cmode(7); // チュートリアル //!デモ用
+      if (keyCode == ENTER) cmode(3); // ENTER, 確定 //!デモ用
       break;
     case 2 : // Block
-      if (keyCode == ENTER) SB_pause(); // ENTER, 一時停止 //!デモ用
-      // if (keyCode == 32) // SPACE, ヘルプ // TODO: ヘルプを開きたい
       if (key == '1') NET_recv("skill,1");
       if (key == '2') NET_recv("skill,2");
       if (key == '3') NET_recv("skill,3");
@@ -24,6 +25,7 @@ void keyPressed() { // キー入力
       if (key == '0') NET_recv("skill,0");
       if (key == 'i') SB_inflationRate *= 2; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
+      if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用
       break;
     case 3 : // Channel
       if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105)) SC_input(str(key)); // 入力
@@ -38,7 +40,7 @@ void keyPressed() { // キー入力
       }
       break;
     case 5 : // Result
-      
+      if (keyCode == 32) cmode(1); // SPACE, 復帰
       break;
     case 6 : // Tutorial
       if (keyCode == LEFT) ST_ScriptPrev(); // シナリオ戻し
@@ -52,13 +54,24 @@ void keyPressed() { // キー入力
       if (keyCode == DELETE) SU_input("del"); // DELETE, 全字削除
       if (keyCode == BACKSPACE) SU_input("bs"); // BACKSPACE, 一字削除
       if (keyCode == ENTER) SU_input("enter"); // ENTER, 確定
+      break;
     case 8 : // 暗転
       if (keyCode == 32) cmode(1); // SPACE, 復帰
       break;
     default:
     break;
   }
-  if (keyCode == 27) exit(); // ESC, 終了
+  if (keyCode == 27) { // ESCキー
+    if (GAME_MODE == 3 || GAME_MODE == 6 || GAME_MODE == 5 || GAME_MODE == 7) {
+      cmode(1);
+      key = 0;
+    } else if (GAME_MODE == 4) {
+      cmode(3);
+      key = 0;
+    } else {
+      // exit();
+    }
+  }
   if (key == 'a') {
     // Button.add("explore", 100, 100, 100, 100, "neptune.png", this::buttonPressed1);
   }

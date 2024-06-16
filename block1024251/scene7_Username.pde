@@ -17,9 +17,9 @@ void SU_update() {
   text(SU_chDisplay, GAME_width / 2, GAME_height / 2);
   fill(255);
   textFont(fontMd);
-  text("ユーザー名(英数16文字まで)を入力し、Enterしてください\n\nBackspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
+  text("ユーザー名(英数16文字まで)を入力し、Enterしてください\n\nESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
   actions("ユーザー名設定");
-  navbar("Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
+  navbar("ESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
 }
 
 void SU_input(String _key) {

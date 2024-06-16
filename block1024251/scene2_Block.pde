@@ -6,8 +6,8 @@ float SB_ballSize; // ボールの大きさ
 boolean SB_isTimeProcessing = false; // 停止状態で開始
 double SB_lastEnergy = 0; // 最後の獲得エネルギー
 float SB_gameSpeed = 1.0; // ゲームの速度
-int SB_blocksLife = 1; // ブロックの初期HP
-int SB_barSize = 50; // バーの横幅
+int SB_blocksLife = 10; // ブロックの初期HP
+int SB_barSize = 80; // バーの横幅
 double SB_inflationRate = 1.0; // 獲得エネルギーインフレ率
 int SB_ballCount = 1; // ボールの数
 int SB_blockCount = 0; // ブロックの数
@@ -63,13 +63,14 @@ void SB_pause() { // 一時停止
 void SB_pauseUpdate() {
   if (!SB_isTimeProcessing) {
     textAlign(CENTER, CENTER);
-    fill(20, 200);
+    fill(50, 200);
     rect(0, 0, GAME_width, GAME_height);
-    fill(255);
-    textFont(fontXl);
-    text("PAUSED", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
-    textFont(fontMd);
-    // text("Press Enter to resume", GAME_width / 2, GAME_height / 2 + (GAME_height / 6));
-    // TODO:いつでもpauseできたらまずいのでは…？(デモ用かな)
+    if(SB_isStart) {
+      fill(255);
+      textFont(fontXl);
+      text("PAUSED", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
+      textFont(fontMd);
+      text("このゲームでポーズは想定されていません、これはデモ用です\n\npキーを押してゲームを再開します", GAME_width / 2, GAME_height / 2 + (GAME_height / 6));
+    }
   }
 }

@@ -9,16 +9,16 @@ import controlP5.*;
 // ネットワーク機能を有効にするには true を代入する
 boolean NET_isNetworkEnable = false;
 
-void settings() {
-  fullScreen();
-}
+// void settings() {
+//   fullScreen();
+// }
 // TODO:フルスクリーンの状態でビルドする
 
 void setup() {
   background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  // size(1280, 720);
+  size(1280, 720); // デバッグ用の解像度
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);
