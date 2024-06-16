@@ -34,7 +34,7 @@ void SB_update() { // 更新
   VS_update(); // スキルを更新
   SB_pauseUpdate(); // 一時停止時の描画
   SB_start(); // ゲーム開始時のカウントダウン
-  navbar("総ブロック数 : " + SB_blockCount + "　総ボール数 : " + SB_ballCount,"チャンネル");
+  navbar("総ブロック数 : " + SB_blockCount + "　総ボール数 : " + SB_ballCount,"チャンネル : " + SC_ch);
 }
 
 void SB_start() {

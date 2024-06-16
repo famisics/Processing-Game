@@ -45,8 +45,21 @@ void draw() { // !画面遷移(常に実行)
     case 6 : // talk
       ST_update();
       break;
-    default :
+    case 7 : // username
+      // TODO:実装する
       break;
+    case 8 : // blackout
+      noTint();
+      background(0);
+      textAlign(CENTER,CENTER);
+      textFont(SH_fontTitle);
+      fill(255);
+      text("暗転", GAME_width / 2 , GAME_height / 2);
+      textFont(fontXl);
+      text("スペースキーを押して復帰", GAME_width / 2 , GAME_height * 3 / 4);
+      break;
+    default :
+    break;
   }
   FPS_data.update();
   GAME_clock = millis();
@@ -91,7 +104,7 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       ST_boot();
       break;
     default :
-      break;
+    break;
   }
   GAME_MODE = _mode;
 }

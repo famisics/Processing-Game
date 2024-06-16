@@ -56,7 +56,7 @@ void boot() { // 初期化用の関数
   // bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3"); //TODO: bgmどれにしよう
   bgm2 = new SoundFile(this, "src/sounds/bgm/battle/ビーボルト.mp3");
   bgm5 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
-  bgm6 = new SoundFile(this, "src/sounds/bgm/Kaigiencho.mp3");
+  bgm6 = new SoundFile(this, "src/sounds/bgm/Trace.mp3");
   // jsonデータを取得
   println("[setup]   config.json をロードしています");
   json = loadJSONObject("config.json");
@@ -141,7 +141,7 @@ String doubleToJp(double value) {
 
 
 void navbar(String _left, String _Right) {
-  if (_left == "") _left = "Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
+  if (_left == "") _left = "Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username　8 : 暗転)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
   fill(0);
   rect(0, GAME_height - GAME_width / 50, GAME_width, GAME_width / 50);
   fill(255);

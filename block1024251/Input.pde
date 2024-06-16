@@ -47,6 +47,9 @@ void keyPressed() { // キー入力
       if (keyCode == ENTER) ST_ScriptNext(); // ENTER, シナリオ進め
       if (key == 'f') ST_ScriptNext(); // f, シナリオ進め
       break;
+    case 8 : // 暗転
+      if (keyCode == 32) cmode(1); // SPACE, 復帰
+      break;
     default:
     break;
   }
@@ -65,7 +68,6 @@ void keyPressed() { // キー入力
     if (keyCode == 54) cmode(6);
     if (keyCode == 55) cmode(7);
     if (keyCode == 56) cmode(8);
-    if (keyCode == 57) cmode(9);
   }
   if (keyCode == UP) cfps(true);
   if (keyCode == DOWN) cfps(false);
