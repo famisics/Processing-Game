@@ -40,9 +40,12 @@ void SH_update() {
   fill(255);
   text("地球再生計画", GAME_width / 2 + SH_titleShakeX, GAME_height / 2 - (GAME_height / 6) + SH_titleShakeY);
   textFont(fontLg);
-  text("Press space to start", GAME_width / 2 + (SH_titleShakeX / 2), GAME_height / 2 + (GAME_height / 6) + (SH_titleShakeY / 2));
+  text("スペースキーを押してください", GAME_width / 2 + (SH_titleShakeX / 2), GAME_height / 2 + (GAME_height / 6) + (SH_titleShakeY / 2));
   textAlign(LEFT);
   text("現在のエネルギー: " + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
+  textFont(fontSm);
+  fill(0, 255, 255);
+  text("[ デモが有効になっています ]\n以下のキーコンフィグが有効です\n\n全てのシーン>　Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial)　↑ : FPS+　↓ : FPS-　ESC : QUIT\n\nブロック崩し>　i:エネルギー倍率を増加　l : リスタート" + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height * 4 / 5);
   rectMode(CORNER);
   navbar("","2024 (C) b1024251 Takumi Yamazaki");
 }

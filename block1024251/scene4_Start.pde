@@ -10,11 +10,11 @@ void SS_boot() {
 
 void SS_update() {
   image(image1, 0, 0, GAME_width, GAME_height);
-  actions("探索を待機中");
+  actions("探索を開始");
   textAlign(CENTER, CENTER);  
   fill(255);
-  textFont(createFont("src/fonts/smartfont.otf", GAME_width / 30));
-  text("Press SPACE to START", GAME_width / 2, GAME_height / 4);
+  textFont(fontLg);
+  text("対戦する他のプレイヤーにチャンネル名を伝えてください", GAME_width / 2, GAME_height / 4);
   textFont(SC_fontChannel);
   fill(100, 255, 200);
   text(SC_ch, GAME_width / 2, GAME_height / 2);
@@ -30,6 +30,6 @@ void SS_update() {
       cmode(2);
     }
   } else {
-    text("同じChannelの誰かがSPACEキーを長押しすると\n全員の探索が開始されます", GAME_width / 2, GAME_height * 3 / 4);
+    text("同じチャンネルの誰かがSPACEキーを長押しすると\n全員の探索が開始されます", GAME_width / 2, GAME_height * 3 / 4);
   }
 }

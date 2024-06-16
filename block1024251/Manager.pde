@@ -78,8 +78,7 @@ void boot() { // 初期化用の関数
     }
     println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
     println("[GENERAL] ロード完了　ゲームを開始します");
-    // cmode(1); // ホーム画面へ遷移
-    cmode(3); //TODO:デバッグ用に変更してます
+    cmode(1);
   }
 }
 
@@ -117,8 +116,6 @@ void save() { // jsonデータを保存
 }
 
 boolean isOutOfRange(double value) {
-  println(value);
-  println(3.2e38);
   double _max = 3.2e38;
   return value > _max;
 }

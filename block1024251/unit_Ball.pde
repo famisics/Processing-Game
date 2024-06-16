@@ -39,7 +39,7 @@ class Ball {
     circle(_x, _y, _size);
   }
   void division() {
-    SB_balls.add(new Ball(_x, _y, _dx * 0.8, _dy, _size));
+    SB_balls.add(new Ball(_x, _y, _dx * 0.8, _dy * - 1, _size));
   }
   void isHit2Block(int x, int y) {
     if (SB_blocks[y][x] > 0 && !_isHit) { // ブロックが存在するとき
@@ -60,7 +60,7 @@ class Ball {
   }
   void isHit2Bar() {
     String _hit = VB_hit(VB_barX, GAME_height - GAME_height / 12, SB_blockWindowWidth * SB_barSize / 240, GAME_height / 20, _x, _y, _size);
-    if (!_hit.equals("")) {
+    if (!_hit.equals("") && ((GAME_height - GAME_height / 12) < (_y + _size))) {
       if (_hit == "dy") {
         _dx = SB_gameSpeed * (_x - mouseX) / 50;
         _dy = abs(_dy) * - 1;

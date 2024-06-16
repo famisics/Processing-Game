@@ -1,10 +1,11 @@
 String SC_ch = ""; 
 String SC_chDisplay = "";
-boolean SC_chFlag = false;
+boolean SC_chFlag = true;
 
 void SC_boot() {
   SC_ch = "";
-  SC_chDisplay = SC_ch;
+  SC_chDisplay = "-";
+  SC_chFlag = true;
   noTint();
   image1 = loadImage("src/images/night.png");
 }
@@ -29,7 +30,11 @@ void SC_input(String _key) {
   } else if (_key.equals("del")) {
     SC_ch = "";
   } else if (_key.equals("enter")) {
-    cmode(4);
+    if (SC_ch.length()>0) {
+      cmode(4);
+    } else {
+      return;
+    }
   } else {
     if (SC_ch.length() < 12) SC_ch += _key;
   }
@@ -39,7 +44,8 @@ void SC_input(String _key) {
     SC_chFlag = false;
     SC_chDisplay = SC_ch;
   }
-  if(SC_chFlag) {
+  if (SC_chFlag) {
     SC_chDisplay = "-";
+    SC_ch = "";
   }
 }
