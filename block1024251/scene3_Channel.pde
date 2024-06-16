@@ -8,6 +8,9 @@ void SC_boot() {
   SC_chFlag = true;
   noTint();
   image1 = loadImage("src/images/night.png");
+  if(DATA_USERNAME.equals("")){
+    cmode(7);
+  }
 }
 void SC_update() {
   image(image1, 0, 0, GAME_width, GAME_height);

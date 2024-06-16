@@ -47,6 +47,11 @@ void keyPressed() { // キー入力
       if (keyCode == ENTER) ST_ScriptNext(); // ENTER, シナリオ進め
       if (key == 'f') ST_ScriptNext(); // f, シナリオ進め
       break;
+    case 7 : // Username
+      if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 96 && keyCode <= 105)) SU_input(str(key)); // 入力
+      if (keyCode == DELETE) SU_input("del"); // DELETE, 全字削除
+      if (keyCode == BACKSPACE) SU_input("bs"); // BACKSPACE, 一字削除
+      if (keyCode == ENTER) SU_input("enter"); // ENTER, 確定
     case 8 : // 暗転
       if (keyCode == 32) cmode(1); // SPACE, 復帰
       break;

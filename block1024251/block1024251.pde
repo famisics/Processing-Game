@@ -9,16 +9,16 @@ import controlP5.*;
 // ネットワーク機能を有効にするには true を代入する
 boolean NET_isNetworkEnable = false;
 
-// void settings() {
-//   fullScreen();
-// }
+void settings() {
+  fullScreen();
+}
 // TODO:フルスクリーンの状態でビルドする
 
 void setup() {
   background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  size(1280, 720);
+  // size(1280, 720);
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);
@@ -33,10 +33,10 @@ void draw() { // !画面遷移(常に実行)
     case 2 : // block
       SB_update();
       break;
-    case 3 : // Channel
+    case 3 : // channel
       SC_update();
       break;
-    case 4 : // Start
+    case 4 : // start
       SS_update();
       break;
     case 5 : // result
@@ -46,7 +46,7 @@ void draw() { // !画面遷移(常に実行)
       ST_update();
       break;
     case 7 : // username
-      // TODO:実装する
+      SU_update();
       break;
     case 8 : // blackout
       noTint();
@@ -67,6 +67,7 @@ void draw() { // !画面遷移(常に実行)
 }
 
 void cmode(int _mode) { // !画面遷移(1回だけ実行)
+  GAME_MODE = _mode;
   save();
   bgm1.stop();
   bgm2.stop();
@@ -85,11 +86,11 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       bgm2.pause();
       SB_boot();
       break;
-    case 3 : // Channel
+    case 3 : // channel
       println("[SCENE3]  Channel");
       SC_boot();
       break;
-    case 4 : // Start
+    case 4 : // start
       println("[SCENE4]  Start");
       SS_boot();
       break;
@@ -103,10 +104,13 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       bgm6.loop();
       ST_boot();
       break;
+    case 7 : // username
+      println("[SCENE7]  Username");
+      SU_boot();
+      break;
     default :
     break;
   }
-  GAME_MODE = _mode;
 }
 
 void dispose() {

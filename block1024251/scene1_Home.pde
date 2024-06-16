@@ -42,10 +42,10 @@ void SH_update() {
   textFont(fontLg);
   text("スペースキーを押してください", GAME_width / 2 + (SH_titleShakeX / 2), GAME_height / 2 + (GAME_height / 6) + (SH_titleShakeY / 2));
   textAlign(LEFT);
-  text("現在のエネルギー: " + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
+  text("ユーザー名 : "+DATA_USERNAME+" (nキーを押して変更)\n累計獲得エネルギー : " + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
   textFont(fontSm);
   fill(0, 255, 255);
-  text("[ デモが有効になっています ]\n以下のキーコンフィグが有効です\n\n全てのシーン>　Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username　8 : 暗転)　↑ : FPS+　↓ : FPS-　ESC : QUIT\n\nブロック崩し>　i:エネルギー倍率を増加　l : リスタート" + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height * 4 / 5);
+  text("[ デモが有効になっています ]\n以下のキーコンフィグが有効です\n\n全てのシーン>　Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username　8 : 暗転)　↑ : FPS+　↓ : FPS-　ESC : QUIT\n\nブロック崩し>　i : エネルギー倍率を増加　l : リスタート" + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height * 4 / 5);
   rectMode(CORNER);
   navbar("","2024 (C) b1024251 Takumi Yamazaki");
 }
