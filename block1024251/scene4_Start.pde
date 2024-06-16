@@ -4,6 +4,7 @@ int SS_startTime = 0; // SPACEを押し始めた時間
 boolean SS_isSpace = false; // SPACEを押しているかどうか
 
 void SS_boot() {
+  noTint();
   image1 = loadImage("src/images/world.png");
 }
 

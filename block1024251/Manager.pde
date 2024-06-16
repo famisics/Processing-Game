@@ -5,7 +5,7 @@ SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
 ButtonClass Button; // ボタン
 PImage image1, image2, image3, image4; // 画像ファイル
-PFont fontXl, fontLg, fontMd, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel; // フォント
+PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel; // フォント
 JSONObject json; // JSONデータ
 
 WebsocketClient NET_CLIENT; // Websocketクライアント
@@ -24,8 +24,8 @@ String GAME_alertText = ""; // アラートテキスト
 int GAME_alertTime = 0; // アラートの時間
 int GAME_clock = millis(); // ゲーム内の時計
 
-String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}; // longToJp用の数詞
-int[] jpUnitRank = {0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68}; // longToJp用
+String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}; // doubleToJp用の数詞
+int[] jpUnitRank = {0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68}; // doubleToJp用
 
 int GAME_fpsIndex = 2; // FPSのインデックス
 int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
@@ -43,6 +43,7 @@ void boot() { // 初期化用の関数
   fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 20);
   fontLg = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 40);
   fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 50);
+  fontMdsm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 60);
   fontSm = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 80);
   fontMono = createFont("Monospaced.plain", GAME_width / 80);
   VP_fontScore = createFont("Meiryo UI", GAME_width / 22);
@@ -122,7 +123,7 @@ boolean isOutOfRange(double value) {
   return value > _max;
 }
 
-String longToJp(double value) {
+String doubleToJp(double value) {
   if (value == 0) return "0";
   StringBuilder _sb = new StringBuilder();
   int _i = jpUnit.length - 1;

@@ -42,7 +42,7 @@ void SH_update() {
   textFont(fontLg);
   text("Press space to start", GAME_width / 2 + (SH_titleShakeX / 2), GAME_height / 2 + (GAME_height / 6) + (SH_titleShakeY / 2));
   textAlign(LEFT);
-  text("現在のエネルギー: " + longToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
+  text("現在のエネルギー: " + doubleToJp(DATA_ENERGY), GAME_height / 10, GAME_height / 10);
   rectMode(CORNER);
   navbar("","2024 (C) b1024251 Takumi Yamazaki");
 }

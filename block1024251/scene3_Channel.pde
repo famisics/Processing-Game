@@ -1,7 +1,11 @@
 String SC_ch = ""; 
+String SC_chDisplay = "";
+boolean SC_chFlag = false;
 
 void SC_boot() {
   SC_ch = "";
+  SC_chDisplay = SC_ch;
+  noTint();
   image1 = loadImage("src/images/night.png");
 }
 void SC_update() {
@@ -9,7 +13,7 @@ void SC_update() {
   textAlign(CENTER, CENTER);
   fill(100, 255, 200);
   textFont(SC_fontChannel);
-  text(SC_ch, GAME_width / 2, GAME_height / 2);
+  text(SC_chDisplay, GAME_width / 2, GAME_height / 2);
   fill(255);
   textFont(fontMd);
   text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nBackspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
@@ -28,5 +32,14 @@ void SC_input(String _key) {
     cmode(4);
   } else {
     if (SC_ch.length() < 12) SC_ch += _key;
+  }
+  if (SC_ch == "") {
+    SC_chFlag = true;
+  } else {
+    SC_chFlag = false;
+    SC_chDisplay = SC_ch;
+  }
+  if(SC_chFlag) {
+    SC_chDisplay = "-";
   }
 }

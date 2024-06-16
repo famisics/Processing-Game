@@ -110,8 +110,7 @@ int VU_ballDoubleDuration = 0;
 void VU_divisionBallBoot(String duration) {
   VU_ballDoubleTime = GAME_clock;
   VU_ballDoubleDuration = parseInt(duration) * 1000;
-  int _size = SB_balls.size();
-  for (int i = 0; i < _size; i++) {
+  for (int i = 0; i < SB_ballCount; i++) {
     println("division");
     SB_balls.get(i).division();
   }

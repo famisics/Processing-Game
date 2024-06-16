@@ -1,7 +1,6 @@
 // ブロック崩し部分のロジック
 
 int VB_barX = 0;
-int VB_sumLife = 0;
 
 void VB_boot() {
   SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
@@ -16,7 +15,7 @@ void VB_boot() {
 
 void VB_update() {
   textAlign(CENTER,CENTER);
-  VB_sumLife = 0;
+  SB_blockCount = 0;
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       VB_updateBlock(x,y);
@@ -27,6 +26,10 @@ void VB_update() {
     SB_balls.get(i).update();
   }
   VB_updateBar();
+  SB_ballCount = SB_balls.size();
+  if (SB_ballCount == 0 || SB_blockCount == 0) {
+    cmode(5);
+  }
 }
 
 void VB_updateBlock(int x, int y) {
@@ -37,7 +40,7 @@ void VB_updateBlock(int x, int y) {
     textFont(fontMd);
     text(SB_blocks[y][x], x * SB_blockWindowWidth / 12 + SB_blockWindowWidth / 24 , y * GAME_height / 20 + GAME_height / 40);
   }
-  VB_sumLife += SB_blocks[y][x];
+  SB_blockCount += SB_blocks[y][x];
 }
 void VB_updateBar() {
   if (SB_isTimeProcessing) {
