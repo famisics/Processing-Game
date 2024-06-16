@@ -17,7 +17,7 @@ void VP_update() {
   textFont(fontSm);
   text("累計エネルギー", float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 20 / 100);
   textFont(VP_fontScoreMd);
-  text(doubleToJp(SB_inflationRate) + "倍", float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 23 / 100);
+  text(doubleToJp((1 + (DATA_ENERGY + SB_lastEnergy) / 2000) * SB_inflationRate) + "倍", float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 23 / 100);
   textFont(fontSm);
   text("インフレ倍率", float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 20 / 100);
   textFont(fontMdsm);

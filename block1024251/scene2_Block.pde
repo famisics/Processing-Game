@@ -41,9 +41,9 @@ void SB_start() {
   if (!SB_isStart) {
     int _r = (5 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
     fill(255);
-    textFont(fontXl);
+    textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);
-    text("探索開始まで: " + str(_r), GAME_width / 2, GAME_height * 3 / 4);
+    text(str(_r), GAME_width / 2, GAME_height / 2);
     if (_r <=  0) {
       SB_isStart = true;
       SB_pause();
@@ -65,7 +65,7 @@ void SB_pauseUpdate() {
     textAlign(CENTER, CENTER);
     fill(50, 200);
     rect(0, 0, GAME_width, GAME_height);
-    if(SB_isStart) {
+    if (SB_isStart) {
       fill(255);
       textFont(fontXl);
       text("PAUSED", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));

@@ -1,5 +1,0 @@
-// ボタンのクラス
-
-class ButtonClass {
-  
-}

@@ -3,9 +3,8 @@
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
-ButtonClass Button; // ボタン
 PImage image1, image2, image3, image4; // 画像ファイル
-PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel; // フォント
+PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel, ST_fontTutorial; // フォント
 JSONObject json; // JSONデータ
 
 WebsocketClient NET_CLIENT; // Websocketクライアント
@@ -36,7 +35,6 @@ void boot() { // 初期化用の関数
   GAME_height = height;
   FPS_data = new FPS();
   CP = new ControlP5(this);
-  Button = new ButtonClass();
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
@@ -50,6 +48,7 @@ void boot() { // 初期化用の関数
   VP_fontScoreMd = createFont("Meiryo UI", GAME_width / 50);
   SH_fontTitle = createFont("src/fonts/glitch.otf", GAME_width / 10);
   SC_fontChannel = createFont("src/fonts/jetbrains.ttf", GAME_width / 15);
+  ST_fontTutorial = createFont("游ゴシック Bold", GAME_width / 30);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
   bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
