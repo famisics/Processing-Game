@@ -74,7 +74,7 @@ void boot() { // 初期化用の関数
     println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
     println("[GENERAL] ロード完了　ゲームを開始します");
     // cmode(1); // ホーム画面へ遷移
-    cmode(3); //TODO:デバッグ用に変更してます
+    cmode(2); //TODO:デバッグ用に変更してます
   }
 }
 
@@ -86,6 +86,8 @@ void se(String _path) {
 void save() { // jsonデータを保存
   if (!DATA_SAVELOCKED) {
     double _t = DATA_ENERGY += SB_lastEnergy;
+    _t = Math.floor(_t);
+    DATA_ENERGY = Math.floor(DATA_ENERGY);
     if (_t < 0) {
       println("累計エネルギーオーバーフロー、変更を保存しません");
       _t = 0;

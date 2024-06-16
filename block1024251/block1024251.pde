@@ -1,6 +1,7 @@
 // メイン
 
 // ライブラリのインポート
+import java.util.Iterator;
 import processing.sound.*;
 import websockets.*;
 import controlP5.*;

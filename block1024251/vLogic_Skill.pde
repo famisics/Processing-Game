@@ -26,9 +26,13 @@ void VS_boot() { // スキル一覧の読み込み
   VS_cutinImage = loadImage("src/images/skill/demo.png");
 }
 void VS_update() {
-  VS_cutinUpdate(); // カットイン
+  // スキルタイマー
+  VU_activeSkillUpdate();
   // スキルの処理
   VU_sheldUpdate();
+  VU_barExtendUpdate();
+  // カットイン
+  VS_cutinUpdate();
 }
 void VS_skillSend(String _id) { // スキル送信
   NET_send("skill," + _id);
@@ -54,30 +58,34 @@ void VS_skill(String[] i) {
   }
 }
 void VS_oppo(String[] i) { // 相手側で発動するスキル
-  println("VS_oppo " + i[0] + "," + i[1] + "," + i[2] + "," + i[3] + "," + i[4] + "," + i[5] + "," + i[6]);
-  if (!i[6].equals("")) VS_cutin(i[6]);
+  if (!i[3].equals("")) VS_cutin(i[3], i[4]);
 }
 void VS_self(String[] i) { // 自分側で発動するスキル
-  println("VS_self " + i[0] + "," + i[1] + "," + i[2] + "," + i[3] + "," + i[4] + "," + i[5] + "," + i[6]);
-  if (!i[6].equals("")) VS_cutin(i[6]);
+  if (!i[3].equals("")) VS_cutin(i[3], i[4]);
   switch (i[0]) {
     case "1" :
-      VU_shieldBoot();
-    break;
+      VU_shieldBoot(i[2], i[4]);
+      break;
+    case "2" :
+      VU_barExtendBoot(i[2], i[4]);
+      break;
+    default :
+      println("[ERROR] 謎のスキルです");
+      break;
   }
 }
 
 // !カットイン
 
 // スキルカットイン画像は横2縦1比率
-void VS_cutin(String i) {
+void VS_cutin(String imagePath, String skillName) {
   if(VS_isCutin) {
     VS_cutinX = GAME_width;
     VS_isCutinSlideOut = false;
     VS_isCutinSlideIn = true;
     VS_cutinDX = GAME_width / 20;
   }
-  VS_cutinImage = createRoundedImage(i);
+  VS_cutinImage = createRoundedImage(imagePath, skillName);
   VS_isCutin = true;
 }
 void VS_cutinUpdate() {
@@ -113,26 +121,37 @@ void VS_cutinUpdate() {
     image(VS_cutinImage, VS_cutinX,(VS_cutinSizeX) / 2, VS_cutinSizeX, VS_cutinSizeY);
   }
 }
-PImage createRoundedImage(String i) {
+PImage createRoundedImage(String i, String skillName) {
+  println(skillName);
   PImage _rawImg = loadImage("src/images/skill/" + i + ".png");
   PGraphics _pg = createGraphics(_rawImg.width, _rawImg.height);
   _pg.beginDraw();
-  _pg.background(0, 0);
-  _pg.noStroke();
-  _pg.fill(255);
-  _pg.rectMode(CORNER);
-  _pg.beginShape();
-  _pg.vertex(VS_cutinImageMaskRad, 0);
-  _pg.vertex(_rawImg.width, 0); // 右上の角
-  _pg.vertex(_rawImg.width, _rawImg.height); // 右下の角
-  _pg.vertex(VS_cutinImageMaskRad, _rawImg.height);
-  _pg.quadraticVertex(0, _rawImg.height, 0, _rawImg.height - VS_cutinImageMaskRad); // 左下の角を丸くする
-  _pg.vertex(0, VS_cutinImageMaskRad);
-  _pg.quadraticVertex(0, 0, VS_cutinImageMaskRad, 0); // 左上の角を丸くする
-  _pg.endShape(CLOSE);
+  _pg.image(_rawImg, 0, 0);
+  _pg.fill(0, 150);
+  _pg.rect(0, _rawImg.height*2/3, _rawImg.width, _rawImg.height/3);
+  _pg.fill(255); // テキストの色
+  _pg.textAlign(CENTER, CENTER);
+  _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 10));
+  _pg.text(skillName, _rawImg.width / 2, _rawImg.height * 5 / 6); // 画像の下半分に表示
   _pg.endDraw();
-  PImage _maskedImage = createImage(_rawImg.width, _rawImg.height, ARGB);
-  _rawImg.mask(_pg);
-  _maskedImage.copy(_rawImg, 0, 0, _rawImg.width, _rawImg.height, 0, 0, _rawImg.width, _rawImg.height);
+
+  PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
+  _mask.beginDraw();
+  _mask.background(0, 0);
+  _mask.noStroke();
+  _mask.fill(255);
+  _mask.rectMode(CORNER);
+  _mask.beginShape();
+  _mask.vertex(VS_cutinImageMaskRad, 0);
+  _mask.vertex(_rawImg.width, 0); // 右上の角
+  _mask.vertex(_rawImg.width, _rawImg.height); // 右下の角
+  _mask.vertex(VS_cutinImageMaskRad, _rawImg.height);
+  _mask.quadraticVertex(0, _rawImg.height, 0, _rawImg.height - VS_cutinImageMaskRad); // 左下の角を丸くする
+  _mask.vertex(0, VS_cutinImageMaskRad);
+  _mask.quadraticVertex(0, 0, VS_cutinImageMaskRad, 0); // 左上の角を丸くする
+  _mask.endShape(CLOSE);
+  _mask.endDraw();
+  PImage _maskedImage = _pg.get();
+  _maskedImage.mask(_mask);
   return _maskedImage;
 }

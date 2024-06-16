@@ -56,13 +56,10 @@ class Ball {
     }
   }
   void isHit2Bar() {
-    int _barX = mouseX - SB_blockWindowWidth * SB_barSize / 480;
-    if (_barX < 0) {_barX = 0;} else if (_barX + SB_blockWindowWidth * SB_barSize / 240 > SB_blockWindowWidth) {_barX = SB_blockWindowWidth - SB_blockWindowWidth * SB_barSize / 240;}
-    String _hit = VB_hit(_barX, GAME_height * 19 / 20, SB_blockWindowWidth / 6, GAME_height / 20, _x, _y, _size);
+    String _hit = VB_hit(VB_barX, GAME_height - GAME_height / 10, SB_blockWindowWidth * SB_barSize / 240, GAME_height / 20, _x, _y, _size);
     if (!_hit.equals("")) {
-      if (_hit == "dx") {
+      if (_hit == "dy") {
         _dx = SB_gameSpeed * (_x - mouseX) / 5000;
-      } else {
         _dy *= -1;
       }
     }

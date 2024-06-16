@@ -24,7 +24,7 @@ void SB_update() {
   VB_update(); // ブロック崩し本体を更新
   VP_update(); // サイドパネルを更新
   VS_update(); // スキルを更新
-  navbar("","ENERGY: " + String.valueOf(SB_lastEnergy)+"インフレ倍率:"+String.valueOf(SB_inflationRate)); // ナビゲーションバー
+  navbar("","モード: " + "ソロ探索"+"　接続Channel:"+"rd1234"); // ナビゲーションバー
 }
 
 void SB_pause() { // 一時停止
