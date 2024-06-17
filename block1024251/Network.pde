@@ -5,7 +5,7 @@ void NET_recv(String i) {
   String[] _data = split(i, ","); // データ構造 : [0] = イベント名, [1] = 内容, [2] = 送信先チャンネル, [3] = ユーザーネーム
   println("DATA:" + _data[2]);
   println("local:" + NET_channel);
-  if (_data[2].equals(NET_channel)) { // TODO:受信できない！やば！！！！
+  if (_data[2].equals(NET_channel)) {
     switch(_data[0]) {
       case "skill" :
         println("[WS:skill] " + _data[3] + "がスキルID" + _data[1] + "を発動しました");

@@ -1,15 +1,15 @@
 // ホーム
 
-float alpha = 0; // 透明度の初期値
-float fontSize = 200; // フォントサイズの初期値
-float targetFontSize = 30; // 最終的なフォントサイズ
-float easing = 0.12; // イージングの係数
+float SH_alpha = 0; // 透明度の初期値
+float SH_fontSize = 200; // フォントサイズの初期値
+float SH_targetFontSize = 30; // 最終的なフォントサイズ
+float SH_easing = 0.12; // イージングの係数
 
 void SH_boot() {
   background(0);
   image1 = loadImage("src/images/start.png");
-  fontSize = GAME_width / 5;
-  targetFontSize = GAME_width / 10;
+  SH_fontSize = GAME_width / 5;
+  SH_targetFontSize = GAME_width / 10;
 }
 void SH_update() {
   SH_titleAnime();
@@ -18,10 +18,10 @@ void SH_update() {
   noTint();
   textAlign(CENTER,CENTER);
   textFont(SH_fontTitle);
-  textSize(fontSize);
-  fill(255, 0, 0, alpha);
+  textSize(SH_fontSize);
+  fill(255, 0, 0, SH_alpha);
   text("地球再生計画", GAME_width / 2 + 10, GAME_height / 2 - (GAME_height / 6) + 10);
-  fill(255, alpha);
+  fill(255, SH_alpha);
   text("地球再生計画", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));
   fill(255);
   textFont(fontLg);
@@ -34,23 +34,19 @@ void SH_update() {
   rectMode(CORNER);
   navbar("","2024 (C) b1024251 Takumi Yamazaki");
 }
-void SH_titleAnime() {
-  // フェードイン効果（ease-out）
-  if (alpha < 255) {
-    float dAlpha = (255 - alpha) * easing; // 変化量を計算
-    alpha += dAlpha; // アルファ値を更新
-    // 最終的に255に近づける
-    if (alpha > 255) {
-      alpha = 255;
+void SH_titleAnime() { // タイトルのアニメーション
+  if (SH_alpha < 255) {
+    float _dalpha = (255 - SH_alpha) * SH_easing;
+    SH_alpha += _dalpha;
+    if (SH_alpha > 255) {
+      SH_alpha = 255;
     }
   }
-  // 縮小効果（ease-out）
-  if (fontSize > targetFontSize) {
-    float dFontSize = (targetFontSize - fontSize) * easing; // 変化量を計算
-    fontSize += dFontSize; // フォントサイズを更新
-    // 最終的に目標サイズに近づける
-    if (fontSize < targetFontSize) {
-      fontSize = targetFontSize;
+  if (fontSize > SH_targetFontSize) {
+    float dFontSize = (SH_targetFontSize - SH_fontSize) * SH_easing;
+    SH_fontSize += dFontSize;
+    if (SH_fontSize < SH_targetFontSize) {
+      SH_fontSize = SH_targetFontSize;
     }
   }
 }

@@ -1,13 +1,12 @@
 // メイン
 
-// ライブラリのインポート
 import java.util.Iterator;
 import processing.sound.*;
 import websockets.*;
 
-// ネットワーク機能を有効にするには true を代入する
-boolean NET_isNetworkEnable = true;
 String NET_SERVER_HOST = "ws://localhost:8000"; // Proxyサーバーのホスト名
+boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true を代入する
+// !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
 // void settings() {
 //   fullScreen();
