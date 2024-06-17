@@ -26,7 +26,7 @@ void NET_recv(String i) {
 void NET_send(String _event, String _data) { // データ構造 : イベント名,データ
   String _token = _event + "," + _data + "," + NET_channel + "," + DATA_USERNAME; // ユーザーネームと送信先チャンネルを付加
   if (NET_isNetworkEnable) {
-    NET_CLIENT.sendMessage(i);
+    NET_CLIENT.sendMessage(_token);
     println("[WS:SEND] (" + i + ")を送信中");
   } else {
     println("[WS:SEND] ネットワークが無効になっています");
