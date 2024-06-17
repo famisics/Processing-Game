@@ -70,7 +70,7 @@ void VS_skill(String[] i, String _acterName) {
   }
 }
 void VS_oppo(String[] i) { // 相手側で発動するスキル
-  if (!i[4].equals("")) VS_cutin(i[4], i[5], );
+  if (!i[4].equals("")) VS_cutin(i[4], i[5], "");//TODO:なんとかする
 }
 // TODO:必要エネルギーが足りない場合の処理
 void VS_self(String[] i) { // 自分側で発動するスキル
