@@ -61,7 +61,7 @@ void VS_skill(String[] i, String _acterName) {
   if (i[1].equals("self")) {
     VS_self(i);
   } else if (i[1].equals("oppo")) {
-    VS_oppo(i, _acterName);
+    VS_oppo(i);
   } else if (i[1].equals("all")) {
     VS_self(i);
     VS_oppo(i);

@@ -18,7 +18,7 @@ void setup() {
   background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  size(500, 312); // デバッグ用の解像度
+  size(1200, 800); // デバッグ用の解像度
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);

@@ -35,7 +35,7 @@ String[][] VP_users = {
 String VP_scoreBoard() {
   String _r = "";
   for (int i = 0; i < VP_users.length; ++i) {
-    r += VP_users[i][0] + " : " + VP_users[i][1] + " E\n";
+    _r += VP_users[i][0] + " : " + VP_users[i][1] + " E\n";
   }
   return _r;
 }
