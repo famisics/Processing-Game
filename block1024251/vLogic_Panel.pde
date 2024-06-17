@@ -31,7 +31,7 @@ String[][] VP_users = {
   {"userB", "2億9200万"},
   {"userC", "1億2000万"},
   {"userD", "1億8000万"}
-}
+};
 String VP_scoreBoard() {
   String _r = "";
   for (int i = 0; i < VP_users.length; ++i) {

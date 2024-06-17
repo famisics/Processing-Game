@@ -104,6 +104,8 @@ void VS_self(String[] i) { // 自分側で発動するスキル
     case "9" :
       VU_mine2Boot();
       break;
+    case "0" :
+      VU_inflationBoostBoot(i[2]);
     default :
     println("[skill] 規定外のデータであるため破棄されました");
     break;
