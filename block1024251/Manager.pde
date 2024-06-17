@@ -66,7 +66,7 @@ void boot() { // 初期化用の関数
     exit();
   } else {
     DATA_USERNAME = json.getString("username");
-    DATA_ENERGY = json.getDouble("energy");
+    DATA_ENERGY = json.getDouble("energy"); 
     println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY);
     if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続しています");
