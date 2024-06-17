@@ -23,5 +23,19 @@ void VP_update() {
   textSize(GAME_width / 58);
   text("Lv. " + doubleToJp(Math.ceil(SB_inflationRate / 1000)), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 33 / 100);
   textFont(fontMdsm);
-  text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
+  text(VP_scoreBoard(), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
+  // text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
+} // TODO:このへん解決
+String[][] VP_users = {
+  {"userA", "1万8000"},
+  {"userB", "2億9200万"},
+  {"userC", "1億2000万"},
+  {"userD", "1億8000万"}
+}
+String VP_scoreBoard() {
+  String _r = "";
+  for (int i = 0; i < VP_users.length; ++i) {
+    r += VP_users[i][0] + " : " + VP_users[i][1] + " E\n";
+  }
+  return _r;
 }
