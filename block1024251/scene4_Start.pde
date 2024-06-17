@@ -17,7 +17,7 @@ void SS_update() {
   text("対戦する他のプレイヤーにチャンネル名を伝えてください", GAME_width / 2, GAME_height / 4);
   textFont(SC_fontChannel);
   fill(100, 255, 200);
-  text(SC_ch, GAME_width / 2, GAME_height / 2);
+  text(NET_channel, GAME_width / 2, GAME_height / 2);
   navbar("Enter : チャンネル選択に戻る　SPACE長押し : ゲーム開始","");
   fill(255);
   textFont(fontLg);

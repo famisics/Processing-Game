@@ -1,5 +1,6 @@
 // 全体で参照する関数や変数の定義
 
+// ライブラリ, クラス
 ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
@@ -7,14 +8,17 @@ PImage image1, image2, image3, image4; // 画像ファイル
 PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel, ST_fontTutorial; // フォント
 JSONObject json; // JSONデータ
 
+// Network
 WebsocketClient NET_CLIENT; // Websocketクライアント
 String NET_SERVER_HOST; // Proxyサーバーのホスト名
+String NET_channel = ""; 
 
 // JSONデータ
 double DATA_ENERGY;
 String DATA_USERNAME;
 boolean DATA_SAVELOCKED = false;
 
+// ゲーム共通変数
 int GAME_MODE = 0; // ゲームモード 
 int GAME_width, GAME_height; // width, heightを置換する可能性があるためこの値を使う
 boolean GAME_isTalkFinished = false; // チュートリアルが終わっているかどうか
@@ -22,12 +26,12 @@ boolean GAME_isAlert = false; // アラートが表示されているかどう�
 String GAME_alertText = ""; // アラートテキスト
 int GAME_alertTime = 0; // アラートの時間
 int GAME_clock = millis(); // ゲーム内の時計
-
-String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}; // doubleToJp用の数詞
-int[] jpUnitRank = {0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68}; // doubleToJp用
-
 int GAME_fpsIndex = 2; // FPSのインデックス
 int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
+
+// 数詞データ
+String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正", "載", "極", "恒河沙", "阿僧祇", "那由他", "不可思議", "無量大数"}; // doubleToJp用の数詞
+int[] jpUnitRank = {0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 56, 60, 64, 68}; // doubleToJp用
 
 void boot() { // 初期化用の関数
   // initailize

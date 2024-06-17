@@ -41,7 +41,12 @@ void VS_update() {
   VS_cutinUpdate();
 }
 void VS_skillSend(String _id) { // スキル送信
-  NET_send("skill," + _id);
+  for (int i = 1; i < VS_skillTable.length; i++) { // 0行目は説明なので飛ばす
+    if (VS_skillTable[i][0].equals(_id)) {
+      NET_send("skill",_id);
+      break;
+    }
+  }
 }
 void VS_skillRecv(String _id) { // スキル受信
   for (int i = 1; i < VS_skillTable.length; i++) { // 0行目は説明なので飛ばす
