@@ -17,7 +17,7 @@ void setup() {
   background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  size(1920, 1200); // デバッグ用の解像度
+  size(1200, 800); // デバッグ用の解像度
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);
@@ -47,16 +47,6 @@ void draw() { // !画面遷移(常に実行)
     case 7 : // username
       SU_update();
       break;
-    case 8 : // blackout
-      noTint();
-      background(0);
-      textAlign(CENTER,CENTER);
-      textFont(SH_fontTitle);
-      fill(255);
-      text("暗転", GAME_width / 2 , GAME_height / 2);
-      textFont(fontXl);
-      text("スペースキーを押して復帰", GAME_width / 2 , GAME_height * 3 / 4);
-      break;
     default :
     break;
   }
@@ -68,43 +58,74 @@ void draw() { // !画面遷移(常に実行)
 void cmode(int _mode) { // !画面遷移(1回だけ実行)
   GAME_MODE = _mode;
   save();
-  bgm1.stop();
-  bgm2.stop();
-  bgm5.stop();
-  bgm6.stop();
   switch(_mode) {
     case 1 : // home
+      if (bgm2.isPlaying()) bgm2.stop();
+      if (bgm3.isPlaying()) bgm3.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE1]  Home");
-      bgm1.loop();
+      if (!bgm1.isPlaying()) bgm1.loop();
       // background(0); // 画面を暗くしてから描画, 今は無効
       SH_boot();
       break;
     case 2 : // block
+      if (bgm1.isPlaying()) bgm1.stop();
+      if (bgm3.isPlaying()) bgm3.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE2]  Block");
+      switch ((int)random(1, 4)) { // 1-3までランダムにBGMを選択
+        case 1 :
+          bgm2 = new SoundFile(this, "src/sounds/bgm/tattasoredakenomonogatari.mp3");
+          break;
+        case 2 :
+          bgm2 = new SoundFile(this, "src/sounds/bgm/bi-boruto.mp3");
+          break;
+        default :
+          bgm2 = new SoundFile(this, "src/sounds/bgm/ryugen.mp3");
+          break;
+      }
       bgm2.loop();
       bgm2.pause();
       SB_boot();
       break;
     case 3 : // channel
+      if (bgm1.isPlaying()) bgm1.stop();
+      if (bgm2.isPlaying()) bgm2.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE3]  Channel");
+      if (!bgm3.isPlaying()) bgm3.loop();
       SC_boot();
       break;
     case 4 : // start
+      if (bgm1.isPlaying()) bgm1.stop();
+      if (bgm2.isPlaying()) bgm2.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE4]  Start");
+      if (!bgm3.isPlaying()) bgm3.loop();
       SS_boot();
       break;
     case 5 : // result
+      if (bgm1.isPlaying()) bgm1.stop();
+      if (bgm3.isPlaying()) bgm3.stop();
+      if (bgm2.isPlaying()) bgm2.stop();
       println("[SCENE5]  Result");
       bgm5.loop();
       SR_boot();
       break;
     case 6 : // talk
+      if (bgm2.isPlaying()) bgm2.stop();
+      if (bgm3.isPlaying()) bgm3.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE6]  Talk");
-      bgm6.loop();
+      if (!bgm1.isPlaying()) bgm1.loop();
       ST_boot();
       break;
     case 7 : // username
+      if (bgm1.isPlaying()) bgm1.stop();
+      if (bgm2.isPlaying()) bgm2.stop();
+      if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE7]  Username");
+      if (!bgm3.isPlaying()) bgm3.loop();
       SU_boot();
       break;
     default :

@@ -16,8 +16,8 @@ void ST_boot() {
   background(0);
   ST_ScriptIndex = 0;
   ST_AnimationIndex = 0;
-  image1 = loadImage("src/images/talk/welcome.png");
-  image2 = loadImage("src/images/sekai.png");
+  image1 = loadImage("src/images/tutorial.png");
+  image2 = loadImage("src/images/chara.png");
 }
 void ST_update() {
   if (ST_AnimationIndex < 10) {
@@ -26,7 +26,7 @@ void ST_update() {
   }
   image(image1, 0, 0, GAME_width, GAME_height);
   noTint();
-  image(image2, GAME_width - GAME_width / 100 * 30, GAME_height - GAME_width / 100 * 40 - GAME_height / 5, GAME_width / 100 * 30, GAME_width / 100 * 40);
+  image(image2, GAME_width / 2, GAME_height * 1 / 15, GAME_width * 10 / 3 / 9, GAME_width * 10 * 4 / 9 / 9);
   fill(70, 100, 100);
   rect(0, GAME_height * 3 / 5, GAME_width, GAME_height * 2 / 5);
   fill(255);

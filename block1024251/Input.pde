@@ -88,7 +88,6 @@ void keyPressed() { // キー入力
     if (keyCode == 53) cmode(5);
     if (keyCode == 54) cmode(6);
     if (keyCode == 55) cmode(7);
-    if (keyCode == 56) cmode(8);
   }
 }
 

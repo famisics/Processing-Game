@@ -11,7 +11,7 @@ void SR_boot() {
 }
 void SR_update() {
   tint(50, 50);
-  image1 = loadImage("src/images/status.png");
+  image1 = loadImage("src/images/result.png");
   image(image1, 0, 0, GAME_width, GAME_height);
   // background(100, 0, 100);
   fill(255);

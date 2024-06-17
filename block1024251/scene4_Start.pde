@@ -9,7 +9,7 @@ int SS_messageTime = 0; // メッセージの時間
 
 void SS_boot() {
   noTint();
-  image1 = loadImage("src/images/world.png");
+  image1 = loadImage("src/images/start.png");
 }
 
 void SS_update() {

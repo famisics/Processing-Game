@@ -1,7 +1,7 @@
 // 全体で参照する関数や変数の定義
 
 // ライブラリ, クラス
-SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
+SoundFile se, bgm1, bgm2, bgm3, bgm5; // サウンドファイル
 FPS FPS_data; // FPSカウンター
 PImage image1, image2, image3, image4; // 画像ファイル
 PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontScoreMd, SH_fontTitle, SC_fontChannel, ST_fontTutorial; // フォント
@@ -52,11 +52,10 @@ void boot() { // 初期化用の関数
   ST_fontTutorial = createFont("游ゴシック Bold", GAME_width / 30);
   // bgm
   println("[setup]   sounds/bgm をロードしています");
-  bgm1 = new SoundFile(this, "src/sounds/bgm/Haiko.mp3");
-  // bgm2 = new SoundFile(this, "src/sounds/bgm/battle/3_流幻.mp3"); //TODO: bgmどれにしよう
-  bgm2 = new SoundFile(this, "src/sounds/bgm/battle/ビーボルト.mp3");
-  bgm5 = new SoundFile(this, "src/sounds/bgm/Flutter.mp3");
-  bgm6 = new SoundFile(this, "src/sounds/bgm/Trace.mp3");
+  bgm1 = new SoundFile(this, "src/sounds/bgm/haiko.mp3");
+  bgm2 = new SoundFile(this, "src/sounds/bgm/bi-boruto.mp3");
+  bgm3 = new SoundFile(this, "src/sounds/bgm/new-morning.mp3");
+  bgm5 = new SoundFile(this, "src/sounds/bgm/flutter.mp3");
   // jsonデータを取得
   println("[setup]   config.json をロードしています");
   json = loadJSONObject("config.json");

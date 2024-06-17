@@ -7,7 +7,7 @@ float SH_easing = 0.12; // イージングの係数
 
 void SH_boot() {
   background(0);
-  image1 = loadImage("src/images/start.png");
+  image1 = loadImage("src/images/home.png");
   SH_fontSize = GAME_width / 5;
   SH_targetFontSize = GAME_width / 10;
 }
@@ -42,9 +42,9 @@ void SH_titleAnime() { // タイトルのアニメーション
       SH_alpha = 255;
     }
   }
-  if (fontSize > SH_targetFontSize) {
-    float dFontSize = (SH_targetFontSize - SH_fontSize) * SH_easing;
-    SH_fontSize += dFontSize;
+  if (SH_fontSize > SH_targetFontSize) {
+    float _dFontSize = (SH_targetFontSize - SH_fontSize) * SH_easing;
+    SH_fontSize += _dFontSize;
     if (SH_fontSize < SH_targetFontSize) {
       SH_fontSize = SH_targetFontSize;
     }
