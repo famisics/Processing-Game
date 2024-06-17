@@ -3,6 +3,10 @@
 int VB_barX = 0;
 
 void VB_boot() {
+  SB_isTimeProcessing = false; // 停止状態で開始
+  SB_lastEnergy = 0; // 最後のエネルギーを初期化
+  SB_blockWindowWidth = GAME_width * 2 / 3 - GAME_width / 40; // ブロック崩しの幅
+  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000 * VU_inflationBoostRate; // インフレ率を計算
   SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
   SB_balls = new ArrayList<Ball>(); // ボールの初期化
   for (int i = 0; i < 10; i++) {

@@ -19,11 +19,7 @@ boolean SB_isStart = false; // ブロック崩しの起動状態
 String SB_startMessageText = ""; // ブロック崩しの起動メッセージ
 
 void SB_boot() { // 初期化
-  noTint();
-  SB_isTimeProcessing = false; // 停止状態で開始
-  SB_lastEnergy = 0; // 最後のエネルギーを初期化
-  SB_blockWindowWidth = GAME_width * 2 / 3 - GAME_width / 40; // ブロック崩しの幅
-  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000; // インフレ率を計算
+  noTint(); // 他ページのtintをオーバーライド、念のため
   VB_boot(); // ブロック崩し本体を初期化
   VP_Boot(); // サイドパネルを初期化
   VS_boot(); // スキルを初期化

@@ -1,14 +1,18 @@
 // それぞれのスキルのコード
 
+void VU_boot() {
+  // TODO:すべての値を初期化
+}
+
 // プロパシールド
 boolean VU_isShield = false;
 int VU_sheldTime = 0;
 int VU_sheliDuration = 0;
 
-void VU_shieldBoot(String duration) {
+void VU_shieldBoot(String _duration) {
   VU_isShield = true;
   VU_sheldTime = GAME_clock;
-  VU_sheliDuration = parseInt(duration) * 1000;
+  VU_sheliDuration = parseInt(_duration) * 1000;
 }
 void VU_sheldUpdate() {
   if (VU_isShield) {
@@ -24,10 +28,10 @@ boolean VU_isBarExtend = false;
 int VU_barExtendTime = 0;
 int VU_barExtendDuration = 0;
 
-void VU_barExtendBoot(String duration) {
+void VU_barExtendBoot(String _duration) {
   VU_isBarExtend = true;
   VU_barExtendTime = GAME_clock;
-  VU_barExtendDuration = parseInt(duration) * 1000;
+  VU_barExtendDuration = parseInt(_duration) * 1000;
   SB_barSize = 160;
 }
 void VU_barExtendUpdate() {
@@ -45,10 +49,10 @@ boolean VU_isBarContract = false;
 int VU_barContractTime = 0;
 int VU_barContractDuration = 0;
 
-void VU_barContractBoot(String duration) {
+void VU_barContractBoot(String _duration) {
   VU_isBarContract = true;
   VU_barContractTime = GAME_clock;
-  VU_barContractDuration = parseInt(duration) * 1000;
+  VU_barContractDuration = parseInt(_duration) * 1000;
   SB_barSize = 30;
 }
 void VU_barContractUpdate() {
@@ -66,10 +70,10 @@ boolean VU_isTimeSlow = false;
 int VU_timeSlowTime = 0;
 int VU_timeSlowDuration = 0;
 
-void VU_timeSlowBoot(String duration) {
+void VU_timeSlowBoot(String _duration) {
   VU_isTimeSlow = true;
   VU_timeSlowTime = GAME_clock;
-  VU_timeSlowDuration = parseInt(duration) * 1000;
+  VU_timeSlowDuration = parseInt(_duration) * 1000;
   SB_gameSpeed = 0.3;
 }
 void VU_timeSlowUpdate() {
@@ -87,10 +91,10 @@ boolean VU_isTimeFast = false;
 int VU_timeFastTime = 0;
 int VU_timeFastDuration = 0;
 
-void VU_timeFastBoot(String duration) {
+void VU_timeFastBoot(String _duration) {
   VU_isTimeFast = true;
   VU_timeFastTime = GAME_clock;
-  VU_timeFastDuration = parseInt(duration) * 1000;
+  VU_timeFastDuration = parseInt(_duration) * 1000;
   SB_gameSpeed = 2;
 }
 void VU_timeFastUpdate() {
@@ -107,9 +111,9 @@ void VU_timeFastUpdate() {
 int VU_ballDoubleTime = 0;
 int VU_ballDoubleDuration = 0;
 
-void VU_divisionBallBoot(String duration) {
+void VU_divisionBallBoot(String _duration) {
   VU_ballDoubleTime = GAME_clock;
-  VU_ballDoubleDuration = parseInt(duration) * 1000;
+  VU_ballDoubleDuration = parseInt(_duration) * 1000;
   for (int i = 0; i < SB_ballCount; i++) {
     SB_balls.get(i).division();
   }
@@ -134,4 +138,26 @@ void VU_bombBlock(int x, int y) {
       SB_blocks[x][y] = l;
     }
   }
+}
+
+// 追加任務Lv1
+
+void VU_mine1Boot() {
+
+}
+
+// 追加任務Lv2
+void VU_mine2Boot() {
+
+}
+
+// インフレゲー？
+double VU_inflationBoostRate = 1;
+int VU_inflationBoostTime = 0;
+int VU_inflationBoostDuration = 0;
+
+void VU_inflationBoostBoot(double _rate, String _duration) {
+  VU_inflationBoostTime = GAME_clock;
+  VU_inflationBoostDuration = parseInt(_duration) * 1000;
+  VU_inflationBoostRate = _rate;
 }

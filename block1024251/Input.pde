@@ -15,16 +15,16 @@ void keyPressed() { // キー入力
       if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
       break;
     case 2 : // Block
-      if (key == '1') NET_recv("skill,1,demo,sudo");
-      if (key == '2') NET_recv("skill,2,demo,sudo");
-      if (key == '3') NET_recv("skill,3,demo,sudo");
-      if (key == '4') NET_recv("skill,4,demo,sudo");
-      if (key == '5') NET_recv("skill,5,demo,sudo");
-      if (key == '6') NET_recv("skill,6,demo,sudo");
-      if (key == '7') NET_recv("skill,7,demo,sudo");
-      if (key == '8') NET_recv("skill,8,demo,sudo");
-      if (key == '9') NET_recv("skill,9,demo,sudo");
-      if (key == '0') NET_recv("skill,0,demo,sudo");
+      if (key == '1') NET_recv("skill,1,"+NET_channel+","+DATA_USERNAME);
+      if (key == '2') NET_recv("skill,2,"+NET_channel+","+DATA_USERNAME);
+      if (key == '3') NET_recv("skill,3,"+NET_channel+","+DATA_USERNAME);
+      if (key == '4') NET_recv("skill,4,"+NET_channel+","+DATA_USERNAME);
+      if (key == '5') NET_recv("skill,5,"+NET_channel+","+DATA_USERNAME);
+      if (key == '6') NET_recv("skill,6,"+NET_channel+","+DATA_USERNAME);
+      if (key == '7') NET_recv("skill,7,"+NET_channel+","+DATA_USERNAME);
+      if (key == '8') NET_recv("skill,8,"+NET_channel+","+DATA_USERNAME);
+      if (key == '9') NET_recv("skill,9,"+NET_channel+","+DATA_USERNAME);
+      if (key == '0') NET_recv("skill,0,"+NET_channel+","+DATA_USERNAME);
       if (key == 'i') SB_inflationRateTemporary *= 2; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
       if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用
@@ -65,14 +65,15 @@ void keyPressed() { // キー入力
   }
   // *グローバル
   if (keyCode == 27) { // ESCキー
-    if (GAME_MODE == 3 || GAME_MODE == 6 || GAME_MODE == 5 || GAME_MODE == 7) {
-      cmode(1);
-      key = 0;
+    
+    if (GAME_MODE == 1) {
+      exit();
     } else if (GAME_MODE == 4) {
       cmode(3);
       key = 0;
     } else {
-      // exit();
+      cmode(1);
+      key = 0;
     }
   }
   if (keyCode == UP) cfps(true);

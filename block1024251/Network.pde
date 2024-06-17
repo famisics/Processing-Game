@@ -3,11 +3,13 @@
 // 他クライアントからの受信イベントを処理
 void NET_recv(String i) {
   String[] _data = split(i, ","); // データ構造 : [0] = イベント名, [1] = 内容, [2] = 送信先チャンネル, [3] = ユーザーネーム
-  if (_data[2] == NET_channel) { // TODO:受信できない！やば！！！！
+  println("DATA:" + _data[2]);
+  println("local:" + NET_channel);
+  if (_data[2].equals(NET_channel)) { // TODO:受信できない！やば！！！！
     switch(_data[0]) {
       case "skill" :
         println("[WS:skill] " + _data[3] + "がスキルID" + _data[1] + "を発動しました");
-        VS_skillRecv(_data[1]);
+        VS_skillRecv(_data[1], _data[3]);
         break;
       case "join" :
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "に参加しました");
@@ -21,6 +23,8 @@ void NET_recv(String i) {
       println("[WS:RECV] (" + i + ")は規定外のデータであるため破棄されました");
       break;
     }
+  } else {
+    println("[WS:RECV] (" + i + ")はチャンネルが異なるため破棄されました");
   }
 }
 

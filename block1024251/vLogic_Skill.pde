@@ -27,6 +27,7 @@ void VS_boot() { // スキル一覧の読み込み
   VS_cutinSizeY = GAME_width / 6;
   VS_cutinImageMaskRad = GAME_width / 20;
   VS_cutinImage = loadImage("src/images/skill/demo.png");
+  VU_boot();
 }
 void VS_update() {
   // スキルタイマー
@@ -48,33 +49,33 @@ void VS_skillSend(String _id) { // スキル送信
     }
   }
 }
-void VS_skillRecv(String _id) { // スキル受信
+void VS_skillRecv(String _id, String _acterName) { // スキル受信
   for (int i = 1; i < VS_skillTable.length; i++) { // 0行目は説明なので飛ばす
     if (VS_skillTable[i][0].equals(_id)) {
-      VS_skill(VS_skillTable[i]);
+      VS_skill(VS_skillTable[i], _acterName);
       break;
     }
   }
 }
-void VS_skill(String[] i) {
+void VS_skill(String[] i, String _acterName) {
   if (i[1].equals("self")) {
     VS_self(i);
   } else if (i[1].equals("oppo")) {
-    VS_oppo(i);
+    VS_oppo(i, _acterName);
   } else if (i[1].equals("all")) {
     VS_self(i);
     VS_oppo(i);
   } else {
-    println("[ERROR] 謎のスキルです");
+    println("[skill] 規定外のデータであるため破棄されました");
   }
 }
 void VS_oppo(String[] i) { // 相手側で発動するスキル
-  if (!i[4].equals("")) VS_cutin(i[4], i[5]);
+  if (!i[4].equals("")) VS_cutin(i[4], i[5], );
 }
 // TODO:必要エネルギーが足りない場合の処理
 void VS_self(String[] i) { // 自分側で発動するスキル
   if (VS_addActiveSkill(i[5], GAME_clock, float(i[2]) * 1000)) return; // スキルの追加が失敗した場合は処理を終了する
-  if (!i[4].equals("")) VS_cutin(i[4], i[5]);
+  if (!i[4].equals("")) VS_cutin(i[4], i[5], "");
   switch(i[0]) {
     case "1" :
       VU_shieldBoot(i[2]);
@@ -97,8 +98,14 @@ void VS_self(String[] i) { // 自分側で発動するスキル
     case "7" :
       VU_bomb();
       break;
+    case "8" :
+      VU_mine1Boot();
+      break;
+    case "9" :
+      VU_mine2Boot();
+      break;
     default :
-    println("[ERROR] 謎のスキルです");
+    println("[skill] 規定外のデータであるため破棄されました");
     break;
   }
 }
@@ -139,10 +146,10 @@ void VS_activeSkillDisplay(int _index, String _name, float _start, float _durati
   fill(255);
   textAlign(LEFT);
   textFont(fontMd);
-  text(_name + " : ( " + String.format("%.0f", Math.ceil(_remain/1000)) + "秒 / " + String.format("%.0f", Math.ceil(_duration/1000)) + "秒 )", SB_blockWindowWidth + GAME_width / 50,(GAME_height * (9 - _index) / 10) - GAME_width / 50 + GAME_height / 20);
+  text(_name + " : ( " + String.format("%.0f", Math.ceil(_remain / 1000)) + "秒 / " + String.format("%.0f", Math.ceil(_duration / 1000)) + "秒 )", SB_blockWindowWidth + GAME_width / 50,(GAME_height * (9 - _index) / 10) - GAME_width / 50 + GAME_height / 20);
 }
 
-class ActiveSkill {
+class ActiveSkill { // スキル管理用のクラス
   String name;
   float start;
   float duration;
@@ -156,14 +163,14 @@ class ActiveSkill {
 // !カットイン
 
 // スキルカットイン画像は横2縦1比率
-void VS_cutin(String imagePath, String skillName) {
+void VS_cutin(String _imagePath, String _skillName, String _acterName) {
   if (VS_isCutin) {
     VS_cutinX = GAME_width;
     VS_isCutinSlideOut = false;
     VS_isCutinSlideIn = true;
     VS_cutinDX = GAME_width / 20;
   }
-  VS_cutinImage = VS_createRoundedImage(imagePath, skillName);
+  VS_cutinImage = VS_createRoundedImage(_imagePath, _skillName, _acterName);
   VS_isCutin = true;
 }
 void VS_cutinUpdate() {
@@ -199,17 +206,18 @@ void VS_cutinUpdate() {
     image(VS_cutinImage, VS_cutinX,(VS_cutinSizeX) / 2, VS_cutinSizeX, VS_cutinSizeY);
   }
 }
-PImage VS_createRoundedImage(String i, String skillName) {
-  PImage _rawImg = loadImage("src/images/skill/" + i + ".png");
+PImage VS_createRoundedImage(String _imagePath, String _skillName, String _acterName) {
+  PImage _rawImg = loadImage("src/images/skill/" + _imagePath + ".png");
   PGraphics _pg = createGraphics(_rawImg.width, _rawImg.height);
   _pg.beginDraw();
   _pg.image(_rawImg, 0, 0);
   _pg.fill(0, 150);
-  _pg.rect(0, _rawImg.height * 2 / 3, _rawImg.width, _rawImg.height / 3);
+  _pg.rect(0, _rawImg.height / 2, _rawImg.width, _rawImg.height / 2);
   _pg.fill(255); // テキストの色
   _pg.textAlign(CENTER, CENTER);
-  _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 10));
-  _pg.text(skillName, _rawImg.width / 2, _rawImg.height * 5 / 6); // 画像の下半分に表示
+  _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 15));
+  _pg.text(_skillName, _rawImg.width / 2, _rawImg.height * 5 / 6);
+  if(_acterName != "") _pg.text(_acterName+"が発動", _rawImg.width / 2, _rawImg.height * 3 / 6);
   _pg.endDraw();
   
   PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
