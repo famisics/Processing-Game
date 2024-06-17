@@ -94,6 +94,9 @@ void VS_self(String[] i) { // 自分側で発動するスキル
     case "6" :
       VU_divisionBallBoot(i[2]);
       break;
+    case "7" :
+      VU_bomb();
+      break;
     default :
     println("[ERROR] 謎のスキルです");
     break;

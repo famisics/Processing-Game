@@ -16,6 +16,7 @@ int SB_blockCount = 0; // ブロックの数
 int SB_blockWindowWidth; // ブロック崩し本体のウィンドウの横幅
 int SB_bootTime = 0; // ブロック崩の起動時間 
 boolean SB_isStart = false; // ブロック崩しの起動状態
+String SB_startMessageText = ""; // ブロック崩しの起動メッセージ
 
 void SB_boot() { // 初期化
   noTint();
@@ -46,6 +47,8 @@ void SB_start() {
     textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);
     text(str(_r), GAME_width / 2, GAME_height / 2);
+    textFont(fontLg);
+    text(SB_startMessageText, GAME_width / 2, GAME_height * 3 / 4);
     if (_r <=  0) {
       SB_isStart = true;
       SB_pause();

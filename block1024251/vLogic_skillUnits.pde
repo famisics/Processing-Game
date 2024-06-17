@@ -114,3 +114,24 @@ void VU_divisionBallBoot(String duration) {
     SB_balls.get(i).division();
   }
 }
+
+// 支援砲撃
+void VU_bomb() {
+  // image1 = loadImage("bomb.png"); //TODO: 爆撃画像の読み込みと表示
+  for (int x = 0; x < 12; x++) {
+    for (int y = 0; y < 10; y++) {
+      VU_bombBlock(x,y);
+    }
+  }
+}
+
+void VU_bombBlock(int x, int y) {
+  if (SB_blocks[x][y] > 0) {
+    float r = random(0, 1);
+    if (r > 0.5) {
+      int l = (int)Math.ceil(SB_blocks[x][y] - (SB_blocksLife / 2));
+      if (r < 0) r = 0;
+      SB_blocks[x][y] = l;
+    }
+  }
+}

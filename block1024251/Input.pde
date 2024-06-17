@@ -10,18 +10,21 @@ void keyPressed() { // キー入力
         cmode(3);
       }
       if (keyCode == ENTER) cmode(3); // ENTER, チャンネル選択へ //!デモ用
+      if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
+      if (key == 't') cmode(6); // チュートリアル //!デモ用
+      if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
       break;
     case 2 : // Block
-      if (key == '1') NET_recv("skill,1");
-      if (key == '2') NET_recv("skill,2");
-      if (key == '3') NET_recv("skill,3");
-      if (key == '4') NET_recv("skill,4");
-      if (key == '5') NET_recv("skill,5");
-      if (key == '6') NET_recv("skill,6");
-      if (key == '7') NET_recv("skill,7");
-      if (key == '8') NET_recv("skill,8");
-      if (key == '9') NET_recv("skill,9");
-      if (key == '0') NET_recv("skill,0");
+      if (key == '1') NET_recv("skill,1,demo,sudo");
+      if (key == '2') NET_recv("skill,2,demo,sudo");
+      if (key == '3') NET_recv("skill,3,demo,sudo");
+      if (key == '4') NET_recv("skill,4,demo,sudo");
+      if (key == '5') NET_recv("skill,5,demo,sudo");
+      if (key == '6') NET_recv("skill,6,demo,sudo");
+      if (key == '7') NET_recv("skill,7,demo,sudo");
+      if (key == '8') NET_recv("skill,8,demo,sudo");
+      if (key == '9') NET_recv("skill,9,demo,sudo");
+      if (key == '0') NET_recv("skill,0,demo,sudo");
       if (key == 'i') SB_inflationRateTemporary *= 2; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
       if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用
@@ -72,9 +75,6 @@ void keyPressed() { // キー入力
       // exit();
     }
   }
-  if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
-  if (key == 't') cmode(6); // チュートリアル //!デモ用
-  if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
   if (keyCode == UP) cfps(true);
   if (keyCode == DOWN) cfps(false);
   // モード切り替え //!(デモ用)

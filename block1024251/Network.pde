@@ -3,17 +3,19 @@
 // 他クライアントからの受信イベントを処理
 void NET_recv(String i) {
   String[] _data = split(i, ","); // データ構造 : [0] = イベント名, [1] = 内容, [2] = 送信先チャンネル, [3] = ユーザーネーム
-  if (_data[2] == NET_channel) {
+  if (_data[2] == NET_channel) { // TODO:受信できない！やば！！！！
     switch(_data[0]) {
       case "skill" :
         println("[WS:skill] " + _data[3] + "がスキルID" + _data[1] + "を発動しました");
         VS_skillRecv(_data[1]);
         break;
       case "join" :
-        println("[WS:join] " + _data[3] + "が" + _data[2] + "に参加しました");
+        println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "に参加しました");
+        SS_message(DATA_USERNAME + "がチャンネル" + NET_channel + "に参加しました");
         break;
       case "start" :
-        println("[WS:start] " + _data[3] + "が" + _data[2] + "のゲームを開始します！");
+        println("[WS:start] " + _data[3] + "がチャンネル" + _data[2] + "のゲームを開始します！");
+        SB_startMessageText = _data[3] + "がチャンネル" + _data[2] + "のゲームを開始します！";
         break;
       default :
       println("[WS:RECV] (" + i + ")は規定外のデータであるため破棄されました");
@@ -27,7 +29,7 @@ void NET_send(String _event, String _data) { // データ構造 : イベント�
   String _token = _event + "," + _data + "," + NET_channel + "," + DATA_USERNAME; // ユーザーネームと送信先チャンネルを付加
   if (NET_isNetworkEnable) {
     NET_CLIENT.sendMessage(_token);
-    println("[WS:SEND] (" + i + ")を送信中");
+    println("[WS:SEND] (" + _token + ")を送信中");
   } else {
     println("[WS:SEND] ネットワークが無効になっています");
     
