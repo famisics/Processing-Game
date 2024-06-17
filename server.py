@@ -1,6 +1,8 @@
 import asyncio
 import websockets
 
+#動かない
+
 # !-------- 設定 --------
 PORT = 8000
 HOST = "wss://proc.uiro.dev"
