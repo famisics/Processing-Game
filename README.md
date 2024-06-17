@@ -1,7 +1,6 @@
 # 地球再生計画 クライアント (Processing)
 
 1024251 山﨑拓己 (famisics / https://uiro.dev)
-TODO: 説明スライドを確認
 
 ## ゲームの起動前にnodeサーバーをスタートさせてください
 
@@ -18,12 +17,12 @@ famisics/Processing-Clientでクライアントだけ公開する必要がある
 
 famisics/Processing-Client -> ゲーム本体 / クライアント(Processing)
 
-famisics/Processing-Localserver -> プロキシサーバー(node.js/websocket)
+famisics/Processing-Proxy -> プロキシサーバー(node.js/websocket)
 
 famisics/Processing-Server -> 公開サーバー(node.js/express/websocket)
 
 > 公開サーバーの詳細  
-> host: wss://proc.uiro.dev (wss;//proc.uiro.dev:443) // TODO:ポート番号必要？
+> host: wss://proc.uiro.dev
 > インフラ: Cloudflare DNS(プロキシ) / Render(ホスティング)
 > 本体の仕様: node.js(実行環境) / pnpm(パッケージマネージャー) / express(httpサーバー) / websocket(双方向通信)  
 > プロキシ - 公開サーバーの通信はSSLに対応しています  
