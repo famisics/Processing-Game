@@ -1,7 +1,6 @@
 // 全体で参照する関数や変数の定義
 
 // ライブラリ, クラス
-ControlP5 CP; // ControlP5ライブラリ
 SoundFile se, bgm1, bgm2, bgm3, bgm4, bgm5, bgm6; // サウンドファイル
 FPS FPS_data; // FPSカウンター
 PImage image1, image2, image3, image4; // 画像ファイル
@@ -10,8 +9,7 @@ JSONObject json; // JSONデータ
 
 // Network
 WebsocketClient NET_CLIENT; // Websocketクライアント
-String NET_SERVER_HOST; // Proxyサーバーのホスト名
-String NET_channel = ""; 
+String NET_channel = "";
 
 // JSONデータ
 double DATA_ENERGY;
@@ -38,7 +36,6 @@ void boot() { // 初期化用の関数
   GAME_width = width;
   GAME_height = height;
   FPS_data = new FPS();
-  CP = new ControlP5(this);
   noStroke();
   // fonts
   println("[setup]   fonts をロードしています");
@@ -70,8 +67,7 @@ void boot() { // 初期化用の関数
   } else {
     DATA_USERNAME = json.getString("username");
     DATA_ENERGY = json.getDouble("energy");
-    NET_SERVER_HOST = json.getString("server");
-    println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY + "\n          server: " + NET_SERVER_HOST);
+    println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY);
     if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続しています");
       NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
@@ -109,7 +105,6 @@ void save() { // jsonデータを保存
       json = new JSONObject();
       json.setString("username", DATA_USERNAME);
       json.setFloat("energy",(float)_t);
-      json.setString("server", NET_SERVER_HOST);
       saveJSONObject(json, "config.json");
       println("[json]    config.json saved");
     }

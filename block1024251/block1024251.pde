@@ -4,10 +4,10 @@
 import java.util.Iterator;
 import processing.sound.*;
 import websockets.*;
-import controlP5.*;
 
 // ネットワーク機能を有効にするには true を代入する
-boolean NET_isNetworkEnable = false;
+boolean NET_isNetworkEnable = true;
+String NET_SERVER_HOST = "ws://localhost:8000"; // Proxyサーバーのホスト名
 
 // void settings() {
 //   fullScreen();
