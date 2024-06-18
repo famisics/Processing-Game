@@ -8,7 +8,7 @@ PFont fontXl, fontLg, fontMd, fontMdsm, fontSm, fontMono, VP_fontScore, VP_fontS
 JSONObject json; // JSONデータ
 
 // Network
-WebsocketClient NET_CLIENT; // Websocketクライアント
+WebsocketClient NET_client; // Websocketクライアント
 String NET_channel = "";
 
 // JSONデータ
@@ -69,8 +69,8 @@ void boot() { // 初期化用の関数
     println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY);
     if (NET_isNetworkEnable) {
       println("[WSocket] サーバーに接続しています");
-      NET_CLIENT = new WebsocketClient(this, NET_SERVER_HOST);
-      println("[WSocket] サーバーに接続しました: " + NET_SERVER_HOST);
+      NET_client = new WebsocketClient(this, "ws://localhost:" + String.valueOf(NET_SERVER_PORT) + "/");
+      println("[WSocket] サーバーに接続しました: ws://localhost:" + String.valueOf(NET_SERVER_PORT) + "/");
     } else {
       println("[WSocket] サーバーは設定により無効化されています");
     }
@@ -138,7 +138,7 @@ String doubleToJp(double value) {
 
 
 void navbar(String _left, String _Right) {
-  if (_left == "") _left = "Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username　8 : 暗転)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
+  if (_left == "") _left = "Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username)　↑ : FPS+　↓ : FPS-　ESC : QUIT　";
   fill(0);
   rect(0, GAME_height - GAME_width / 50, GAME_width, GAME_width / 50);
   fill(255);

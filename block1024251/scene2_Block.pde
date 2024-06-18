@@ -17,6 +17,10 @@ int SB_blockWindowWidth; // ブロック崩し本体のウィンドウの横幅
 int SB_bootTime = 0; // ブロック崩の起動時間 
 boolean SB_isStart = false; // ブロック崩しの起動状態
 String SB_startMessageText = ""; // ブロック崩しの起動メッセージ
+boolean SB_isBgmStarted = false; // BGMが開始されたかどうか
+
+boolean BS_isShield = false;
+double BS_inflationBoostRate = 1;
 
 void SB_boot() { // 初期化
   noTint(); // 他ページのtintをオーバーライド、念のため
@@ -38,14 +42,14 @@ void SB_update() { // 更新
 
 void SB_start() {
   if (!SB_isStart) {
-    int _r = (5 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
+    int _r = (10 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
     fill(255);
     textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);
     text(str(_r), GAME_width / 2, GAME_height / 2);
     textFont(fontLg);
     text(SB_startMessageText, GAME_width / 2, GAME_height * 3 / 4);
-    if (_r <=  0) {
+    if (_r <= 0) {
       SB_isStart = true;
       SB_pause();
     }

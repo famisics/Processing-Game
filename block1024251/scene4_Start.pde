@@ -32,6 +32,7 @@ void SS_update() {
     if (GAME_clock - SS_startTime >= 1000) {
       SS_isSpace = false;
       SB_startMessageText = DATA_USERNAME + "がチャンネル" + NET_channel + "のゲームを開始します！";
+      NET_send("start", NET_channel);
       cmode(2);
     }
   } else {

@@ -1,4 +1,65 @@
+// それぞれのスキルのコード
 
+// プロパシールド
+boolean VU_isShield = false;
+int VU_sheldTime = 0;
+int VU_sheliDuration = 0;
+
+void VU_shieldBoot(String _duration) {
+  VU_isShield = true;
+  VU_sheldTime = GAME_clock;
+  VU_sheliDuration = parseInt(_duration) * 1000;
+}
+void VU_sheldUpdate() {
+  if (VU_isShield) {
+    if (GAME_clock > VU_sheldTime + VU_sheliDuration) {
+      VU_isShield = false;
+      VU_sheldTime = 0;
+    }
+  }
+}
+
+// バー拡張
+boolean VU_isBarExtend = false;
+int VU_barExtendTime = 0;
+int VU_barExtendDuration = 0;
+
+void VU_barExtendBoot(String _duration) {
+  VU_isBarExtend = true;
+  VU_barExtendTime = GAME_clock;
+  VU_barExtendDuration = parseInt(_duration) * 1000;
+  SB_barSize = 160;
+}
+void VU_barExtendUpdate() {
+  if (VU_isBarExtend) {
+    if (GAME_clock > VU_barExtendTime + VU_barExtendDuration) {
+      SB_barSize = 80;
+      VU_isBarExtend = false;
+      VU_barExtendTime = 0;
+    }
+  }
+}
+
+// バー縮小
+boolean VU_isBarContract = false;
+int VU_barContractTime = 0;
+int VU_barContractDuration = 0;
+
+void VU_barContractBoot(String _duration) {
+  VU_isBarContract = true;
+  VU_barContractTime = GAME_clock;
+  VU_barContractDuration = parseInt(_duration) * 1000;
+  SB_barSize = 30;
+}
+void VU_barContractUpdate() {
+  if (VU_isBarContract) {
+    if (GAME_clock > VU_barContractTime + VU_barContractDuration) {
+      SB_barSize = 80;
+      VU_isBarContract = false;
+      VU_barContractTime = 0;
+    }
+  }
+}
 
 // 時間減速
 boolean VU_isTimeSlow = false;
@@ -110,19 +171,19 @@ void VU_mine2Block(int x, int y) {
 }
 
 // インフレゲー？
-double VU_inflationBoostRate = 1;
+double BS_inflationBoostRate = 1;
 int VU_inflationBoostTime = 0;
 int VU_inflationBoostDuration = 0;
 
 void VU_inflationBoostBoot(String _duration) {
   VU_inflationBoostTime = GAME_clock;
   VU_inflationBoostDuration = parseInt(_duration) * 1000;
-  VU_inflationBoostRate = 10;
+  BS_inflationBoostRate = 10;
 }
 void VU_inflationBoostUpdate() {
   if (VU_isBarContract) {
     if (GAME_clock > VU_inflationBoostTime + VU_inflationBoostDuration) {
-      VU_inflationBoostRate = 1.0;
+      BS_inflationBoostRate = 1.0;
       VU_isBarContract = false;
       VU_inflationBoostTime = 0;
     }

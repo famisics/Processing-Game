@@ -4,7 +4,9 @@ String[][] VS_skillTable;
 int VS_clock = 0;
 int VS_clockBefore = 0;
 
-ArrayList<Skill> Skills = new ArrayList<>(); // スキルクラスを定義
+boolean VS_isDivision = false; // ボールを2倍にするスキルのフラグ
+
+ArrayList<Skill> SB_skills = new ArrayList<>(); // スキルクラスを定義
 
 void VS_boot() {
   // スキル一覧の読み込み
@@ -24,36 +26,60 @@ void VS_update() {
     VS_clock += _diff;
   }
   VS_clockBefore = GAME_clock;
+  // スキルの更新
+  int _i = 0;
+  for (Skill skill : SB_skills) {
+      skill.update(_i);
+      _i++;
+  }
 }
 
-// ネットワーク関連
-void VS_skillSend(String _id) { // スキル送信
-  for (int i = 1; i < VS_skillTable.length; i++) { // 0行目は説明なので飛ばす
-    if (VS_skillTable[i][0].equals(_id)) {
-      NET_send("skill",_id);
-      break;
+void VS_skillRegister(String _id, String _acterName) { // *すべてのスキルはここに投げる
+  if(SB_isTimeProcessing) {
+    String[] _skillData = new String[0];
+    for (int i = 1; i < VS_skillTable.length; i++) { // スキルテーブルからスキルを探し、発動対象を取得する
+      if (VS_skillTable[i][0].equals(_id)) {
+        _skillData = VS_skillTable[i];
+        break;
+      }
+    }
+    String _target = _skillData[1];
+    // !重要 スキルの発動者と対象によるイベントの振り分け
+    // !発火場所、残り時間表示、クールタイムの有無、発火する関数が複雑なので、if elseで分けています
+    if (_acterName.equals(DATA_USERNAME) && _target.equals("self")) {
+      // * 発動者が自分 + 対象が自分 = 自分のフィールドで発火、残り時間表示、クールタイムあり
+
+      VS_skillRegister2(_id, _skillData, _acterName, true, true); // スキルの登録
+      NET_send("skill",_id); // スキルの送信
+
+    } else if (!_acterName.equals(DATA_USERNAME) && _target.equals("oppo")) {
+      // * 発動者が相手 + 対象が自分 = 自分のフィールドで発火、残り時間表示、クールタイムなし
+
+      VS_skillRegister2(_id, _skillData, _acterName, true, false); // スキルの登録
+
+    } else if (_acterName.equals(DATA_USERNAME) && _target.equals("oppo")) {
+      // * 発動者が自分 + 対象が相手 = 相手のフィールドで発火、残り時間なし、クールタイムあり
+
+      VP_message(_skillData[5] + "を発動しました"); // メッセージ表示
+      NET_send("skill",_id); // スキルの送信
+
+    } else if (!_acterName.equals(DATA_USERNAME) && _target.equals("self")) {
+      // * 発動者が相手 + 対象が相手 = 相手のフィールドで発火、残り時間なし、クールタイムなし
+
+      VP_message(_acterName + "が" + _skillData[5] + "を発動しました"); // メッセージ表示
+
     }
   }
 }
-void VS_skillRecv(String _id, String _acterName) { // スキル受信
-  for (int i = 1; i < VS_skillTable.length; i++) { // 0行目は説明なので飛ばす
-    if (VS_skillTable[i][0].equals(_id)) {
-      VS_skill(VS_skillTable[i], _acterName);
-      break;
+void VS_skillRegister2(String _id, String[] _skillData, String _acterName, boolean _isDisplayMonitor, boolean _isBlockDuplicate) {
+  boolean isDuplicate = false;
+  for (Skill _skill : SB_skills) {
+    if (_skill._skillId.equals(_id)) {
+      println("[skill] このスキルはクールタイム中です");
+      isDuplicate = true;
     }
   }
-}
-// _skill = {id, 発動対象, 発動時間, 必要エネルギー, スキルネーム(カットイン画像), スキル日本語名, スキル日本語説明}
-void VS_skill(String[] _skill, String _acterName) {
-  if (_skill[1].equals("self")) {
-    VS_self(_skill, _acterName);
-  } else if (_skill[1].equals("oppo")) {
-    VP_message(_acterName + " が" + i[5] + "を発動しました");
-    VS_addSKill(_skill, _acterName);
-  } else {
-    println("[skill] 規定外のデータであるため破棄されました");
+  if (!isDuplicate || (isDuplicate && !_isBlockDuplicate)) {
+    SB_skills.add(new Skill(_skillData, _acterName, _isDisplayMonitor));
   }
-}
-void VS_self(String[] i, String _acterName) {
-
 }

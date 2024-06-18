@@ -1,56 +1,58 @@
-// シールド
-boolean US_isShield = false;
-
 class Skill {
-  boolean _isFire = false;
+  String _skillId;
   String _skillName;
   String _skillNameJp;
-  int _skillStartTime; // TODO: ゲーム時間(ポーズ時停止)が必要
+  int _skillStartTime;
+  boolean _isDisplayMonitor;
   int _skillDulation;
   String _skillTarget;
   String _skillActer;
-  int _skillEnergy;
+  double _skillEnergy;
   
   // カットイン
-  boolean VS_isCutin = false;
-  boolean VS_isCutinSlideIn = true;
-  boolean VS_isCutinSlideOut = false;
-  int VS_cutinTime;
-  float VS_cutinX = GAME_width;
-  float VS_cutinDX = GAME_width / 20;
-  int VS_cutinSizeX = GAME_width / 3;
-  int VS_cutinSizeY = GAME_width / 6;
-  PImage VS_cutinImage = loadImage("src/images/skill/demo.png");
-  int VS_cutinImageMaskRad = GAME_width / 20;
+  boolean _isCutin = false;
+  boolean _isCutinSlideIn = true;
+  boolean _isCutinSlideOut = false;
+  int _cutinTime;
+  float _cutinX = GAME_width;
+  float _cutinDX = GAME_width / 20;
+  int _cutinSizeX = GAME_width / 3;
+  int _cutinSizeY = GAME_width / 6;
+  PImage _cutinImage = loadImage("src/images/skill/demo.png");
+  int _cutinImageMaskRad = GAME_width / 20;
   
-  Skill(String スキルネーム, String 日本語スキル名, String 発動対象, int 継続時間秒, int 必要エネルギー, String 発動者) {
-    this._skillName = スキルネーム; // 兼カットイン画像URL
-    this._skillNameJp = 日本語スキル名;
-    this._skillTarget = 発動対象;
-    this._skillActer = 発動者;
-    this._skillDulation = parseInt(継続時間秒) * 1000;
-    this._skillEnergy = 必要エネルギー;
+  //* _skillData = {id, 発動対象, 継続時間(兼クールタイム), 必要エネルギー, スキルネーム(カットイン画像path), スキル日本語名, スキル日本語説明}
+  Skill(String[] _skillData, String _acter, boolean _isDisplayMonitor) {
+    this._skillId = _skillData[0];
+    this._skillName = _skillData[4]; // 兼カットイン画像URL
+    this._skillNameJp = _skillData[5];
+    this._skillTarget = _skillData[1];
+    this._skillActer = _acter;
+    this._isDisplayMonitor = _isDisplayMonitor; // サイドバーの時間表示に表示するかどうか
+    this._skillDulation = parseInt(_skillData[2]) * 1000;
+    this._skillEnergy = Double.parseDouble(_skillData[3]);
     this._skillStartTime = VS_clock; // スキル時間を取得
+
+    start();
   }
   
-  void boot() {
-    // 発火する場所が相手か自分か
-    if ((_skillActer.equals(DATA_USERNAME) && _skillTarget.equals("self")) || (!DATA_USERNAME.equals(DATA_USERNAME) && _skillTarget.equals("oppo"))) {
-      start(); // 発火
-    } else {
-      if (_skillActer.equals(DATA_USERNAME)) {
-        VP_message(_skillNameJp + "を発動しました");
+  void start() { //TODO: スキル、エフェクト画像の読み込みと表示 image1 = loadImage("hoge.png");
+    // 必要エネルギーが足りるかどうか
+    if (_skillActer.equals(DATA_USERNAME)) {
+      if (_skillEnergy < SB_lastEnergy) {
+        SB_lastEnergy -= _skillEnergy;
       } else {
-        VP_message(_acterName + "が" + _skillNameJp + "を発動しました");
+        double _rem = _skillEnergy - SB_lastEnergy;
+        VP_message("エネルギーが" + String.valueOf(_rem) + "足りません");
+        end();
+        return;
       }
     }
-  }
-  void start() {
-    _isFire = true;
+    cutin();
     // スキルごとの動作
     switch(_skillName) {
       case "shield":
-        US_isShield = true;
+        BS_isShield = true;
         break;
       case "extend" :
         SB_barSize = 160;
@@ -58,22 +60,66 @@ class Skill {
       case "contract" :
         SB_barSize = 40;
         break;
-      case "slow" : break;
-      case "fast" : break;
-      case "division" : break;
-      case "bomb" : break;
-      case "mine1" : break;
-      case "mine2" : break;
-      case "magic" : break;
+      case "slow" :
+        SB_gameSpeed = 0.3;
+        break;
+      case "fast" :
+        SB_gameSpeed = 2.0;
+        break;
+      case "division" : // TODO:重大なエラー、スキル6が発動するとフリーズする
+        Iterator<Ball> iterator = SB_balls.iterator();
+        while (iterator.hasNext()) {
+          Ball ball = iterator.next();
+          SB_balls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * -1, ball._size));
+        }
+        break;
+      case "bomb" :
+        for (int x = 0; x < 12; x++) {
+          for (int y = 0; y < 10; y++) {
+            if (SB_blocks[x][y] > 0) {
+              float r = random(0, 1);
+              if (r > 0.5) {
+                int l = (int)Math.ceil(SB_blocks[x][y] - (SB_blocksLife / 2));
+                if (r < 0) r = 0;
+                SB_blocks[x][y] = l;
+              }
+            }
+          }
+        }
+        break;
+      case "mine1" :
+        int _x = (int)Math.ceil(random(0, 12));
+        int _y = (int)Math.ceil(random(0, 10));
+        for (int x = 0; x < 12; x++) {
+          SB_blocks[x][_y] = SB_blocksLife;
+        }
+        for (int y = 0; y < 10; y++) {
+          SB_blocks[_x][y] = SB_blocksLife;
+        }
+        break;
+      case "mine2" :
+        for (int x = 0; x < 12; x++) {
+          for (int y = 0; y < 10; y++) {
+            float r = random(0, 1);
+            if (r > 0.5) {
+              int l = (int)Math.ceil(SB_blocks[x][y] + (SB_blocksLife / 2));
+              if (l > SB_blocksLife) l = SB_blocksLife;
+              SB_blocks[x][y] = l;
+            }
+          }
+        }
+        break;
+      case "magic" :
+        BS_inflationBoostRate = 10;
+        break;
       default : break;
     }
   }
   void end() {
-    _isFire = false;
     // スキルごとの動作
     switch(_skillName) {
       case "shield":
-        US_isShield = false;
+        BS_isShield = false;
         break;
       case "extend" :
         SB_barSize = 80;
@@ -81,23 +127,31 @@ class Skill {
       case "contract" :
         SB_barSize = 80;
         break;
-      case "slow" : break;
-      case "fast" : break;
+      case "slow" :
+        SB_gameSpeed = 1.0;
+        break;
+      case "fast" :
+        SB_gameSpeed = 1.0;
+        break;
       case "division" : break;
       case "bomb" : break;
       case "mine1" : break;
       case "mine2" : break;
-      case "magic" : break;
+      case "magic" :
+        BS_inflationBoostRate = 1.0;
+        break;
       default : break;
     }
-    Skills.remove(this);
+    SB_skills.remove(this);
   }
-  void update() {
+  void update(int i) {
     // タイマーの更新
     if (VS_clock > _skillStartTime + _skillDulation) {
       end();
       return;
     }
+    display(i);
+    cutinUpdate();
     
     // スキルごとの動作
     switch(_skillName) {
@@ -114,55 +168,67 @@ class Skill {
       default : break;
     }
   }
+  void display(int i) {
+    float _elapsed = VS_clock - _skillStartTime;
+    float _remain = _skillDulation - _elapsed;
+    fill(20, 50, 150);
+    rect(SB_blockWindowWidth,(GAME_height * (18 - (2 * i)) / 20) - GAME_width / 50, GAME_width - SB_blockWindowWidth, GAME_height / 10);
+    fill(20, 200, 250);
+    rect(SB_blockWindowWidth + (GAME_width - SB_blockWindowWidth) * (_elapsed / _skillDulation),(GAME_height * (39 - (4 * i)) / 40) - GAME_width / 50,(GAME_width - SB_blockWindowWidth) * (_remain / _skillDulation), GAME_height / 40);
+    fill(255);
+    textAlign(LEFT);
+    textFont(fontMd);
+    text(_skillNameJp + " : ( " + String.format("%.0f", Math.ceil(_remain / 1000)) + "秒 / " + String.format("%.0f", Math.ceil(_skillDulation / 1000)) + "秒 )", SB_blockWindowWidth + GAME_width / 50,(GAME_height * (9 - i) / 10) - GAME_width / 50 + GAME_height / 20);
+  }
   
   //!カットイン
   
   //スキルカットイン画像は横2縦1比率
-  void VS_cutin(String _imagePath, String _skillName, String _acterName) {
-    if (VS_isCutin) {
-      VS_cutinX = GAME_width;
-      VS_isCutinSlideOut = false;
-      VS_isCutinSlideIn = true;
-      VS_cutinDX = GAME_width / 20;
+  void cutin() {
+    if (_isCutin) {
+      _cutinX = GAME_width;
+      _isCutinSlideOut = false;
+      _isCutinSlideIn = true;
+      _cutinDX = GAME_width / 20;
     }
-    VS_cutinImage = VS_createRoundedImage(_imagePath, _skillName, _acterName);
-    VS_isCutin = true;
+    _cutinImage = _createRoundedImage();
+    _isCutin = true;
   }
-  voidVS_cutinUpdate() {
-    if (VS_isCutin) { // カットイン処理
+  void cutinUpdate() {
+    if (_isCutin) { // カットイン処理
       // slideIn
-      if (VS_isCutinSlideIn) {
-        VS_cutinX -= VS_cutinDX;
-        VS_cutinDX -= float(GAME_width) / 225.0;
-        if (VS_cutinDX < float(GAME_width) / 225.0) VS_cutinDX = float(GAME_width) / 225.0;
-        if (VS_cutinX <= GAME_width * 2 / 3) {
-          VS_cutinX = GAME_width * 2 / 3;
-          VS_isCutinSlideIn = false;
-          VS_cutinTime = millis();
+      if (_isCutinSlideIn) {
+        _cutinX -= _cutinDX;
+        _cutinDX -= float(GAME_width) / 225.0;
+        if (_cutinDX < float(GAME_width) / 225.0) _cutinDX = float(GAME_width) / 225.0;
+        if (_cutinX <= GAME_width * 2 / 3) {
+          _cutinX = GAME_width * 2 / 3;
+          _isCutinSlideIn = false;
+          _cutinTime = millis();
         }
       }
       // slideOut開始
-      if (!VS_isCutinSlideIn && !VS_isCutinSlideOut && millis() - VS_cutinTime > 3000) {
-        VS_cutinDX = GAME_width / 20;
-        VS_isCutinSlideOut = true;
+      if (!_isCutinSlideIn && !_isCutinSlideOut && millis() - _cutinTime > 3000) {
+        _cutinDX = GAME_width / 20;
+        _isCutinSlideOut = true;
       }
       // slideOut
-      if (VS_isCutinSlideOut) {
-        VS_cutinX += VS_cutinDX;
-        VS_cutinDX -= float(GAME_width) / 225.0;
-        if (VS_cutinDX < float(GAME_width) / 225.0) VS_cutinDX = float(GAME_width) / 225.0;
-        if (VS_cutinX >= GAME_width) {
-          VS_isCutinSlideOut = false;
-          VS_isCutinSlideIn = true;
-          VS_cutinDX = GAME_width / 20;
-          VS_isCutin = false;
+      if (_isCutinSlideOut) {
+        _cutinX += _cutinDX;
+        _cutinDX -= float(GAME_width) / 225.0;
+        if (_cutinDX < float(GAME_width) / 225.0) _cutinDX = float(GAME_width) / 225.0;
+        if (_cutinX >= GAME_width) {
+          _isCutinSlideOut = false;
+          _isCutinSlideIn = true;
+          _cutinDX = GAME_width / 20;
+          _isCutin = false;
         }
       }
-      image(VS_cutinImage, VS_cutinX,(VS_cutinSizeX) / 2, VS_cutinSizeX, VS_cutinSizeY);
+      image(_cutinImage, _cutinX,(_cutinSizeX) / 2, _cutinSizeX, _cutinSizeY);
     }
   }
-  PImage VS_createRoundedImage(String _imagePath, String _skillName, String _acterName) {
-    PImage _rawImg = loadImage("src/images/skill/" + _imagePath + ".png");
+  PImage _createRoundedImage() {
+    PImage _rawImg = loadImage("src/images/skill/" + _skillName + ".png");
     PGraphics _pg = createGraphics(_rawImg.width, _rawImg.height);
     _pg.beginDraw();
     _pg.image(_rawImg, 0, 0);
@@ -172,7 +238,7 @@ class Skill {
     _pg.textAlign(CENTER, CENTER);
     _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 15));
     _pg.text(_skillName, _rawImg.width / 2, _rawImg.height * 5 / 6);
-    if (_acterName != "") _pg.text(_acterName + "が発動", _rawImg.width / 2, _rawImg.height * 3 / 6);
+    if (_skillActer != "") _pg.text(_skillActer + "が発動", _rawImg.width / 2, _rawImg.height * 3 / 6);
     _pg.endDraw();
     
     PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
@@ -182,13 +248,13 @@ class Skill {
     _mask.fill(255);
     _mask.rectMode(CORNER);
     _mask.beginShape();
-    _mask.vertex(VS_cutinImageMaskRad, 0);
+    _mask.vertex(_cutinImageMaskRad, 0);
     _mask.vertex(_rawImg.width, 0); // 右上の角
     _mask.vertex(_rawImg.width, _rawImg.height); // 右下の角
-    _mask.vertex(VS_cutinImageMaskRad, _rawImg.height);
-    _mask.quadraticVertex(0, _rawImg.height, 0, _rawImg.height - VS_cutinImageMaskRad); // 左下の角を丸くする
-    _mask.vertex(0, VS_cutinImageMaskRad);
-    _mask.quadraticVertex(0, 0, VS_cutinImageMaskRad, 0); // 左上の角を丸くする
+    _mask.vertex(_cutinImageMaskRad, _rawImg.height);
+    _mask.quadraticVertex(0, _rawImg.height, 0, _rawImg.height - _cutinImageMaskRad); // 左下の角を丸くする
+    _mask.vertex(0, _cutinImageMaskRad);
+    _mask.quadraticVertex(0, 0, _cutinImageMaskRad, 0); // 左上の角を丸くする
     _mask.endShape(CLOSE);
     _mask.endDraw();
     PImage _maskedImage = _pg.get();

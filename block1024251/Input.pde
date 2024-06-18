@@ -15,16 +15,16 @@ void keyPressed() { // キー入力
       if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
       break;
     case 2 : // Block
-      if (key == '1') NET_recv("skill,1,"+NET_channel+","+DATA_USERNAME);
-      if (key == '2') NET_recv("skill,2,"+NET_channel+","+DATA_USERNAME);
-      if (key == '3') NET_recv("skill,3,"+NET_channel+","+DATA_USERNAME);
-      if (key == '4') NET_recv("skill,4,"+NET_channel+","+DATA_USERNAME);
-      if (key == '5') NET_recv("skill,5,"+NET_channel+","+DATA_USERNAME);
-      if (key == '6') NET_recv("skill,6,"+NET_channel+","+DATA_USERNAME);
-      if (key == '7') NET_recv("skill,7,"+NET_channel+","+DATA_USERNAME);
-      if (key == '8') NET_recv("skill,8,"+NET_channel+","+DATA_USERNAME);
-      if (key == '9') NET_recv("skill,9,"+NET_channel+","+DATA_USERNAME);
-      if (key == '0') NET_recv("skill,0,"+NET_channel+","+DATA_USERNAME);
+      if (key == '1') VS_skillRegister("1", DATA_USERNAME);
+      if (key == '2') VS_skillRegister("2", DATA_USERNAME);
+      if (key == '3') VS_skillRegister("3", DATA_USERNAME);
+      if (key == '4') VS_skillRegister("4", DATA_USERNAME);
+      if (key == '5') VS_skillRegister("5", DATA_USERNAME);
+      if (key == '6') VS_skillRegister("6", DATA_USERNAME);
+      if (key == '7') VS_skillRegister("7", DATA_USERNAME);
+      if (key == '8') VS_skillRegister("8", DATA_USERNAME);
+      if (key == '9') VS_skillRegister("9", DATA_USERNAME);
+      if (key == '0') VS_skillRegister("0", DATA_USERNAME);
       if (key == 'i') SB_inflationRateTemporary *= 2; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
       if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用

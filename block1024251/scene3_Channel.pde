@@ -33,6 +33,7 @@ void SC_input(String _key) {
     NET_channel = "";
   } else if (_key.equals("enter")) {
     if (NET_channel.length()>0) {
+      NET_send("join", NET_channel);
       cmode(4);
     } else {
       return;

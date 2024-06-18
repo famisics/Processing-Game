@@ -7,7 +7,7 @@ void NET_recv(String i) {
     switch(_data[0]) {
       case "skill" :
         println("[WS:skill] " + _data[3] + "がスキルID" + _data[1] + "を発動しました");
-        VS_skillRecv(_data[1], _data[3]);
+        VS_skillRegister(_data[1], _data[3]);
         break;
       case "join" :
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "に参加しました");
@@ -15,7 +15,7 @@ void NET_recv(String i) {
         break;
       case "score" : // TODO:リアルタイムスコアの同期
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "で" + _data[1] + "エネルギーを獲得しています");
-        SB_scoreRecv(_data[1], _data[3]);
+        VP_scoreRecv(_data[1], _data[3]);
         break;
       case "start" :
         println("[WS:start] " + _data[3] + "がチャンネル" + _data[2] + "のゲームを開始します！");
@@ -35,7 +35,7 @@ void NET_recv(String i) {
 void NET_send(String _event, String _data) { // データ構造 : イベント名,データ
   String _token = _event + "," + _data + "," + NET_channel + "," + DATA_USERNAME; // ユーザーネームと送信先チャンネルを付加
   if (NET_isNetworkEnable) {
-    NET_CLIENT.sendMessage(_token);
+    NET_client.sendMessage(_token);
     println("[WS:SEND] (" + _token + ")を送信中");
   } else {
     println("[WS:SEND] ネットワークが無効になっています");

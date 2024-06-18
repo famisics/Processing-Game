@@ -4,8 +4,8 @@ import java.util.Iterator;
 import processing.sound.*;
 import websockets.*;
 
-String NET_SERVER_HOST = "ws://localhost:8000"; // Proxyサーバーのホスト名
-boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true を代入する
+int NET_SERVER_PORT = 8001; // Proxyサーバーのホスト名
+boolean NET_isNetworkEnable = true; // ネットワーク機能を有効にするには true を代入する
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
 // void settings() {

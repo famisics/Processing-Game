@@ -74,7 +74,7 @@ void VP_messageUpdate() {
     fill(255);
     textAlign(CENTER, CENTER);
     textFont(fontMd);
-    text(i, GAME_width * 4 / 10, GAME_height * 9 / 20, width / 5, height / 10);
+    text(VP_messageText, GAME_width * 4 / 10, GAME_height * 9 / 20, width / 5, height / 10);
     if (GAME_clock - VP_messageTime > 1500) {
       VP_isMessage = false;
     }
