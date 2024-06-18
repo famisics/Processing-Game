@@ -25,7 +25,7 @@ class Ball {
       // 移動先の当たり判定を確認
       if (_y < _size / 2) _dy *= -1;
       if (_x < _size / 2 || _x + _size / 2 >= SB_blockWindowWidth) _dx *= -1;
-      if (VU_isShield) { // シールド
+      if (US_isShield) { // シールド
         if (_y + _size / 2 >= GAME_height - (GAME_width / 50)) _dy = abs(_dy) * - 1; // 落下しても削除しない
       } else {
         if (_y >= GAME_height - (GAME_width / 50)) SB_balls.remove(this); // 落下判定

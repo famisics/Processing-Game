@@ -1,9 +1,5 @@
 // それぞれのスキルのコード
 
-void VU_boot() {
-  // TODO:すべての値を初期化
-}
-
 // プロパシールド
 boolean VU_isShield = false;
 int VU_sheldTime = 0;
