@@ -68,16 +68,17 @@ void VB_addBall(int n) {
 }
 // 当たり判定
 String VB_hit(float _rx, float _ry, float _rw, float _rh, float _cx, float _cy, float _crad) {
-  float _cstx = constrain(_cx, _rx, _rx + _rw);
-  float _csty = constrain(_cy, _ry, _ry + _rh);
-  float _distance = (_cx - _cstx) * (_cx - _cstx) + (_cy - _csty) * (_cy - _csty);
-  boolean _isHit = _distance < (_crad * _crad);
-  if (_isHit) { // 円形の当たり判定
-    if (abs(_cx - _cstx) > abs(_cy - _csty)) {
-      return "dx";
-    } else {
-      return "dy";
+    float _closestX = constrain(_cx, _rx, _rx + _rw);
+    float _closestY = constrain(_cy, _ry, _ry + _rh);
+    float _distanceX = _cx - _closestX;
+    float _distanceY = _cy - _closestY;
+    float _distanceSquared = _distanceX * _distanceX + _distanceY * _distanceY;
+    if (_distanceSquared < (_crad * _crad) || (_cx + _crad > _rx && _cx - _crad < _rx + _rw && abs(_distanceY) < _crad) || (_cy + _crad > _ry && _cy - _crad < _ry + _rh && abs(_distanceX) < _crad)) {
+        if (abs(_distanceX) > abs(_distanceY)) {
+            return "dx";
+        } else {
+            return "dy";
+        }
     }
-  }
-  return "";
+    return "";
 }

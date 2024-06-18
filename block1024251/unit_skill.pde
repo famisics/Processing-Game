@@ -145,7 +145,6 @@ class Skill {
         break;
       default : break;
     }
-    SB_skills.remove(this);
   }
   void update(int i) {
     // タイマーの更新
@@ -263,5 +262,8 @@ class Skill {
     PImage _maskedImage = _pg.get();
     _maskedImage.mask(_mask);
     return _maskedImage;
+  }
+  boolean shouldRemove() {
+      return VS_clock > _skillStartTime + _skillDulation;
   }
 }
