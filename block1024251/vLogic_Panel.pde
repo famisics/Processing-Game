@@ -39,3 +39,6 @@ String VP_scoreBoard() {
   }
   return _r;
 }
+void VP_scoreRecv(String _score, String _acterName){
+  
+} // ほかプレイヤーのデータを受け取る

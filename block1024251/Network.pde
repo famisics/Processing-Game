@@ -2,9 +2,7 @@
 
 // 他クライアントからの受信イベントを処理
 void NET_recv(String i) {
-  String[] _data = split(i, ","); // データ構造 : [0] = イベント名, [1] = 内容, [2] = 送信先チャンネル, [3] = ユーザーネーム
-  println("DATA:" + _data[2]);
-  println("local:" + NET_channel);
+  String[] _data = split(i, ","); // データ構造 : [0] = イベント名, [1] = データ, [2] = 送信先チャンネル, [3] = ユーザーネーム
   if (_data[2].equals(NET_channel)) {
     switch(_data[0]) {
       case "skill" :
@@ -13,11 +11,16 @@ void NET_recv(String i) {
         break;
       case "join" :
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "に参加しました");
-        SS_message(DATA_USERNAME + "がチャンネル" + NET_channel + "に参加しました");
+        SS_message(_data[3] + "がチャンネル" + NET_channel + "に参加しました");
+        break;
+      case "score" : // TODO:リアルタイムスコアの同期
+        println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "で" + _data[1] + "エネルギーを獲得しています");
+        SB_scoreRecv(_data[1], _data[3]);
         break;
       case "start" :
         println("[WS:start] " + _data[3] + "がチャンネル" + _data[2] + "のゲームを開始します！");
         SB_startMessageText = _data[3] + "がチャンネル" + _data[2] + "のゲームを開始します！";
+        cmode(2);
         break;
       default :
       println("[WS:RECV] (" + i + ")は規定外のデータであるため破棄されました");
