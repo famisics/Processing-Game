@@ -27,11 +27,17 @@ void VS_update() {
   }
   VS_clockBefore = GAME_clock;
   // スキルの更新
-  int _i = 0;
-  for (Skill skill : SB_skills) {
-      skill.update(_i);
-      _i++;
-  }
+    Iterator<Skill> iterator = SB_skills.iterator(); // Iteratorを使う
+    int i = 0;
+    while (iterator.hasNext()) {
+      Skill skill = iterator.next();
+      skill.update(i);
+      if (!SB_skills.contains(skill)) { // Skillが削除された場合
+        iterator.remove(); // Iteratorを使って削除
+      } else {
+        i++;
+      }
+    }
 }
 
 void VS_skillRegister(String _id, String _acterName) { // *すべてのスキルはここに投げる

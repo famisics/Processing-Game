@@ -3,9 +3,10 @@
 int VP_messageTime = 0; // ブロック崩の起動時間 
 boolean VP_isMessage = false; // ブロック崩しの起動状態
 String VP_messageText = ""; // ブロック崩しの起動メッセージ
+int VP_lastSocreSendTime = 0; // 最後にスコアを送信した時間
 
 void VP_Boot() {
-  
+  VP_lastSocreSendTime = GAME_clock;
 }
 void VP_update() {
   fill(20, 100, 80);
@@ -31,6 +32,10 @@ void VP_update() {
   textAlign(CENTER, TOP);
   text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) / 2, float(GAME_height) * 41 / 100);
   VP_messageUpdate();
+  if (GAME_clock - VP_lastSocreSendTime > 2000) {
+    VP_lastSocreSendTime = GAME_clock;
+    NET_send("score",doubleToJp(SB_lastEnergy));
+  }
 }
 String[][] VP_users = {
   {"userA", "1万8000"} ,
@@ -61,6 +66,7 @@ void VP_scoreRecv(String _score, String _acterName) {
   _new[VP_users.length][1] = _score;
   VP_users = _new;
 }
+
 
 void VP_message(String i) {
   VP_messageText = i;

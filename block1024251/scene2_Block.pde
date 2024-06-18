@@ -42,7 +42,7 @@ void SB_update() { // 更新
 
 void SB_start() {
   if (!SB_isStart) {
-    int _r = (10 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
+    int _r = (3 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0)); //TODO:10秒にする
     fill(255);
     textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);

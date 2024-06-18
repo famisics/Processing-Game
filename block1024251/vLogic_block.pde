@@ -27,12 +27,9 @@ void VB_update() {
     }
   }
   stroke(200);
-  Iterator<Ball> iterator = SB_balls.iterator();
-  while (iterator.hasNext()) {
-    Ball ball = iterator.next();
-    ball.update(VS_isDivision);
+  for (Ball b : SB_balls) {
+    b.update();
   }
-  if (VS_isDivision) VS_isDivision = false;
   VB_updateBar();
   SB_ballCount = SB_balls.size();
   if (SB_ballCount == 0 || SB_blockCount == 0) {

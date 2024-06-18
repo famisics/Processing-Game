@@ -10,7 +10,7 @@ class Ball {
     this._dy = _dy;
     this._size = _size;
   }
-  void update(boolean _isDivision) {
+  void update() {
     // ブロックとボールの衝突判定
     for (int x = 0; x < 12; x++) {
       for (int y = 0; y < 10; y++) {

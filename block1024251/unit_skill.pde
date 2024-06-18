@@ -66,22 +66,25 @@ class Skill {
       case "fast" :
         SB_gameSpeed = 2.0;
         break;
-      case "division" : // TODO:重大なエラー、スキル6が発動するとフリーズする
-        Iterator<Ball> iterator = SB_balls.iterator();
-        while (iterator.hasNext()) {
-          Ball ball = iterator.next();
-          SB_balls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * -1, ball._size));
+      case "division":
+        ArrayList<Ball> newBalls = new ArrayList<>();
+        synchronized(SB_balls) { // SB_ballsへのアクセスを同期
+          for (Ball ball : SB_balls) {
+            newBalls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * -1, ball._size));
+          }
         }
+        SB_balls.addAll(newBalls); // 新しいボールを追加
         break;
       case "bomb" :
         for (int x = 0; x < 12; x++) {
           for (int y = 0; y < 10; y++) {
-            if (SB_blocks[x][y] > 0) {
+            println("x:" + x + " y:" + y + " SB_blocks[y][x]:" + SB_blocks[y][x]);
+            if (SB_blocks[y][x] > 0) {
               float r = random(0, 1);
               if (r > 0.5) {
-                int l = (int)Math.ceil(SB_blocks[x][y] - (SB_blocksLife / 2));
-                if (r < 0) r = 0;
-                SB_blocks[x][y] = l;
+                int l = (int)Math.ceil(SB_blocks[y][x] - (SB_blocksLife / 2));
+                if (l < 0) l = 0;
+                SB_blocks[y][x] = l;
               }
             }
           }
@@ -91,10 +94,10 @@ class Skill {
         int _x = (int)Math.ceil(random(0, 12));
         int _y = (int)Math.ceil(random(0, 10));
         for (int x = 0; x < 12; x++) {
-          SB_blocks[x][_y] = SB_blocksLife;
+          SB_blocks[_y][x] = SB_blocksLife;
         }
         for (int y = 0; y < 10; y++) {
-          SB_blocks[_x][y] = SB_blocksLife;
+          SB_blocks[y][_x] = SB_blocksLife;
         }
         break;
       case "mine2" :
@@ -102,9 +105,9 @@ class Skill {
           for (int y = 0; y < 10; y++) {
             float r = random(0, 1);
             if (r > 0.5) {
-              int l = (int)Math.ceil(SB_blocks[x][y] + (SB_blocksLife / 2));
+              int l = (int)Math.ceil(SB_blocks[y][x] + (SB_blocksLife / 2));
               if (l > SB_blocksLife) l = SB_blocksLife;
-              SB_blocks[x][y] = l;
+              SB_blocks[y][x] = l;
             }
           }
         }

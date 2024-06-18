@@ -3,7 +3,7 @@ import chalk from "chalk";
 
 // !-------- 設定 --------
 const port = 8000;
-const host = "wss://proc.uiro.dev";
+const host = "ws://localhost:8080";
 // !-------- 設定 --------
 
 let statusList = [false, false, false]; // client, local, public
