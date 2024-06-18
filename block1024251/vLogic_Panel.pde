@@ -24,8 +24,9 @@ void VP_update() {
   text("Lv. " + doubleToJp(Math.ceil(SB_inflationRate / 1000)), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 33 / 100);
   textFont(fontMdsm);
   text(VP_scoreBoard(), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
-  // text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
-} // TODO:このへん解決
+  textAlign(CENTER, TOP);
+  text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) / 2, float(GAME_height) * 41 / 100);
+}
 String[][] VP_users = {
   {"userA", "1万8000"},
   {"userB", "2億9200万"},
@@ -39,6 +40,19 @@ String VP_scoreBoard() {
   }
   return _r;
 }
-void VP_scoreRecv(String _score, String _acterName){
-  
-} // ほかプレイヤーのデータを受け取る
+void VP_scoreRecv(String _score, String _acterName) {
+  for (int i = 0; i < VP_users.length; ++i) {
+    if (VP_users[i][0].equals(_acterName)) {
+      VP_users[i][1] = _score;
+      return;
+    }
+  }
+  String[][] _new = new String[VP_users.length + 1][2];
+  for (int i = 0; i < VP_users.length; ++i) {
+    _new[i][0] = VP_users[i][0];
+    _new[i][1] = VP_users[i][1];
+  }
+  _new[VP_users.length][0] = _acterName;
+  _new[VP_users.length][1] = _score;
+  VP_users = _new;
+}
