@@ -1,58 +1,8 @@
 # 地球再生計画 クライアント (Processing)
 
-1024251 山﨑拓己 (famisics / https://uiro.dev)
+1024251 山﨑拓己
 
-# 地球再生計画 プロキシサーバー (node.js)
-
-node.js が必要です
-
-server.jsの `const port = ****;` とblock1024251.pdeの ``
-
-環境構築の際はそれぞれのディレクトリ上で以下のコマンドを実行してください
-
-## 環境構築
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## サーバー起動
-
-```bash
-# npm
-npm start
-
-# pnpm
-pnpm start
-
-# yarn
-yarn start
-
-# bun
-bun start
-```
-
-
-## ゲームの起動前にnodeサーバーをスタートさせてください
-
-付属のサーバーを立ち上げる！サーバーの立ち上げ方どうしよう、node/pnpm入れてもらうわけにいかないし  
-node 持ち歩くで検索して.batで起動するようにできるらしい、これできたらつよい
-
-ゲーム本体とサーバーをセットでzipして配るのが理想
-
-使っていないとサーバーが落ちるので、それをどうしよう、使うときだけ課金もあり
-
-famisics/Processing-Clientでクライアントだけ公開する必要がある
+## 注意: NET_isNetworkEnableがtrueの場合、ゲームの起動前にnodeサーバーをスタートさせてください
 
 ## 関連するリポジトリ/仕様
 
@@ -124,16 +74,45 @@ Ucchii0-うっちーぜろ- | たったそれだけの物語
 JetBrainsMono
 
 ## ライセンス
+
 2024 © famisics(https://uiro.dev)
 
-### やること
+# 地球再生計画 プロキシサーバー (node.js)
 
-TODO: 配列のエラーをなるべく抑える…
+node.js が必要です
 
-## 制作が必要なもの
+server.jsの `const port = ****;` とblock1024251.pdeの ``
 
-- [ ]  説明スライド
-- [ ]  報告書
-- [ ]  SE音
-- [ ]  README.mdを整理
-- [ ]  レベル表記おかしいかも
+環境構築の際はそれぞれのディレクトリ上で以下のコマンドを実行してください
+
+## 環境構築
+
+```bash
+# npm
+npm install
+
+# pnpm
+pnpm install
+
+# yarn
+yarn install
+
+# bun
+bun install
+```
+
+## サーバー起動
+
+```bash
+# npm
+npm start
+
+# pnpm
+pnpm start
+
+# yarn
+yarn start
+
+# bun
+bun start
+```
