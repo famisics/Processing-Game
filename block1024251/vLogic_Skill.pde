@@ -29,12 +29,12 @@ void VS_update() {
   // スキルの更新
   Iterator<Skill> iterator = SB_skills.iterator();
   int i = 0;
-  while (iterator.hasNext()) {
+  while(iterator.hasNext()) {
     Skill skill = iterator.next();
     skill.update(i);
     i++;
   }
-
+  
   // 削除対象のスキルをリストにまとめる
   List<Skill> skillsToRemove = new ArrayList<>();
   for (Skill skill : SB_skills) {
@@ -42,13 +42,13 @@ void VS_update() {
       skillsToRemove.add(skill);
     }
   }
-
+  
   // 削除対象のスキルをまとめて削除
   SB_skills.removeAll(skillsToRemove);
 }
 
 void VS_skillRegister(String _id, String _acterName) { // *すべてのスキルはここに投げる
-  if(SB_isTimeProcessing) {
+  if (SB_isTimeProcessing) {
     String[] _skillData = new String[0];
     for (int i = 1; i < VS_skillTable.length; i++) { // スキルテーブルからスキルを探し、発動対象を取得する
       if (VS_skillTable[i][0].equals(_id)) {
@@ -61,26 +61,26 @@ void VS_skillRegister(String _id, String _acterName) { // *すべてのスキル
     // !発火場所、残り時間表示、クールタイムの有無、発火する関数が複雑なので、if elseで分けています
     if (_acterName.equals(DATA_USERNAME) && _target.equals("self")) {
       // * 発動者が自分 + 対象が自分 = 自分のフィールドで発火、残り時間表示、クールタイムあり
-
+      
       VS_skillRegister2(_id, _skillData, _acterName, true, true); // スキルの登録
       NET_send("skill",_id); // スキルの送信
-
+      
     } else if (!_acterName.equals(DATA_USERNAME) && _target.equals("oppo")) {
       // * 発動者が相手 + 対象が自分 = 自分のフィールドで発火、残り時間表示、クールタイムなし
-
+      
       VS_skillRegister2(_id, _skillData, _acterName, true, false); // スキルの登録
-
+      
     } else if (_acterName.equals(DATA_USERNAME) && _target.equals("oppo")) {
       // * 発動者が自分 + 対象が相手 = 相手のフィールドで発火、残り時間なし、クールタイムあり
-
+      
       VP_message(_skillData[5] + "を発動しました"); // メッセージ表示
       NET_send("skill",_id); // スキルの送信
-
+      
     } else if (!_acterName.equals(DATA_USERNAME) && _target.equals("self")) {
       // * 発動者が相手 + 対象が相手 = 相手のフィールドで発火、残り時間なし、クールタイムなし
-
+      
       VP_message(_acterName + "が" + _skillData[5] + "を発動しました"); // メッセージ表示
-
+      
     }
   }
 }

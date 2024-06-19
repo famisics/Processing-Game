@@ -76,21 +76,21 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
       if (bgm3.isPlaying()) bgm3.stop();
       if (bgm5.isPlaying()) bgm5.stop();
       println("[SCENE2]  Block");
-      switch ((int)random(1, 4)) { // 1-3までランダムにBGMを選択
+      switch((int)random(1, 4)) { // 1-3までランダムにBGMを選択
         case 1 :
-          bgm2 = new SoundFile(this, "src/sounds/bgm/tattasoredakenomonogatari.mp3");
-          break;
-        case 2 :
-          bgm2 = new SoundFile(this, "src/sounds/bgm/bi-boruto.mp3");
-          break;
-        default :
-          bgm2 = new SoundFile(this, "src/sounds/bgm/ryugen.mp3");
-          break;
-      }
-      bgm2.loop();
-      bgm2.pause();
-      SB_boot();
+        bgm2 = new SoundFile(this, "src/sounds/bgm/tattasoredakenomonogatari.mp3");
+        break;
+      case 2 :
+        bgm2 = new SoundFile(this, "src/sounds/bgm/bi-boruto.mp3");
+        break;
+      default :
+      bgm2 = new SoundFile(this, "src/sounds/bgm/ryugen.mp3");
       break;
+    }
+    bgm2.loop();
+    bgm2.pause();
+    SB_boot();
+    break;
     case 3 : // channel
       if (bgm1.isPlaying()) bgm1.stop();
       if (bgm2.isPlaying()) bgm2.stop();
