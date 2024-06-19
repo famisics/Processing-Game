@@ -30,7 +30,9 @@ void VP_update() {
   textFont(fontMdsm);
   text(VP_scoreBoard(), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
   textAlign(LEFT, TOP);
+  fill(0, 255, 255);
   text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) / 4, float(GAME_height) * 3 / 5);
+  fill(255);
   VP_messageUpdate();
   if (GAME_clock - VP_lastSocreSendTime > 2000) {
     VP_lastSocreSendTime = GAME_clock;

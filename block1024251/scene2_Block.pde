@@ -31,7 +31,7 @@ void SB_boot() { // 初期化
   SB_bootTime = GAME_clock; // 起動時間を記録
 }
 void SB_update() { // 更新
-  background(50, 100, 100);
+  background(30, 60, 60);
   VB_update(); // ブロック崩し本体を更新  
   VP_update(); // サイドパネルを更新
   VS_update(); // スキルを更新
@@ -68,7 +68,7 @@ void SB_pause() { // 一時停止
 void SB_pauseUpdate() {
   if (!SB_isTimeProcessing) {
     textAlign(CENTER, CENTER);
-    fill(50, 200);
+    fill(50, 50);
     rect(0, 0, GAME_width, GAME_height);
     if (SB_isStart) {
       fill(255);
