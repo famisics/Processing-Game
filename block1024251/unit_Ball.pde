@@ -1,6 +1,8 @@
 // ボールを表示するクラス
 
 class Ball {
+  boolean _isEnable = true;
+
   float _x, _y, _dy, _dx, _size;
   boolean _isHit = false;
   Ball(float _x, float _y, float _dx, float _dy, float _size) {
@@ -11,6 +13,7 @@ class Ball {
     this._size = _size;
   }
   void update() {
+    if(!_isEnable) return;
     // ブロックとボールの衝突判定
     for (int x = 0; x < 12; x++) {
       for (int y = 0; y < 10; y++) {
@@ -28,7 +31,7 @@ class Ball {
       if (BS_isShield) { // シールド
         if (_y + _size / 2 >= GAME_height - (GAME_width / 50)) _dy = abs(_dy) * - 1; // 落下しても削除しない
       } else {
-        if (_y >= GAME_height - (GAME_width / 50)) SB_balls.remove(this); // 落下判定
+        if (_y >= GAME_height - (GAME_width / 50)) setDisable(); // 落下判定
       }
       // 移動
       _x += _dx * SB_gameSpeed;
@@ -37,6 +40,10 @@ class Ball {
     // ボールの描画
     fill(100, 255, 255);
     circle(_x, _y, _size);
+  }
+  void setDisable() {
+    _isEnable = false;
+    SB_ballCount--;
   }
   void isHit2Block(int x, int y) {
     if (SB_blocks[y][x] > 0 && !_isHit) { // ブロックが存在するとき

@@ -10,7 +10,7 @@ int SB_blocksLife = 8; // ブロックの初期HP
 int SB_barSize = 80; // バーの横幅
 double SB_inflationRateTemporary = 1.0; // 獲得エネルギーインフレ率 (このゲームのみ)
 double SB_inflationRate = 0.0; // 総エネルギーをもとに計算
-int SB_ballCount = 1; // ボールの数
+int SB_ballCount = 0; // ボールの数
 int SB_blockCount = 0; // ブロックの数
 
 int SB_blockWindowWidth; // ブロック崩し本体のウィンドウの横幅
@@ -42,7 +42,7 @@ void SB_update() { // 更新
 
 void SB_start() {
   if (!SB_isStart) {
-    int _r = (3 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0)); //TODO:10秒にする
+    int _r = (10 - (int)Math.floor((GAME_clock - SB_bootTime) / 1000.0));
     fill(255);
     textFont(SH_fontTitle);
     textAlign(CENTER, CENTER);

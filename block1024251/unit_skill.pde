@@ -1,4 +1,6 @@
 class Skill {
+  boolean _isEnable = true;
+
   String _skillId;
   String _skillName;
   String _skillNameJp;
@@ -35,7 +37,9 @@ class Skill {
     
     start();
   }
-  
+  boolean isEnable() {
+    return _isEnable;
+  }
   void start() {
     // 必要エネルギーが足りるかどうか
     if (_skillActer.equals(DATA_USERNAME)) {
@@ -44,7 +48,7 @@ class Skill {
       } else {
         double _rem = _skillEnergy - SB_lastEnergy;
         VP_message("エネルギーが" + String.valueOf(_rem) + "足りません");
-        end();
+        _isEnable = false;
         return;
       }
     }
@@ -52,21 +56,27 @@ class Skill {
     // スキルごとの動作
     switch(_skillName) {
       case "shield":
+        se("enter");
         BS_isShield = true;
         break;
       case "extend" :
+        se("sward");
         SB_barSize = 160;
         break;
       case "contract" :
+        se("sward");
         SB_barSize = 40;
         break;
       case "slow" :
+        se("sward");
         SB_gameSpeed = 0.3;
         break;
       case "fast" :
+        se("sward");
         SB_gameSpeed = 2.0;
         break;
       case "division":
+        se("enter");
         ArrayList<Ball> newBalls = new ArrayList<>();
         synchronized(SB_balls) { // SB_ballsへのアクセスを同期
           for (Ball ball : SB_balls) {
@@ -76,6 +86,7 @@ class Skill {
         SB_balls.addAll(newBalls); // 新しいボールを追加
         break;
       case "bomb" :
+        se("boom");
         for (int x = 0; x < 12; x++) {
           for (int y = 0; y < 10; y++) {
             println("x:" + x + " y:" + y + " SB_blocks[y][x]:" + SB_blocks[y][x]);
@@ -91,6 +102,7 @@ class Skill {
         }
         break;
       case "mine1" :
+        se("enter");
         int _x = (int)Math.ceil(random(0, 12));
         int _y = (int)Math.ceil(random(0, 10));
         for (int x = 0; x < 12; x++) {
@@ -101,6 +113,7 @@ class Skill {
         }
         break;
       case "mine2" :
+        se("enter");
         for (int x = 0; x < 12; x++) {
           for (int y = 0; y < 10; y++) {
             float r = random(0, 1);
@@ -113,6 +126,7 @@ class Skill {
         }
         break;
       case "magic" :
+        se("enter");
         BS_inflationBoostRate = 10;
         break;
       default : break;
@@ -145,6 +159,7 @@ class Skill {
         break;
       default : break;
     }
+    _isEnable = false;
   }
   void update(int i) {
     // タイマーの更新
@@ -152,22 +167,24 @@ class Skill {
       end();
       return;
     }
-    display(i);
-    cutinUpdate();
-    
-    // スキルごとの動作
-    switch(_skillName) {
-      case "shield" : break;
-      case "extend" : break;
-      case "contract" : break;
-      case "slow" : break;
-      case "fast" : break;
-      case "division" : break;
-      case "bomb" : break;
-      case "mine1" : break;
-      case "mine2" : break;
-      case "magic" : break;
-      default : break;
+    if (_isEnable) {
+      display(i);
+      cutinUpdate();
+      
+      // スキルごとの動作
+      switch(_skillName) {
+        case "shield" : break;
+        case "extend" : break;
+        case "contract" : break;
+        case "slow" : break;
+        case "fast" : break;
+        case "division" : break;
+        case "bomb" : break;
+        case "mine1" : break;
+        case "mine2" : break;
+        case "magic" : break;
+        default : break;
+      }
     }
   }
   void display(int i) {
@@ -263,8 +280,5 @@ class Skill {
     PImage _maskedImage = _pg.get();
     _maskedImage.mask(_mask);
     return _maskedImage;
-  }
-  boolean shouldRemove() {
-    return VS_clock > _skillStartTime + _skillDulation;
   }
 }

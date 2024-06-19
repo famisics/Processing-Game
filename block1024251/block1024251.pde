@@ -8,19 +8,18 @@ import processing.sound.*;
 import websockets.*;
 
 int NET_SERVER_PORT = 8001; // Proxyサーバーのホスト名
-boolean NET_isNetworkEnable = true; // ネットワーク機能を有効にするには true を代入する
+boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true を代入する
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
-// void settings() {
-//   fullScreen();
-// }
-// TODO:フルスクリーンの状態でビルドする
+void settings() {
+  fullScreen();
+}
 
 void setup() {
   background(0);
   println("[GENERAL] ゲームを初期化しています");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  size(1200, 800); // デバッグ用の解像度
+  // size(1200, 800); // デバッグ用の解像度
   frameRate(60);
   textAlign(CENTER,CENTER);
   background(0);

@@ -34,17 +34,6 @@ void VS_update() {
     skill.update(i);
     i++;
   }
-  
-  // 削除対象のスキルをリストにまとめる
-  List<Skill> skillsToRemove = new ArrayList<>();
-  for (Skill skill : SB_skills) {
-    if (skill.shouldRemove()) { // 削除判定を shouldRemove メソッドに委譲
-      skillsToRemove.add(skill);
-    }
-  }
-  
-  // 削除対象のスキルをまとめて削除
-  SB_skills.removeAll(skillsToRemove);
 }
 
 void VS_skillRegister(String _id, String _acterName) { // *すべてのスキルはここに投げる
@@ -87,7 +76,7 @@ void VS_skillRegister(String _id, String _acterName) { // *すべてのスキル
 void VS_skillRegister2(String _id, String[] _skillData, String _acterName, boolean _isDisplayMonitor, boolean _isBlockDuplicate) {
   boolean isDuplicate = false;
   for (Skill _skill : SB_skills) {
-    if (_skill._skillId.equals(_id)) {
+    if (_skill._skillId.equals(_id) && _skill.isEnable()) {
       println("[skill] このスキルはクールタイム中です");
       VP_message("このスキルはクールタイム中です");
       isDuplicate = true;

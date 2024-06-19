@@ -9,6 +9,8 @@ void VB_boot() {
   SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000 * BS_inflationBoostRate; // インフレ率を計算
   SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
   SB_balls = new ArrayList<Ball>(); // ボールの初期化
+  SB_ballCount = 0; // ボールの数を初期化
+  SB_blockCount = 0; // ブロックの数を初期化
   for (int i = 0; i < 10; i++) {
     for (int j = 0; j < 12; j++) {
       SB_blocks[i][j] = SB_blocksLife;
@@ -27,11 +29,10 @@ void VB_update() {
     }
   }
   stroke(200);
-  for (Ball b : SB_balls) {
-    b.update();
+  for (Ball _Ball : SB_balls) {
+    _Ball.update();
   }
   VB_updateBar();
-  SB_ballCount = SB_balls.size();
   if (SB_ballCount == 0 || SB_blockCount == 0) {
     cmode(5);
   }
@@ -63,6 +64,7 @@ void VB_updateBar() {
 }
 void VB_addBall(int n) {
   for (int i = 0; i < n; i++) {
+    SB_ballCount++;
     SB_balls.add(new Ball(100, GAME_height * 3 / 5, SB_gameSpeed * 100 * (SB_blockWindowWidth / 24) / random(250,500), SB_gameSpeed * 100 * (SB_blockWindowWidth / 24) / random(250,500), SB_ballSize));
   }
 }
