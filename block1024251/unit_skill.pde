@@ -80,6 +80,7 @@ class Skill {
         ArrayList<Ball> newBalls = new ArrayList<>();
         synchronized(SB_balls) { // SB_ballsへのアクセスを同期
           for (Ball ball : SB_balls) {
+            SB_ballCount++;
             newBalls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * - 1, ball._size));
           }
         }
