@@ -30,9 +30,11 @@ void VS_update() {
   Iterator<Skill> iterator = SB_skills.iterator();
   int i = 0;
   while(iterator.hasNext()) {
-    Skill skill = iterator.next();
-    skill.update(i);
-    i++;
+    Skill _skill = iterator.next();
+    _skill.update(i);
+    if(_skill.isEnable()) {
+      i++;
+    }
   }
 }
 
