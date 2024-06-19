@@ -38,9 +38,6 @@ class Ball {
     fill(100, 255, 255);
     circle(_x, _y, _size);
   }
-  // void division() {
-  //   SB_balls.add(new Ball(_x, _y, _dx * 0.8, _dy * - 1, _size));
-  // }
   void isHit2Block(int x, int y) {
     if (SB_blocks[y][x] > 0 && !_isHit) { // ブロックが存在するとき
       String _hit = VB_hit(x * SB_blockWindowWidth / 12, y * GAME_height / 20, SB_blockWindowWidth / 12, GAME_height / 20, _x, _y, _size / 2);

@@ -29,24 +29,32 @@ void VP_update() {
   text("Lv. " + doubleToJp(Math.ceil(SB_inflationRate / 1000)), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 33 / 100);
   textFont(fontMdsm);
   text(VP_scoreBoard(), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
-  textAlign(CENTER, TOP);
-  text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) / 2, float(GAME_height) * 41 / 100);
+  textAlign(LEFT, TOP);
+  text("1 : シールド　　　　2 : バー拡張　　　　\n3 : 相手のバー縮小　4 : 時間減速　　　　\n5 : 相手の時間加速　6 : ボール分裂　　　\n7 : 支援砲撃　　　　8 : ブロック追加１　\n9 : ブロック追加２　0 : インフレ　　　　\nL : リスタート(デモ)\nI : インフレ(x2,デモ)\nP : ポーズ(デモ)", float(SB_blockWindowWidth) / 4, float(GAME_height) * 3 / 5);
   VP_messageUpdate();
   if (GAME_clock - VP_lastSocreSendTime > 2000) {
     VP_lastSocreSendTime = GAME_clock;
-    NET_send("score",doubleToJp(SB_lastEnergy));
+    NET_send("score",String.valueOf(SB_lastEnergy));
   }
 }
-String[][] VP_users = {
-  {"userA", "1万8000"} ,
-  {"userB", "2億9200万"} ,
-  {"userC", "1億2000万"} ,
-  {"userD", "1億8000万"}
-};
+String[][] VP_users = {};
 String VP_scoreBoard() {
-  String _r = "";
-  for (int i = 0; i < VP_users.length; ++i) {
-    _r += VP_users[i][0] + " : " + VP_users[i][1] + " E\n";
+  for (int i = 0; i < VP_users.length - 1; i++) {
+    for (int j = 0; j < VP_users.length - i - 1; j++) {
+      int score1 = Integer.parseInt(VP_users[j][1]);
+      int score2 = Integer.parseInt(VP_users[j + 1][1]);
+      
+      if (score1 < score2) {
+        String[] temp = VP_users[j];
+        VP_users[j] = VP_users[j + 1];
+        VP_users[j + 1] = temp;
+      }
+    }
+  }
+  
+  String _r = "あなた : " + doubleToJp(SB_lastEnergy) + " E\n";
+  for (String[] user : VP_users) {
+    _r += user[0] + " : " + user[1] + " E\n";
   }
   return _r;
 }
@@ -76,11 +84,11 @@ void VP_message(String i) {
 void VP_messageUpdate() {
   if (VP_isMessage) {
     fill(0, 200);
-    rect(GAME_width * 4 / 10, GAME_height * 9 / 20, width / 5, height / 10);
+    rect((GAME_width - SB_blockWindowWidth) / 2, GAME_height * 9 / 20, SB_blockWindowWidth, GAME_height / 10);
     fill(255);
     textAlign(CENTER, CENTER);
     textFont(fontMd);
-    text(VP_messageText, GAME_width * 4 / 10, GAME_height * 9 / 20, width / 5, height / 10);
+    text(VP_messageText,(GAME_width - SB_blockWindowWidth) / 2, GAME_height * 9 / 20, SB_blockWindowWidth, GAME_height / 10);
     if (GAME_clock - VP_messageTime > 1500) {
       VP_isMessage = false;
     }

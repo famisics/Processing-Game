@@ -6,7 +6,7 @@ float SB_ballSize; // ボールの大きさ
 boolean SB_isTimeProcessing = false; // 停止状態で開始
 double SB_lastEnergy = 0; // 最後の獲得エネルギー
 float SB_gameSpeed = 1.0; // ゲームの速度
-int SB_blocksLife = 10; // ブロックの初期HP
+int SB_blocksLife = 8; // ブロックの初期HP
 int SB_barSize = 80; // バーの横幅
 double SB_inflationRateTemporary = 1.0; // 獲得エネルギーインフレ率 (このゲームのみ)
 double SB_inflationRate = 0.0; // 総エネルギーをもとに計算
@@ -32,7 +32,7 @@ void SB_boot() { // 初期化
 }
 void SB_update() { // 更新
   background(50, 100, 100);
-  VB_update(); // ブロック崩し本体を更新
+  VB_update(); // ブロック崩し本体を更新  
   VP_update(); // サイドパネルを更新
   VS_update(); // スキルを更新
   SB_pauseUpdate(); // 一時停止時の描画

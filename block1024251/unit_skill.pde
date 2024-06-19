@@ -32,11 +32,11 @@ class Skill {
     this._skillDulation = parseInt(_skillData[2]) * 1000;
     this._skillEnergy = Double.parseDouble(_skillData[3]);
     this._skillStartTime = VS_clock; // スキル時間を取得
-
+    
     start();
   }
   
-  void start() { //TODO: スキル、エフェクト画像の読み込みと表示 image1 = loadImage("hoge.png");
+  void start() {
     // 必要エネルギーが足りるかどうか
     if (_skillActer.equals(DATA_USERNAME)) {
       if (_skillEnergy < SB_lastEnergy) {
@@ -70,7 +70,7 @@ class Skill {
         ArrayList<Ball> newBalls = new ArrayList<>();
         synchronized(SB_balls) { // SB_ballsへのアクセスを同期
           for (Ball ball : SB_balls) {
-            newBalls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * -1, ball._size));
+            newBalls.add(new Ball(ball._x, ball._y, ball._dx * 0.8, ball._dy * - 1, ball._size));
           }
         }
         SB_balls.addAll(newBalls); // 新しいボールを追加
@@ -235,12 +235,13 @@ class Skill {
     _pg.beginDraw();
     _pg.image(_rawImg, 0, 0);
     _pg.fill(0, 150);
-    _pg.rect(0, _rawImg.height / 2, _rawImg.width, _rawImg.height / 2);
+    _pg.rect(0, _rawImg.height / 2, _rawImg.width, _rawImg.height * 3 / 5);
     _pg.fill(255); // テキストの色
     _pg.textAlign(CENTER, CENTER);
+    _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 10));
+    _pg.text(_skillNameJp, _rawImg.width / 2, _rawImg.height * 5 / 6);
     _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 15));
-    _pg.text(_skillName, _rawImg.width / 2, _rawImg.height * 5 / 6);
-    if (_skillActer != "") _pg.text(_skillActer + "が発動", _rawImg.width / 2, _rawImg.height * 3 / 6);
+    if (_skillActer.equals(DATA_USERNAME)) _pg.text(_skillActer + "が発動", _rawImg.width / 2, _rawImg.height * 3 / 5);
     _pg.endDraw();
     
     PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
@@ -264,6 +265,6 @@ class Skill {
     return _maskedImage;
   }
   boolean shouldRemove() {
-      return VS_clock > _skillStartTime + _skillDulation;
+    return VS_clock > _skillStartTime + _skillDulation;
   }
 }

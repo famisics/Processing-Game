@@ -18,10 +18,12 @@ void draw() {
   text(text, 10, height / 2);
 }
 
+int i = 0;
 void keyPressed() {
-  String message = "Key Pressed: " + key;
-  //println(message);
+  String message = "score,"+i+"dev,fuyunyat";
+  println(message);
   client.sendMessage(message);
+  i++;
 }
 
 // メッセージを受信したときに自動的に呼び出される関数

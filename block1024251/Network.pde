@@ -13,7 +13,7 @@ void NET_recv(String i) {
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "に参加しました");
         SS_message(_data[3] + "がチャンネル" + NET_channel + "に参加しました");
         break;
-      case "score" : // TODO:リアルタイムスコアの同期
+      case "score" :
         println("[WS:join] " + _data[3] + "がチャンネル" + _data[2] + "で" + _data[1] + "エネルギーを獲得しています");
         VP_scoreRecv(_data[1], _data[3]);
         break;
