@@ -259,7 +259,7 @@ class Skill {
     _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 10));
     _pg.text(_skillNameJp, _rawImg.width / 2, _rawImg.height * 5 / 6);
     _pg.textFont(createFont("src/fonts/kaiso.otf", GAME_width / 15));
-    if (_skillActer.equals(DATA_USERNAME)) _pg.text(_skillActer + "が発動", _rawImg.width / 2, _rawImg.height * 3 / 5);
+    _pg.text(_skillActer + " 発動", _rawImg.width / 2, _rawImg.height * 3 / 5);
     _pg.endDraw();
     
     PGraphics _mask = createGraphics(_rawImg.width, _rawImg.height);
