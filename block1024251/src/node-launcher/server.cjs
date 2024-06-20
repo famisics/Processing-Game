@@ -21,9 +21,8 @@ localWss.on("connection", (ws) => {
       console.log("[Client>WSS]", "送信", "-------:" + message.toString());
       publicWs.send(message);
     } else {
-      console.error(
-        "[ERROR]",
-        "          公開サーバーに接続できません\n          サーバーの再起動をお試しください"
+      console.log(
+        "公開サーバーに接続できなかったため、データは送信されませんでした"
       );
     }
   });
@@ -52,15 +51,13 @@ function createWebSocket() {
   ws.on("close", () => {
     status(2, false);
     console.log(
-      "公開サーバーとの接続が切れました\n自動で再接続を試みます...\n",
-      "Ctrl + Cでサーバーを終了します"
+      "公開サーバーとの接続が切れました\n自動で再接続を試みます...\nCtrl + Cでサーバーを終了します"
     );
   });
 
   ws.on("error", () => {
     console.log(
-      "公開サーバーが起動していないため、接続できません\n自動で再接続を試みます...\n",
-      "Ctrl + Cでサーバーを終了します"
+      "公開サーバーが起動していないため、接続できません\n自動で再接続を試みます...\nCtrl + Cでサーバーを終了します"
     );
   });
 
@@ -85,13 +82,8 @@ function status(n, s) {
   );
   if (statusList[1] && statusList[2]) {
     console.log(
-      "----------------------------------\n　　 ゲームを起動できます！✨️\n" +
-        `\n　server: ws://localhost:` +
-        port +
-        "\n----------------------------------\n",
-      "Ctrl + Cでサーバーを終了します"
+      `----------------------------------\n　　 ゲームを起動できます！✨️\n\n　server: ws://localhost:${port}\n----------------------------------\nCtrl + Cでサーバーを終了します`
     );
-    console.log("isGameOpened", isGameOpened)
     if (!isGameOpened) {
       exec(exeFilePath, (error, stdout, stderr) => {
         if (error) {

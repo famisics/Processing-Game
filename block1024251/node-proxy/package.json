@@ -1,0 +1,11 @@
+{
+  "name": "proxy",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "server": "node server.cjs"
+  },
+  "dependencies": {
+    "ws": "^8.17.1"
+  }
+}

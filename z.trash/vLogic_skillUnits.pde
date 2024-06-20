@@ -117,7 +117,6 @@ void VU_divisionBallBoot(String _duration) {
 
 // 支援砲撃
 void VU_bomb() {
-  // image1 = loadImage("bomb.png"); //TODO: 爆撃画像の読み込みと表示
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       VU_bombBlock(x,y);
@@ -138,7 +137,6 @@ void VU_bombBlock(int x, int y) {
 // 追加任務Lv1
 
 void VU_mine1Boot() {
-  // image1 = loadImage("bomb.png"); //TODO: なんかの画像の読み込みと表示
   int _x = (int)Math.ceil(random(0, 12));
   int _y = (int)Math.ceil(random(0, 10));
   VU_mine1Block(_x,_y);
@@ -154,7 +152,6 @@ void VU_mine1Block(int _x, int _y) {
 
 // 追加任務Lv2
 void VU_mine2Boot() {
-  // image1 = loadImage("bomb.png"); //TODO: なんかの画像の読み込みと表示
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       VU_mine2Block(x,y);

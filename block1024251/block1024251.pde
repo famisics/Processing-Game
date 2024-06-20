@@ -1,5 +1,3 @@
-// メイン
-
 import java.util.Iterator;
 import java.util.Collections;
 import java.util.Arrays;
@@ -7,9 +5,13 @@ import java.util.List;
 import processing.sound.*;
 import websockets.*;
 
-int NET_SERVER_PORT = 8001; // Proxyサーバーのホスト名
-boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true を代入する
+// *重要な設定 ------------------
+
+boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true にする
+int NET_SERVER_PORT = 8001; // Proxyサーバーのポート (localhost)
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
+
+// *設定ここまで ----------------
 
 void settings() {
   fullScreen();
