@@ -79,7 +79,6 @@ void VS_skillRegister2(String _id, String[] _skillData, String _acterName, boole
   boolean isDuplicate = false;
   for (Skill _skill : SB_skills) {
     if (_skill._skillId.equals(_id) && _skill.isEnable()) {
-      println("[skill] このスキルはクールタイム中です");
       VP_message("このスキルはクールタイム中です");
       isDuplicate = true;
     }

@@ -1,7 +1,7 @@
 // 入力を受け付ける
 
 void keyPressed() { // キー入力
-  // *ローカル
+  // *ローカルキーコンフィグ
   switch(GAME_MODE) { // ゲームモード限定の処理
     case 1 : // Home
       if (keyCode == 32 && !GAME_isTalkFinished) { // SPACE, 一時停止
@@ -12,7 +12,14 @@ void keyPressed() { // キー入力
       if (keyCode == ENTER) cmode(3); // ENTER, チャンネル選択へ //!デモ用
       if (key == 'n') cmode(7); // ユーザー名変更 //!デモ用
       if (key == 't') cmode(6); // チュートリアル //!デモ用
-      if (key == 'c') cmode(3); // チャンネル選択へ //!デモ用
+      if (key == 'S' || (keyCode == SHIFT && key == 's')) {
+      }
+      
+      if (keyEvent.isShiftDown() && keyCode == 82) { // データリセット //!デモ用
+        DATA_USERNAME = "";
+        DATA_ENERGY = 0;
+        save();
+      }
       break;
     case 2 : // Block
       if (key == '1') VS_skillRegister("1", DATA_USERNAME);
@@ -63,7 +70,7 @@ void keyPressed() { // キー入力
     default:
     break;
   }
-  // *グローバル
+  // *グローバルキーコンフィグ
   if (keyCode == 27) { // ESCキー
     
     if (GAME_MODE == 1) {
@@ -90,7 +97,6 @@ void keyPressed() { // キー入力
     if (keyCode == 55) cmode(7);
   }
 }
-
 void keyReleased() {
   if (GAME_MODE == 4 && keyCode == 32) SS_isSpace = false;
 }

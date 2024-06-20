@@ -1,5 +1,5 @@
 {
-  "name": "processing-proxyserver",
+  "name": "launcher",
   "bin": "server.cjs",
   "version": "1.0.0",
   "type": "commonjs",
@@ -8,9 +8,7 @@
   },
   "pkg": {
     "targets": [
-      "node18-win-x64",
-      "node18-macos-x64",
-      "node18-linux-x64"
+      "node18-win-x64"
     ]
   },
   "dependencies": {

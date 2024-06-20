@@ -1,10 +1,13 @@
 const { WebSocketServer, WebSocket } = require("ws");
+const { exec } = require("child_process");
 
 // !-------- 設定 --------
 const port = 8001;
 const host = "wss://proc.uiro.dev";
+const exeFilePath = "block1024251.exe";
 // !-------- 設定 --------
 
+var isGameOpened = false;
 let statusList = [false, false, false]; // client, local, public
 const localWss = new WebSocketServer({ port: port }); // local
 let publicWs = createWebSocket(); // 初回接続を確立
@@ -54,7 +57,7 @@ function createWebSocket() {
     );
   });
 
-  ws.on("error", (error) => {
+  ws.on("error", () => {
     console.log(
       "公開サーバーが起動していないため、接続できません\n自動で再接続を試みます...\n",
       "Ctrl + Cでサーバーを終了します"
@@ -88,6 +91,17 @@ function status(n, s) {
         "\n----------------------------------\n",
       "Ctrl + Cでサーバーを終了します"
     );
+    console.log("isGameOpened", isGameOpened)
+    if (!isGameOpened) {
+      exec(exeFilePath, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`[ERROR] ${error}`);
+          return;
+        }
+        console.log(stdout, stderr);
+      });
+      isGameOpened = true;
+    }
   } else {
     console.log(
       "----------------------------------\n　　 ゲームを起動できません！❌️\n----------------------------------"

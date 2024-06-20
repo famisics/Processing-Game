@@ -6,7 +6,7 @@ void VB_boot() {
   SB_isTimeProcessing = false; // 停止状態で開始
   SB_lastEnergy = 0; // 最後のエネルギーを初期化
   SB_blockWindowWidth = GAME_width * 2 / 3 - GAME_width / 40; // ブロック崩しの幅
-  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000 * BS_inflationBoostRate; // インフレ率を計算
+  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 10000 * BS_inflationBoostRate; // インフレ率を計算
   SB_ballSize = float(GAME_width) / 50; // ボールの大きさ
   SB_balls = new ArrayList<Ball>(); // ボールの初期化
   SB_ballCount = 0; // ボールの数を初期化
@@ -21,7 +21,7 @@ void VB_boot() {
 
 void VB_update() {
   textAlign(CENTER,CENTER);
-  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 2000; // インフレ率を計算
+  SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 10000 * BS_inflationBoostRate; // インフレ率を計算
   SB_blockCount = 0;
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {

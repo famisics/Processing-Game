@@ -38,7 +38,7 @@ void boot() { // 初期化用の関数
   FPS_data = new FPS();
   noStroke();
   // fonts
-  println("[setup]   fonts をロードしています");
+  println("[setup]   fonts is loading");
   fontXl = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 20);
   fontLg = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 40);
   fontMd = createFont("HGS創英ﾌﾟﾚｾﾞﾝｽEB", GAME_width / 50);
@@ -51,13 +51,13 @@ void boot() { // 初期化用の関数
   SC_fontChannel = createFont("src/fonts/jetbrains.ttf", GAME_width / 15);
   ST_fontTutorial = createFont("游ゴシック Bold", GAME_width / 30);
   // bgm
-  println("[setup]   sounds/bgm をロードしています");
+  println("[setup]   sounds/bgm is loading");
   bgm1 = new SoundFile(this, "src/sounds/bgm/haiko.mp3");
   bgm2 = new SoundFile(this, "src/sounds/bgm/bi-boruto.mp3");
   bgm3 = new SoundFile(this, "src/sounds/bgm/new-morning.mp3");
   bgm5 = new SoundFile(this, "src/sounds/bgm/flutter.mp3");
   // jsonデータを取得
-  println("[setup]   config.json をロードしています");
+  println("[setup]   config.json is loading");
   json = loadJSONObject("config.json");
   if (json == null) {
     DATA_SAVELOCKED = true;
@@ -68,14 +68,14 @@ void boot() { // 初期化用の関数
     DATA_ENERGY = json.getDouble("energy"); 
     println("[json]    username: " + DATA_USERNAME + "\n          energy: " + DATA_ENERGY);
     if (NET_isNetworkEnable) {
-      println("[WSocket] サーバーに接続しています");
+      println("[WSocket] connecting");
       NET_client = new WebsocketClient(this, "ws://localhost:" + String.valueOf(NET_SERVER_PORT) + "/");
-      println("[WSocket] サーバーに接続しました: ws://localhost:" + String.valueOf(NET_SERVER_PORT) + "/");
+      println("[WSocket] connected: ws://localhost:" + String.valueOf(NET_SERVER_PORT) + "/");
     } else {
-      println("[WSocket] サーバーは設定により無効化されています");
+      println("[WSocket] ws disabled by user settings");
     }
-    println("[GENERAL] スクリーンサイズ: " + GAME_width + "x" + GAME_height + " (どのようなサイズでも遊べるように最適化されています)");
-    println("[GENERAL] ロード完了　ゲームを開始します");
+    println("[GENERAL] screen size: " + GAME_width + "x" + GAME_height + " (Interface will adjust automatically)");
+    println("[GENERAL] initialized, starting game");
     cmode(1);
   }
 }
@@ -91,13 +91,13 @@ void save() { // jsonデータを保存
     _t = Math.floor(_t);
     DATA_ENERGY = Math.floor(DATA_ENERGY);
     if (_t < 0) {
-      println("累計エネルギーオーバーフロー、変更を保存しません");
+      println("[save] energy overflow! didn't save");
       _t = 0;
       DATA_ENERGY = 0;
     }
     if (isOutOfRange(_t)) {
       _t = DATA_ENERGY;
-      println("累計エネルギーオーバーフロー、変更を保存しません");
+      println("[save] energy overflow! didn't save");
       GAME_isAlert = true;
       GAME_alertText = "累計獲得エネルギーが限界に到達しました\n今回獲得したエネルギーは破棄されます\nこれ以上ゲームをインフレさせることはできません\n\nここまで遊んでいただきありがとうございました\n\nあなたをこのゲームのクリア者として認めます";
     } else {
@@ -158,7 +158,7 @@ void actions(String _title) {
   fill(255);
   textAlign(LEFT,CENTER);
   textFont(fontXl);
-  text(_title, 50, 45);
+  text(_title, GAME_width / 20, GAME_height / 16);
 }
 
 void alert() {

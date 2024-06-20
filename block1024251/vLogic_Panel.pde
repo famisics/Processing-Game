@@ -22,11 +22,11 @@ void VP_update() {
   textFont(VP_fontScore);
   text(doubleToJp(SB_lastEnergy), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 8 / 100);
   textFont(VP_fontScoreMd);
-  text(doubleToJp(DATA_ENERGY), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 23 / 100);
-  text(doubleToJp(SB_inflationRate * SB_inflationRateTemporary) + "倍", float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 23 / 100);
-  text(NET_channel, float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 33 / 100);
+  text(doubleToJp(DATA_ENERGY), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 24 / 100);
+  text(doubleToJp(SB_inflationRate * SB_inflationRateTemporary) + "倍", float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 24 / 100);
+  text(NET_channel, float(SB_blockWindowWidth) * 127 / 100, float(GAME_height) * 34 / 100);
   textSize(GAME_width / 58);
-  text("Lv. " + doubleToJp(Math.ceil(SB_inflationRate / 1000)), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 33 / 100);
+  text("Lv. " + doubleToJp(Math.ceil(SB_inflationRate / 1000)), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 34 / 100);
   textFont(fontMdsm);
   text(VP_scoreBoard(), float(SB_blockWindowWidth) * 103 / 100, float(GAME_height) * 41 / 100);
   textAlign(LEFT, TOP);

@@ -17,7 +17,7 @@ void settings() {
 
 void setup() {
   background(0);
-  println("[GENERAL] ゲームを初期化しています");
+  println("[GENERAL] Initializing");
   se = new SoundFile(this, "src/sounds/mute.mp3");
   // size(1200, 800); // デバッグ用の解像度
   frameRate(60);
@@ -137,8 +137,8 @@ void cmode(int _mode) { // !画面遷移(1回だけ実行)
 
 void dispose() {
   save();
-  println("[GENERAL] ゲームが停止しました\n");
+  println("[GENERAL] Stopped\n");
   if (!DATA_SAVELOCKED) {
-    println("> あなたの累計獲得エネルギー: " + String.valueOf(DATA_ENERGY) + " (保存されました)\n\n########  ##   ##  #######  ###  ##  ##   ##          ##   ##  #######  ##   ##\n   ##     ##   ##  ##   ##  ###  ##  ##  ##           ##   ##  ##   ##  ##   ##\n   ##     #######  #######  ## ####  #####            #######  ##   ##  ##   ##\n   ##     ##   ##  ##   ##  ##  ###  ##  ##                ##  ##   ##  ##   ##\n   ##     ##   ##  ##   ##  ##   ##  ##   ##          #######  #######  #######");
+    println("> Your current energy: " + String.valueOf(DATA_ENERGY) + " (Saved)\n\n########  ##   ##  #######  ###  ##  ##   ##          ##   ##  #######  ##   ##\n   ##     ##   ##  ##   ##  ###  ##  ##  ##           ##   ##  ##   ##  ##   ##\n   ##     #######  #######  ## ####  #####            #######  ##   ##  ##   ##\n   ##     ##   ##  ##   ##  ##  ###  ##  ##                ##  ##   ##  ##   ##\n   ##     ##   ##  ##   ##  ##   ##  ##   ##          #######  #######  #######\n\n ");
   }
 }
