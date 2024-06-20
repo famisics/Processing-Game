@@ -65,9 +65,7 @@
 update(draw)とboot(setup)を分けるなど  
 ※Processingのdrawとsetupから区別するためにあえて別の名前を使っています
 
-## 開発環境
-
-コメントはvscode拡張機能 `Better Comments` で分類されています
+- コメントはvscode拡張機能 `Better Comments` で分類されています
 
 ## 命名規則
 
