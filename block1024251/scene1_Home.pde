@@ -7,19 +7,29 @@ float SH_easing = 0.12; // イージングの係数
 
 void SH_boot() {
   background(0);
-  image1 = loadImage("src/images/home.png");
+  String _t = "";
+  if (GAME_isOutRange) {
+    _t = "1";
+  } else {
+    _t = "0";
+  }
+  image1 = loadImage("src/images/home" + _t + ".png");
   SH_fontSize = GAME_width / 5;
   SH_targetFontSize = GAME_width / 10;
 }
 void SH_update() {
   SH_titleAnime();
-  tint(100, 100);
+  tint(100, 25);
   image(image1, 0, 0, GAME_width, GAME_height);
   noTint();
   textAlign(CENTER,CENTER);
   textFont(SH_fontTitle);
   textSize(SH_fontSize);
-  fill(255, 0, 0, SH_alpha);
+  if (GAME_isOutRange) {
+    fill(0, 200, 50, SH_alpha);
+  } else {
+    fill(255, 0, 0, SH_alpha);
+  }
   text("地球再生計画", GAME_width / 2 + 10, GAME_height / 2 - (GAME_height / 6) + 10);
   fill(255, SH_alpha);
   text("地球再生計画", GAME_width / 2, GAME_height / 2 - (GAME_height / 6));

@@ -10,20 +10,14 @@ String[][] ST_Script = {
 };
 
 int ST_ScriptIndex = 0;
-int ST_AnimationIndex = 0;
 
 void ST_boot() {
-  background(0);
   ST_ScriptIndex = 0;
-  ST_AnimationIndex = 0;
-  image1 = loadImage("src/images/tutorial.png");
+  image1 = loadImage("src/images/home0.png");
   image2 = loadImage("src/images/chara.png");
 }
 void ST_update() {
-  if (ST_AnimationIndex < 10) {
-    ST_AnimationIndex++;
-    tint(255, 50);
-  }
+  tint(100, 25);
   image(image1, 0, 0, GAME_width, GAME_height);
   noTint();
   image(image2, GAME_width / 2, GAME_height * 1 / 15, GAME_width * 10 / 3 / 9, GAME_width * 10 * 4 / 9 / 9);

@@ -26,6 +26,7 @@ int GAME_alertTime = 0; // アラートの時間
 int GAME_clock = millis(); // ゲーム内の時計
 int GAME_fpsIndex = 2; // FPSのインデックス
 int GAME_fps[] = {10, 30, 60, 90, 120, 240, 990}; // FPSの設定値
+boolean GAME_isOutRange = false; // エネルギーが限界に達したかどうか
 
 // 数詞データ
 String[] jpUnit = {"", "万", "億", "兆", "京", "垓", "秭", "穣", "溝", "澗", "正"}; // doubleToJp用の数詞 (澗まで使う)
@@ -96,11 +97,13 @@ void save() { // jsonデータを保存
       DATA_ENERGY = 0;
     }
     if (isOutOfRange(_t)) {
+      GAME_isOutRange = true;
       _t = DATA_ENERGY;
       println("[save] energy overflow! didn't save");
       GAME_isAlert = true;
-      GAME_alertText = "累計獲得エネルギーが限界に到達しました\n今回獲得したエネルギーは破棄されます\nこれ以上ゲームをインフレさせることはできません\n\nここまで遊んでいただきありがとうございました\n\nあなたをこのゲームのクリア者として認めます";
+      GAME_alertText = "エネルギーが限界に到達し、地球が再生されました\n今回獲得したエネルギーは破棄されます\nこれ以上ゲームをインフレさせることはできません\n\nここまで遊んでいただきありがとうございました\n\nあなたをこのゲームのクリア者として認めます";
     } else {
+      GAME_isOutRange = false;
       json = new JSONObject();
       json.setString("username", DATA_USERNAME);
       json.setFloat("energy",(float)_t);
