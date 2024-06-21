@@ -18,13 +18,16 @@
 
 - 接続に成功すると Processing のゲームをエクスポートした `block1024251.exe` が起動します
 
-### launcher.exe を使わない, (macOS, linuxの場合)
+- パブリックアクセスへの許可が必要と表示された場合は、同意していただける場合は同意してください  
+  ( `launcher.exe` のバイナリ化前のファイルを確認したい方は `./src/node-launcher/` をご覧ください)
+
+### launcher.exe を使わない, (macOS, linux の場合)
 
 プロキシサーバーの起動には node.js が必要です  
 ダウンロード: https://nodejs.org/en/download/prebuilt-installer
 
 1. `./node-proxy/` 内でコマンドプロンプトを開き、 `npm install` を実行します  
-(お好きなパッケージマネージャーを使用していただいてかまいません)
+   (お好きなパッケージマネージャーを使用していただいてかまいません)
 
 2. `./node-proxy/` 内で `npm run server` を実行します
 
@@ -34,16 +37,16 @@
 
 ## サーバーに関する注意事項
 
-公開サーバーの仕様上、他のプレイヤーがしばらくアクセスしていなかった場合、接続に1分程度かかる場合があります
+公開サーバーの仕様上、他のプレイヤーがしばらくアクセスしていなかった場合、接続に 1 分程度かかる場合があります
 
-`block1024251.pde` 内の `NET_isNetworkEnable` が `true` の場合、ゲームの起動前にnodeサーバーをスタートさせてください
+`block1024251.pde` 内の `NET_isNetworkEnable` が `true` の場合、ゲームの起動前に node サーバーをスタートさせてください
 
 サーバーに接続できない場合は `NET_isNetworkEnable` を `false` にしてください
 
 > 公開サーバーの詳細情報  
 > ホスト: wss://proc.uiro.dev  
 > 利用技術: Render / node.js / pnpm / express / websocket  
-> プロキシ - 公開サーバー間の通信はSSLに対応しています
+> プロキシ - 公開サーバー間の通信は SSL に対応しています
 
 > プロキシサーバーでは、ポート`8081`を利用しています、変更する場合は `block1024251.pde` と `server.cjs` の上部にあるポート設定を変更してください
 
@@ -62,10 +65,10 @@
 - スキル一覧はゲーム内、プロパティの設定は `./src/skills.csv` で管理されています (ゲームバランスが崩れるため変更しないでください)
 
 - 必要のない計算、再描画が極力減るように意識しています  
-update(draw)とboot(setup)を分けるなど  
-※Processingのdrawとsetupから区別するためにあえて別の名前を使っています
+  update(draw)と boot(setup)を分けるなど  
+  ※Processing の draw と setup から区別するためにあえて別の名前を使っています
 
-- コメントはvscode拡張機能 `Better Comments` で分類されています
+- コメントは vscode 拡張機能 `Better Comments` で分類されています
 
 ## 命名規則
 
@@ -73,9 +76,10 @@ update(draw)とboot(setup)を分けるなど
 ローカル変数は`_camelCase`という形式で定義しています(先頭アンダースコア)
 
 プレフィックス
+
 - なし → 全体で共有するロジック
-- S* → シーンロジック
-- V* → ブロック崩しの依存ロジック
+- S\* → シーンロジック
+- V\* → ブロック崩しの依存ロジック
 
 ## アセット
 

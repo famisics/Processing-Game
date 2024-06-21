@@ -8,7 +8,7 @@ import websockets.*;
 // *重要な設定 ------------------
 
 // TODO:trueの状態でビルドする
-boolean NET_isNetworkEnable = false; // ネットワーク機能を有効にするには true にする
+boolean NET_isNetworkEnable = true; // ネットワーク機能を有効にするには true にする
 int NET_SERVER_PORT = 8001; // Proxyサーバーのポート (localhost)
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
