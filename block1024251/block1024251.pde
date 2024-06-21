@@ -62,7 +62,6 @@ void draw() { // !画面遷移(常に実行)
     default :
     break;
   }
-  println(DATA_isOutOfRange);
   FPS_data.update();
   GAME_clock = millis();
   alert();
