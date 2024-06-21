@@ -4,9 +4,9 @@ void keyPressed() { // キー入力
   // *ローカルキーコンフィグ
   switch(GAME_MODE) { // ゲームモード限定の処理
     case 1 : // Home
-      if (keyCode == 32 && !GAME_isTalkFinished) { // SPACE, 一時停止
+      if (keyCode == 32 && !DATA_isTutorialFinished) { // SPACE, 一時停止
         cmode(6);
-      } else if (keyCode == 32 && GAME_isTalkFinished) { // SPACE, チャンネル選択へ
+      } else if (keyCode == 32 && DATA_isTutorialFinished) { // SPACE, チャンネル選択へ
         cmode(3);
       }
       if (keyCode == ENTER) cmode(3); // ENTER, チャンネル選択へ //!デモ用
@@ -16,8 +16,11 @@ void keyPressed() { // キー入力
       }
       
       if (keyEvent.isShiftDown() && keyCode == 82) { // データリセット //!デモ用
+        GAME_alertText = "データがリセットされました";
+        GAME_isAlert = true;
         DATA_USERNAME = "";
         DATA_ENERGY = 0;
+        DATA_isTutorialFinished = false;
         save();
       }
       break;
@@ -32,7 +35,7 @@ void keyPressed() { // キー入力
       if (key == '8') VS_skillRegister("8", DATA_USERNAME);
       if (key == '9') VS_skillRegister("9", DATA_USERNAME);
       if (key == '0') VS_skillRegister("0", DATA_USERNAME);
-      if (key == 'i') SB_inflationRateTemporary *= 2; // インフレ倍率をあげる(2倍) //!デモ用
+      if (key == 'i') SB_inflationRateTemporary += SB_inflationRateTemporary; // インフレ倍率をあげる(2倍) //!デモ用
       if (key == 'l') cmode(2); // リセット //!デモ用
       if (key == 'p') SB_pause(); // SPACE, ポーズ //!デモ用
       break;

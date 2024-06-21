@@ -8,7 +8,7 @@ float SH_easing = 0.12; // イージングの係数
 void SH_boot() {
   background(0);
   String _t = "";
-  if (GAME_isOutRange) {
+  if (DATA_isOutOfRange) {
     _t = "1";
   } else {
     _t = "0";
@@ -19,13 +19,13 @@ void SH_boot() {
 }
 void SH_update() {
   SH_titleAnime();
-  tint(100, 25);
+  tint(150, 25);
   image(image1, 0, 0, GAME_width, GAME_height);
   noTint();
   textAlign(CENTER,CENTER);
   textFont(SH_fontTitle);
   textSize(SH_fontSize);
-  if (GAME_isOutRange) {
+  if (DATA_isOutOfRange) {
     fill(0, 200, 50, SH_alpha);
   } else {
     fill(255, 0, 0, SH_alpha);

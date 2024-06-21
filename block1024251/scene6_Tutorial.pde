@@ -13,11 +13,17 @@ int ST_ScriptIndex = 0;
 
 void ST_boot() {
   ST_ScriptIndex = 0;
-  image1 = loadImage("src/images/home0.png");
+  String _t = "";
+  if (DATA_isOutOfRange) {
+    _t = "1";
+  } else {
+    _t = "0";
+  }
+  image1 = loadImage("src/images/home" + _t + ".png");
   image2 = loadImage("src/images/chara.png");
 }
 void ST_update() {
-  tint(100, 25);
+  tint(150, 25);
   image(image1, 0, 0, GAME_width, GAME_height);
   noTint();
   image(image2, GAME_width / 2, GAME_height * 1 / 15, GAME_width * 10 / 3 / 9, GAME_width * 10 * 4 / 9 / 9);
@@ -33,7 +39,7 @@ void ST_ScriptNext() {
   if (ST_ScriptIndex < ST_Script.length - 1) {
     ST_ScriptIndex++;
   } else {
-    GAME_isTalkFinished = true;
+    DATA_isTutorialFinished = true;
     cmode(3);
   }
 }

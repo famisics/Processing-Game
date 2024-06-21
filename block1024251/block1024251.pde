@@ -8,9 +8,18 @@ import websockets.*;
 // *重要な設定 ------------------
 
 // TODO:trueの状態でビルドする
-boolean NET_isNetworkEnable = true; // ネットワーク機能を有効にするには true にする
-int NET_SERVER_PORT = 8001; // Proxyサーバーのポート (localhost)
+
+
+// 【ネットワーク機能を有効にするかどうか】ネットワーク機能を有効にするには true にする
+boolean NET_isNetworkEnable = false;
+
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
+
+// 【プロキシサーバーのポート番号】ポート番号を変更する場合はここを変更する
+int NET_SERVER_PORT = 8001;
+
+// 獲得エネルギーインフレ率 (デモ, 簡易ゲームバランス調整)
+double SB_inflationRateTemporary = 0.5;
 
 // *設定ここまで ----------------
 
@@ -25,6 +34,7 @@ void setup() {
   se = new SoundFile(this, "src/sounds/mute.mp3");
   size(1280, 720); // デバッグ用の解像度
   frameRate(60);
+  noStroke();
   textAlign(CENTER,CENTER);
   background(0);
   boot();

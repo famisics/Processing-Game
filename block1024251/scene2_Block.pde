@@ -8,7 +8,6 @@ double SB_lastEnergy = 0; // 最後の獲得エネルギー
 float SB_gameSpeed = 1.0; // ゲームの速度
 int SB_blocksLife = 8; // ブロックの初期HP
 int SB_barSize = 80; // バーの横幅
-double SB_inflationRateTemporary = 1.0; // 獲得エネルギーインフレ率 (このゲームのみ)
 double SB_inflationRate = 0.0; // 総エネルギーをもとに計算
 int SB_ballCount = 0; // ボールの数
 int SB_blockCount = 0; // ブロックの数
@@ -19,8 +18,10 @@ boolean SB_isStart = false; // ブロック崩しの起動状態
 String SB_startMessageText = ""; // ブロック崩しの起動メッセージ
 boolean SB_isBgmStarted = false; // BGMが開始されたかどうか
 
-boolean BS_isShield = false;
-double BS_inflationBoostRate = 1;
+boolean BS_isShield = false; // シールドされているか
+double BS_inflationBoostRate = 1; // インフレーションブースト率(スキル)
+
+// !ゲームバランス用のインフレ率はblock1024251.pdeにあります
 
 void SB_boot() { // 初期化
   noTint(); // 他ページのtintをオーバーライド、念のため

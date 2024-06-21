@@ -23,12 +23,12 @@ void VB_update() {
   textAlign(CENTER,CENTER);
   SB_inflationRate = 1 + (DATA_ENERGY + SB_lastEnergy) / 10000 * BS_inflationBoostRate; // インフレ率を計算
   SB_blockCount = 0;
+  stroke(255);
   for (int x = 0; x < 12; x++) {
     for (int y = 0; y < 10; y++) {
       VB_updateBlock(x,y);
     }
   }
-  stroke(200);
   for (Ball _Ball : SB_balls) {
     _Ball.update();
   }
@@ -36,6 +36,7 @@ void VB_update() {
   if (SB_ballCount == 0 || SB_blockCount == 0) {
     cmode(5);
   }
+  noStroke();
 }
 
 void VB_updateBlock(int x, int y) {
