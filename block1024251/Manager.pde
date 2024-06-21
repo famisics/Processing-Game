@@ -170,7 +170,7 @@ void alert() {
   if (GAME_isAlert) {
     GAME_alertTime++;
     stroke(255);
-    fill(0, 30, 50, 200);
+    fill(0, 0, 0, 220);
     rect(GAME_width / 4, GAME_height / 4, GAME_width / 2, GAME_height / 2);
     fill(255);
     textAlign(CENTER,CENTER);

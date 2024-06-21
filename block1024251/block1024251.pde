@@ -7,12 +7,8 @@ import websockets.*;
 
 // *重要な設定 ------------------
 
-// TODO:trueの状態でビルドする
-
-
 // 【ネットワーク機能を有効にするかどうか】ネットワーク機能を有効にするには true にする
-boolean NET_isNetworkEnable = false;
-
+boolean NET_isNetworkEnable = false; // TODO:trueの状態でビルドする
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
 // 【プロキシサーバーのポート番号】ポート番号を変更する場合はここを変更する
@@ -32,7 +28,7 @@ void setup() {
   background(0);
   println("[GENERAL] Initializing");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  size(1280, 720); // デバッグ用の解像度
+  size(1280, 800); // デバッグ用の解像度
   frameRate(60);
   noStroke();
   textAlign(CENTER,CENTER);
