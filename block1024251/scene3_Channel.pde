@@ -19,9 +19,9 @@ void SC_update() {
   text(SC_channelDisplay, GAME_width / 2, GAME_height / 2);
   fill(255);
   textFont(fontMd);
-  text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
+  text("12文字までのチャンネル名を入力し、Enterしてください\nわかりやすいので4桁の数字か英単語をおすすめします\n\nESC : ホームに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定", GAME_width / 2, GAME_height * 3 / 4);
   actions("ゲームを開始");
-  navbar("ESC : トップに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
+  navbar("ESC : ホームに戻る　Backspace : 1字消し　Delete : 全字消し　Enter : 確定","");
 }
 
 void SC_input(String _key) {

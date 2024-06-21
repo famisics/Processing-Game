@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "server": "node server.cjs"
+    "start": "node server.cjs"
   },
   "pkg": {
     "targets": [
