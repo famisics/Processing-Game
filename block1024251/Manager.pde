@@ -102,9 +102,7 @@ void save() { // jsonデータを保存
       _t = DATA_ENERGY;
       println("[save] energy overflow! it may not be saved");
       GAME_isAlert = true;
-      GAME_alertText = "エネルギーが限界に到達し、地球が再生されました\n今回獲得したエネルギーは破棄されます\nこれ以上ゲームをインフレさせることはできません\n\nここまで遊んでいただきありがとうございました\n\nあなたをこのゲームのクリア者として認めます";
-    } else {
-      DATA_isOutOfRange = false;
+      GAME_alertText = "エネルギーが限界に到達し、地球が再生されました\nこれ以上ゲームをインフレさせることはできません\nあなたをこのゲームのクリア者として認めます\n\nホーム画面に戻ってください";
     }
     json = new JSONObject();
     json.setString("username", DATA_USERNAME);

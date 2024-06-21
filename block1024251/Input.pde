@@ -18,8 +18,10 @@ void keyPressed() { // キー入力
       if (keyEvent.isShiftDown() && keyCode == 82) { // データリセット //!デモ用
         GAME_alertText = "データがリセットされました";
         GAME_isAlert = true;
+        DATA_isOutOfRange = false;
         DATA_USERNAME = "";
         DATA_ENERGY = 0;
+        SB_lastEnergy = 0;
         DATA_isTutorialFinished = false;
         save();
       }
