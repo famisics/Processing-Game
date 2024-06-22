@@ -23,7 +23,7 @@ void keyPressed() { // キー入力
         DATA_ENERGY = 0;
         SB_lastEnergy = 0;
         DATA_isTutorialFinished = false;
-        save();
+        cmode(1);
       }
       break;
     case 2 : // Block

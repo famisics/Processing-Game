@@ -1,6 +1,6 @@
 {
-  "isTutorialFinished": false,
+  "isTutorialFinished": true,
   "username": "",
   "energy": 0,
-  "isOutOfRange": true
+  "isOutOfRange": false
 }
