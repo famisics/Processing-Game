@@ -112,4 +112,4 @@ JetBrainsMono
 
 ## ライセンス
 
-2024 © famisics (https://me.uiro.dev)
+2024 © famisics (https://uiro.dev)
