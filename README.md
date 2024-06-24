@@ -1,6 +1,6 @@
 # 地球再生計画 (Processing/Game)
 
-1024251 山﨑拓己
+[Github - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
 ## 概要
 

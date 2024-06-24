@@ -15,7 +15,7 @@ boolean NET_isNetworkEnable = false; // TODO:trueの状態でビルドする
 int NET_SERVER_PORT = 8001;
 
 // 獲得エネルギーインフレ率 (デモ, 簡易ゲームバランス調整)
-double SB_inflationRateTemporary = 0.2;
+double SB_inflationRateTemporary = 0.1;
 
 // *設定ここまで ----------------
 
