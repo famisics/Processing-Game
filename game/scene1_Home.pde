@@ -43,7 +43,7 @@ void SH_update() {
   fill(0, 255, 255);
   text("[デモが有効になっています] 以下のキーコンフィグが有効です\n\nホーム> Shift+R : データリセット　SPACE : ゲームを開始/チュートリアル(自動選択)　Enter : ゲームを開始　n : ユーザー名変更　t : チュートリアルを見る\n\n全てのシーン>　Shift+(1 : HOME　2 : Block　3 : Channel　4 : Start　 5 : Result　6 : Tutorial　7 : Username)　↑ : FPS+　↓ : FPS-　ESC : QUIT\n\nブロック崩し>　I : エネルギー倍率を増加　L : リスタート　P : ポーズ", GAME_width / 20, GAME_height * 3 / 4);
   rectMode(CORNER);
-  navbar("","2024 (C) b1024251 Takumi Yamazaki");
+  navbar("","2024 (C) famisics");
 }
 void SH_titleAnime() { // タイトルのアニメーション
   if (SH_alpha < 255) {

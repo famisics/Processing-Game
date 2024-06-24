@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 // !-------- 設定 --------
 const port = 8001;
 const host = "wss://proc.uiro.dev";
-const exeFilePath = "block1024251.exe";
+const exeFilePath = "data/game.exe";
 // !-------- 設定 --------
 
 var isGameOpened = false;
