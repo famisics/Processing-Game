@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 // !-------- 設定 --------
 const port = 8001;
 const host = "wss://proc.uiro.dev";
-const exeFilePath = "data/game.exe";
+const exeFilePath = "game.exe";
 // !-------- 設定 --------
 
 var isGameOpened = false;
@@ -104,7 +104,7 @@ function status(n, s) {
 // 初期ステータス
 statusList[1] = true;
 console.log(
-  "\n公開サーバーに接続されるまでお待ちください\n初めて接続する場合、最初の接続が成功するまでに1分程度かかる場合があります"
+  "\n公開サーバーに接続されるまでお待ちください\n\n- パブリックアクセスへの許可が必要と表示された場合は、同意していただける場合は同意してください\n  ( `launcher.exe` のソースコードを確認したい方は `./src/node-launcher/` をご覧ください)\n\n- 初めて接続する場合、最初の接続が成功するまでに1分程度かかる場合があります"
 );
 
 // 定期的な接続状態の確認と再接続の試行

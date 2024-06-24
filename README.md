@@ -21,7 +21,7 @@
 - 接続に成功すると Processing のゲームをエクスポートした `game.exe` が起動します
 
 - パブリックアクセスへの許可が必要と表示された場合は、同意していただける場合は同意してください  
-  ( `launcher.exe` のバイナリ化前のファイルを確認したい方は `./src/node-launcher/` をご覧ください)
+  ( `launcher.exe` のソースコードを確認したい方は `./src/node-launcher/` をご覧ください)
 
 - node.js / Java は同梱されています
 
