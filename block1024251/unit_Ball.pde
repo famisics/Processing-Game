@@ -58,7 +58,7 @@ class Ball {
         }
         SB_blocks[y][x] = SB_blocks[y][x] - 1; // ブロックの値を1減らす
         if (SB_blocks[y][x] == 0) se("pa"); //se
-        SB_lastEnergy += (random(100, 150) * SB_inflationRate * SB_inflationRateTemporary); // スコアを増やす
+        SB_lastEnergy += (random(10, 20) * SB_inflationRate * SB_inflationRateTemporary); // スコアを増やす
       }
     }
   }
