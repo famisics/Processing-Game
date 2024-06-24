@@ -1,6 +1,6 @@
 # 地球再生計画 (Processing/Game)
 
-[Github - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
+[Githubリポジトリ - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
 ## 概要
 
@@ -12,7 +12,7 @@
 
 ### Windows
 
-1. Releaseの最新版から、`CSK2-prod-windows-x64.zip` をダウンロードし、任意の場所で展開します
+1. Githubリポジトリ の Releases の 最新版 または WebDAV から、`CSK2-prod-windows-x64.zip` をダウンロードし、任意の場所で展開します
 
 2. `./dist` 内の `launcher.exe` を起動してください
 
