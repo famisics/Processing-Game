@@ -1,4 +1,4 @@
-# 地球再生計画 (Processing/Game)
+# 地球再生計画 (CSK - Processing-Game)
 
 [Githubリポジトリ - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
