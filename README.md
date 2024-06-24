@@ -12,7 +12,9 @@
 
 ### Windows
 
-`./dist` 内の `launcher.exe` を起動してください
+1. Releaseの最新版から、`CSK2-prod-windows-x64.zip` をダウンロードし、任意の場所で展開します
+
+2. `./dist` 内の `launcher.exe` を起動してください
 
 - サーバーとの接続が開始されます
 
@@ -20,6 +22,8 @@
 
 - パブリックアクセスへの許可が必要と表示された場合は、同意していただける場合は同意してください  
   ( `launcher.exe` のバイナリ化前のファイルを確認したい方は `./src/node-launcher/` をご覧ください)
+
+- node.js / Java は同梱されています
 
 ### launcher.exe を使わない, (macOS, linux の場合)
 
