@@ -4,6 +4,11 @@
 
 [Githubリポジトリ - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
+## 注意
+
+マルチプレイ用の公開サーバーに Render の Free プランを使用しています  
+しばらくアクセスがない場合、サーバーがスピンアウトし、再接続に1分ほどかかります
+
 ## 概要
 
 マルチプレイ能力バトルインフレ系ブロック崩しです
