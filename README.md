@@ -1,5 +1,7 @@
 # 地球再生計画 (CSK - Processing-Game)
 
+> 🔧　大急ぎで個人制作をしたため、コミットメッセージが意味をなしていないこと、ご了承ください。コメント、READMEは整備してあるはずです。
+
 [Githubリポジトリ - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
 ## 概要
@@ -7,6 +9,23 @@
 マルチプレイ能力バトルインフレ系ブロック崩しです
 
 公開サーバーと接続して他のプレイヤーと対戦したり、サーバー機能を無効にして地道にゲームをインフレさせたりできます
+
+## ディレクトリ
+
+```text
+/dist/ - プロダクト
+/game/
+  *.pde - ゲームのソースコード
+  .src/
+    .fonts/ - フォント
+    .images/ - ゲーム内で使用した画像
+    ./node-launcher/ - /dist 内にビルドしてある `launcher.exe` のソースコード
+    ./sounds/ - ゲーム内のBGM, SE
+    config.json - ユーザーデータの保存
+    skills.csv - スキルの調整、テキストの変更ができます
+/node-proxy/ - `launcher.exe` と同じ機能を持つnode.jsサーバー
+
+```
 
 ## ゲームの開始方法
 
