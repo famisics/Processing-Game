@@ -8,7 +8,7 @@ import websockets.*;
 // *重要な設定 ------------------
 
 // 【ネットワーク機能を有効にするかどうか】ネットワーク機能を有効にするには true にする
-boolean NET_isNetworkEnable = false;
+boolean NET_isNetworkEnable = true;
 // !Proxyサーバーが起動していないにも関わらず、trueになっているとゲームがフリーズします
 
 // 【プロキシサーバーのポート番号】ポート番号を変更する場合はここを変更する
