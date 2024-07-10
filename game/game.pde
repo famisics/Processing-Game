@@ -19,15 +19,11 @@ double SB_inflationRateTemporary = 1.0;
 
 // *設定ここまで ----------------
 
-void settings() {
-  fullScreen();
-}
-
 void setup() {
   background(0);
   println("[GENERAL] Initializing");
   se = new SoundFile(this, "src/sounds/mute.mp3");
-  // size(1280, 800); // デバッグ用の解像度
+  size(1280, 800);
   frameRate(60);
   noStroke();
   textAlign(CENTER,CENTER);
