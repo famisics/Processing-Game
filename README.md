@@ -2,6 +2,10 @@
 
 [Githubリポジトリ - famisics/Processing-Game](https://github.com/famisics/Processing-Game)
 
+## GitDiagram
+
+![diagram](https://github.com/user-attachments/assets/50852248-c367-4269-8af5-402ceffd57e5)
+
 ## 注意
 
 マルチプレイ用の公開サーバーに Render の Free プランを使用しています  
